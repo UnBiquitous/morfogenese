@@ -264,7 +264,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void randomizar(int[] a) {
+	private void randomizar(int[] a) {
 		for (int k = 1; k < a.length - 2; k++) {
 			int temp = a[k];
 			int x = (int) this.morfogenese.random(1, a.length - 2);
@@ -274,7 +274,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void semostra() {
+	public void semostra() {
 
 		if (this.morfogenese.mudadia == 5) {
 			cor = this.morfogenese.color(0, 0, 0);
@@ -334,7 +334,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void desenhaforma(float coordx, float coordy, float angulorotacao,
+	private void desenhaforma(float coordx, float coordy, float angulorotacao,
 			int tipoforma, float tamanho, float fator,
 			float pesodalinhafator, int corfator, float coralphafator,
 			int corlinhafator, float corlinhaalphafator) {
@@ -364,7 +364,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		this.morfogenese.popMatrix(); // fehca matrix ponto
 	}
 
-	void vive() {
+	public void vive() {
 
 		if (vida == true) { // se ele estiver vivo
 
@@ -376,7 +376,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		}
 	}
 
-	void semove() { // função para mover os bichos no automático e criar os
+	private void semove() { // função para mover os bichos no automático e criar os
 					// easings [SEMOVE]
 
 		coralpha = 50 + energia * 4;
@@ -489,14 +489,14 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	float movimentaeasing(float A, float B, float fator) {
+	private float movimentaeasing(float A, float B, float fator) {
 
 		A = A + (B - A) / fator;
 		return A;
 
 	}
 
-	float movimentorandomico(float A, float limitemenor, float limitemaior,
+	private float movimentorandomico(float A, float limitemenor, float limitemaior,
 			float fatormultiplica, float fatorsoma,
 			float fatormultiplicaresultado, float fatorsomaresultado) {
 
@@ -508,7 +508,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	float desloca(float influencia, float eixo, float angulo, float fator) {
+	private float desloca(float influencia, float eixo, float angulo, float fator) {
 
 		if (eixo == 1) {
 			influencia = influencia + (Morfogenese.cos(angulo)) * fator;
@@ -520,7 +520,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	float selimita(float A, float limitemenor, float limitemaior) { // para
+	private float selimita(float A, float limitemenor, float limitemaior) { // para
 																	// se
 																	// limitar
 																	// ao
@@ -534,7 +534,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		return A;
 	}
 
-	void buscacor() {
+	private void buscacor() {
 
 		if (this.morfogenese.camerasfuncionando && this.morfogenese.pegacor || this.morfogenese.camerasfuncionando
 				&& this.morfogenese.procurapelacor) {
@@ -607,7 +607,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		}
 	}
 
-	void seajusta() { // função com a IA de cada bicho [PENSA]
+	private void seajusta() { // função com a IA de cada bicho [PENSA]
 
 		if (bancodadosinstrumento == 1 && instrumento > 95
 				|| bancodadosinstrumento == 1 && instrumento < 27) { // para
@@ -751,7 +751,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	float tendencia(float umponto, float limite, float incremento) { // tendência
+	private float tendencia(float umponto, float limite, float incremento) { // tendência
 																		// a
 																		// retomar
 																		// direção
@@ -769,7 +769,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		return umponto;
 	}
 
-	void semostravivo() { // função para desenhar as formas [SEMOSTRA]
+	private void semostravivo() { // função para desenhar as formas [SEMOSTRA]
 
 		if (maturidade >= pontomadurocruza) { // mostra a elipse no
 												// penúltimo ponto se ele
@@ -837,7 +837,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		}
 	}
 
-	void morre() { // método que determina as condições em que um bicho
+	public void morre() { // método que determina as condições em que um bicho
 					// morre e suas consequências [MORRE]
 
 		if (energia < 0) { // por falta de energia
@@ -883,7 +883,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		}
 	}
 
-	void sebate() {
+	public void sebate() {
 
 		for (int t = this.morfogenese.bichos.indexOf(this.morfogenese.tempbicho) + 1; t < this.morfogenese.bichos.size(); t++) { // condição
 																				// para
@@ -1226,7 +1226,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	float transferesomaparafinal(float finalponto, float somaponto) {
+	private float transferesomaparafinal(float finalponto, float somaponto) {
 
 		if (somaponto != 0) {
 			finalponto = somaponto;
@@ -1234,7 +1234,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		return finalponto;
 	}
 
-	void tocanota(int temponota, float tempovolume, float tempoduracao) { // inicia
+	public void tocanota(int temponota, float tempovolume, float tempoduracao) { // inicia
 																			// e
 																			// encerra
 																			// o
@@ -1249,13 +1249,13 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		this.morfogenese.channels[0].noteOff(temponota);
 	}
 
-	void pegainstrumento(int tempobancodadosinstrumento,
+	public void pegainstrumento(int tempobancodadosinstrumento,
 			int tempoinstrumento) { // define o instrumento
 		this.morfogenese.channels[0].programChange(tempobancodadosinstrumento,
 				tempoinstrumento);
 	}
 
-	void AvaicomerB(Bicho A, Bicho B) {
+	private void AvaicomerB(Bicho A, Bicho B) {
 
 		if (A.vida == true) {
 
@@ -1270,7 +1270,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AfogedeB(Bicho A, Bicho B) {
+	private void AfogedeB(Bicho A, Bicho B) {
 
 		if (A.chance > 6 || A.chance % 2 == 0) {
 
@@ -1291,7 +1291,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AatacaB(Bicho A, Bicho B) {
+	private void AatacaB(Bicho A, Bicho B) {
 
 		if (A.chance == 3 || A.chance >= 5) {
 
@@ -1312,7 +1312,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AquercruzarB(Bicho A, Bicho B) {
+	private void AquercruzarB(Bicho A, Bicho B) {
 
 		if (A.chance >= 3) {
 
@@ -1332,7 +1332,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AdesinteressaB(Bicho A, Bicho B) {
+	private void AdesinteressaB(Bicho A, Bicho B) {
 
 		anguloAB = calculaanguloAB(anguloAB, A, B);
 
@@ -1343,7 +1343,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AgangueB(Bicho A, Bicho B) {
+	private void AgangueB(Bicho A, Bicho B) {
 
 		anguloAB = calculaanguloAB(anguloAB, A, B);
 
@@ -1398,7 +1398,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AtemnojodeB(Bicho A, Bicho B) {
+	private void AtemnojodeB(Bicho A, Bicho B) {
 
 		anguloAB = calculaanguloAB(anguloAB, A, B);
 
@@ -1410,7 +1410,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AcruzacomB(Bicho A, Bicho B) {
+	private void AcruzacomB(Bicho A, Bicho B) {
 
 		A.pontox[1] = B.pontox[1]; // une os pontos durante cruzamento
 		A.pontoy[1] = B.pontoy[1];
@@ -1474,7 +1474,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AreproduzcomB(Bicho A, Bicho B) {
+	private void AreproduzcomB(Bicho A, Bicho B) {
 
 		A.energia = A.energia - 1; // perde energia para gerar filho
 		A.tamanhoformadiam = A.tamanhoformadiam + 0.01f; // se está se dando
@@ -1498,7 +1498,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AbrigacomB(Bicho A, Bicho B) {
+	private void AbrigacomB(Bicho A, Bicho B) {
 
 		anguloAB = calculaanguloAB(anguloAB, A, B);
 
@@ -1537,7 +1537,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AcomeB(Bicho A, Bicho B) {
+	private void AcomeB(Bicho A, Bicho B) {
 
 		if (A.vida == true) {
 
@@ -1561,7 +1561,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void AcainateiadeB(Bicho A, Bicho B, int numerodoponto) {
+	private void AcainateiadeB(Bicho A, Bicho B, int numerodoponto) {
 
 		A.pontox[1] = B.pontox[numerodoponto];
 		A.pontoy[1] = B.pontoy[numerodoponto];
@@ -1586,7 +1586,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	int contatoAeB(Bicho A, Bicho B) { // PARA DEFINIR AS DUAS DISTÂNCIAS DE
+	private int contatoAeB(Bicho A, Bicho B) { // PARA DEFINIR AS DUAS DISTÂNCIAS DE
 										// CONTATO
 
 		float distanciaAB = Morfogenese.dist(A.pontox[1], A.pontoy[1], B.pontox[1],
@@ -1604,7 +1604,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	boolean AeBseagruparem(Bicho A, Bicho B) { // PARA DEFINIR A CONDIÇÃO DE
+	private boolean AeBseagruparem(Bicho A, Bicho B) { // PARA DEFINIR A CONDIÇÃO DE
 												// GANGUE
 
 		float distanciaAB = Morfogenese.dist(A.pontox[1], A.pontoy[1], B.pontox[1],
@@ -1620,7 +1620,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	boolean AmaisfracoqueB(Bicho A, Bicho B) {
+	private boolean AmaisfracoqueB(Bicho A, Bicho B) {
 
 		if (A.energia < B.energia || A.energia > B.energia
 				&& A.energia < B.finalbando) {
@@ -1631,7 +1631,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	boolean AeBmaduros(Bicho A, Bicho B) {
+	private boolean AeBmaduros(Bicho A, Bicho B) {
 
 		if (A.maturidade > A.pontomadurocruza
 				&& B.maturidade > B.pontomadurocruza) {
@@ -1642,7 +1642,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	boolean ApassarpelospontosdeB(Bicho A, Bicho B, int nponto) {
+	private boolean ApassarpelospontosdeB(Bicho A, Bicho B, int nponto) {
 
 		if (A.vida == true && B.vida == true && A.forma1 == B.forma2
 				&& A.pontox[1] >= B.pontox[nponto] - 10
@@ -1656,7 +1656,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void desenhalinhacontato(float pontoxA, float pontoyA, float pontoxB,
+	private void desenhalinhacontato(float pontoxA, float pontoyA, float pontoxB,
 			float pontoyB) {
 
 		if (this.morfogenese.commetadados >= 3) { // mostrador de distâncias de colisão
@@ -1673,7 +1673,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	boolean mousetocarnessebicho() {
+	private boolean mousetocarnessebicho() {
 
 		if (this.morfogenese.posicaofinalmouseX > pontox[1] - (formadiam / 2)
 				&& this.morfogenese.posicaofinalmouseX < pontox[1] + (formadiam / 2)
@@ -1713,7 +1713,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	void interagemouse() {
+	public void interagemouse() {
 
 		if (this.morfogenese.mousePressed == true) {
 
@@ -1831,7 +1831,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		}
 	}
 
-	float calculaanguloAB(float angulo, Bicho A, Bicho B) { // calcula o
+	private float calculaanguloAB(float angulo, Bicho A, Bicho B) { // calcula o
 															// ângulo entre
 															// os pontos
 															// (trigonometria)
