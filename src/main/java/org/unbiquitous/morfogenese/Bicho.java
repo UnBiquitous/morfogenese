@@ -7,125 +7,123 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	 * 
 	 */
 	private final Morfogenese morfogenese;
-	float positionx; // posição X para alocar o bicho
-	float positiony; // posição Y para alocar o bicho
-	float velocidadeauto; // velocidadeauto (treme treme) É fixa depois de
+	private float positionx; // posição X para alocar o bicho
+	private float positiony; // posição Y para alocar o bicho
+	private float velocidadeauto; // velocidadeauto (treme treme) É fixa depois de
 							// gerada, só muda em situações específicas
-	float easing; // easing (em cascata: easing+o*o*easingaceleration)
-	float easingaceleration; // easingaceleration
-	float tamanho; // tamanho (retângulo possível)
-	int numerodepontos; // número de pontos do bicho. O index é 0. Com todos
+	public float easing; // easing (em cascata: easing+o*o*easingaceleration)
+	public float easingaceleration; // easingaceleration
+	public float tamanho; // tamanho (retângulo possível)
+	public int numerodepontos; // número de pontos do bicho. O index é 0. Com todos
 						// os pontos separados o menor número é 5
-	float pesodalinha; // peso da linha do bicho
-	float corr; // cores linha R
-	float corg; // cores linha G
-	float corb; // cores linha B
-	float corlinhar; // cores corlinha R
-	float corlinhag; // cores corlinha G
-	float corlinhab; // cores corlinha B
-	float formadiam; // diâmetro de cada forma (todas elas) a partir do diam
-	int forma1; // forma da cabeça
-	int forma2; // forma do pescoço
-	int formarabo; // forma do rabo
-	int instrumento; // para definir o instrumento de cada som
-	int nota; // define a nota que o bicho vai reproduzir
-	float energia; // equivale à quantidade de vida inicial
-	float pontomadurocruza; // define um ponto de maturidade para que possam
+	public float pesodalinha; // peso da linha do bicho
+	public float corr; // cores linha R
+	public float corg; // cores linha G
+	public float corb; // cores linha B
+	public float corlinhar; // cores corlinha R
+	public float corlinhag; // cores corlinha G
+	public float corlinhab; // cores corlinha B
+	public float formadiam; // diâmetro de cada forma (todas elas) a partir do diam
+	public int forma1; // forma da cabeça
+	public int forma2; // forma do pescoço
+	public int formarabo; // forma do rabo
+	public int instrumento; // para definir o instrumento de cada som
+	public int nota; // define a nota que o bicho vai reproduzir
+	public float energia; // equivale à quantidade de vida inicial
+	public float pontomadurocruza; // define um ponto de maturidade para que possam
 							// cruzar novamente
-	int chance; // pode fazer ou não algo: surtar, caçar, fugir (1:chapado,
+	public int chance; // pode fazer ou não algo: surtar, caçar, fugir (1:chapado,
 				// 2:surta, 3:berserker, 4:medroso, 5:violento, 6:esperto /
 				// tarado>=3 / ataca com bando >=5)
 
-	int cor;
-	int corlinha;
-	float coralpha; // alpha da linha associado à vida
-	float corlinhaalpha; // alpha da corlinha associado à vida
-	float velocidade; // velocidade WASD
-	float novachance; // contador para alterar a probabilidade da chance
-	float evoluichance; // para mudar de personalidade conforme ganha
+	public int cor;
+	public int corlinha;
+	public float coralpha; // alpha da linha associado à vida
+	public float corlinhaalpha; // alpha da corlinha associado à vida
+	public float velocidade; // velocidade WASD
+	private float novachance; // contador para alterar a probabilidade da chance
+	private float evoluichance; // para mudar de personalidade conforme ganha
 						// experiência
-	float maturidade; // tempo para poder cruzar de novo
-	float angulo1; // para rodar as formas geométricas da cabeça
-	float angulo2; // para rodar as formas geométricas do pescoço
-	float angulorabo; // para rodar as formas geométricas do rabo
-	boolean vida; // vivo ou morto
-	boolean podre; // morto e podre
-	float velocidadeautooriginal; // para que ele tenda a retoranar a essa
+	public float maturidade; // tempo para poder cruzar de novo
+	private float angulo1; // para rodar as formas geométricas da cabeça
+	private float angulo2; // para rodar as formas geométricas do pescoço
+	private float angulorabo; // para rodar as formas geométricas do rabo
+	public boolean vida; // vivo ou morto
+	public boolean podre; // morto e podre
+	public float velocidadeautooriginal; // para que ele tenda a retoranar a essa
 									// velocidade
-	int cruza; // para poder ter 2 fazes no cruzamento
-	float bando; // V que determina se a energia coletiva é maior que a do
+	private int cruza; // para poder ter 2 fazes no cruzamento
+	private float bando; // V que determina se a energia coletiva é maior que a do
 					// inimigo
-	float finalbando; // V que determina se a energia coletiva é maior que a
+	private float finalbando; // V que determina se a energia coletiva é maior que a
 						// do inimigo
-	float tamanhoformadiam; // para que eles decidam a área de interação e
+	private float tamanhoformadiam; // para que eles decidam a área de interação e
 							// aprendam com os próprios erros
-	int sova; // V para o bicho perceber que está apanhando
-	float distpontox1mouse; // para reagir ao mouse
-	float distpontoy1mouse; // para reagir ao mouse
-	int contagemmorte; // para contar os mortos
-	int bancodadosinstrumento; // para definidr o banco de dados do
+	private int sova; // V para o bicho perceber que está apanhando
+	private int contagemmorte; // para contar os mortos
+	public int bancodadosinstrumento; // para definidr o banco de dados do
 								// instrumento
-	int geracao; // para saber de qual geração é o bicho
-	float atracao; // para alterar automaticamente o fator de atração
-	float minhaadaptacao;
-	float maxformadiam;
-	int numerodepontosdalinha;
-	float anguloAB;
+	public int geracao; // para saber de qual geração é o bicho
+	private float atracao; // para alterar automaticamente o fator de atração
+	private float minhaadaptacao;
+	public float maxformadiam;
+	private int numerodepontosdalinha;
+	private float anguloAB;
 
-	float[] pontox; // cria a lista de pontos x e y
-	float[] pontoy;
+	public float[] pontox; // cria a lista de pontos x e y
+	public float[] pontoy;
 
-	float[] distx1; // cria a lista de distâncias entre os pontos de cada
+	private float[] distx1; // cria a lista de distâncias entre os pontos de cada
 					// bicho
-	float[] disty1;
+	private float[] disty1;
 
-	int[] ordemxy;
+	private int[] ordemxy;
 
-	float ponto1xdir; // influencia o ponto1 do bicho (por enquanto uso no
+	private float ponto1xdir; // influencia o ponto1 do bicho (por enquanto uso no
 						// wandering da novachance)
-	float ponto1ydir;
+	private float ponto1ydir;
 
-	float ponto1xdircor; // influencia o ponto1 do bicho: busca cor
-	float ponto1ydircor;
+	private float ponto1xdircor; // influencia o ponto1 do bicho: busca cor
+	private float ponto1ydircor;
 
-	float ponto1xdirmouse; // influencia o ponto1 do bicho: mouse
-	float ponto1ydirmouse;
+	private float ponto1xdirmouse; // influencia o ponto1 do bicho: mouse
+	private float ponto1ydirmouse;
 
-	float resultantex; // para definir a influência do movimento
-	float resultantey;
+	private float resultantex; // para definir a influência do movimento
+	private float resultantey;
 
-	float finalponto1xdirfome; // influencia o ponto1 do bicho: fome
-	float finalponto1ydirfome;
-	float finalponto1xdirfoge; // influencia o ponto1 do bicho: foge
-	float finalponto1ydirfoge;
-	float finalponto1xdirpersegue; // influencia o ponto1 do bicho: persegue
-	float finalponto1ydirpersegue;
-	float finalponto1xdirtarado; // influencia o ponto1 do bicho: tarado
-	float finalponto1ydirtarado;
-	float finalponto1xdirsatisfeito; // influencia o ponto1 do bicho:
+	private float finalponto1xdirfome; // influencia o ponto1 do bicho: fome
+	private float finalponto1ydirfome;
+	private float finalponto1xdirfoge; // influencia o ponto1 do bicho: foge
+	private float finalponto1ydirfoge;
+	private float finalponto1xdirpersegue; // influencia o ponto1 do bicho: persegue
+	private float finalponto1ydirpersegue;
+	private float finalponto1xdirtarado; // influencia o ponto1 do bicho: tarado
+	private float finalponto1ydirtarado;
+	private float finalponto1xdirsatisfeito; // influencia o ponto1 do bicho:
 										// satisfeito
-	float finalponto1ydirsatisfeito;
-	float finalponto1xdirgangue; // influencia o ponto1 do bicho: gangue
-	float finalponto1ydirgangue;
-	float finalponto1xdirafastapodre; // influencia o ponto1 do bicho:
+	private float finalponto1ydirsatisfeito;
+	private float finalponto1xdirgangue; // influencia o ponto1 do bicho: gangue
+	private float finalponto1ydirgangue;
+	private float finalponto1xdirafastapodre; // influencia o ponto1 do bicho:
 										// afastapodre
-	float finalponto1ydirafastapodre;
+	private float finalponto1ydirafastapodre;
 
-	float ponto1xdirfome; // influencia o ponto1 do bicho: fome
-	float ponto1ydirfome;
-	float ponto1xdirfoge; // influencia o ponto1 do bicho: foge
-	float ponto1ydirfoge;
-	float ponto1xdirpersegue; // influencia o ponto1 do bicho: persegue
-	float ponto1ydirpersegue;
-	float ponto1xdirtarado; // influencia o ponto1 do bicho: tarado
-	float ponto1ydirtarado;
-	float ponto1xdirsatisfeito; // influencia o ponto1 do bicho: satisfeito
-	float ponto1ydirsatisfeito;
-	float ponto1xdirgangue; // influencia o ponto1 do bicho: gangue
-	float ponto1ydirgangue;
-	float ponto1xdirafastapodre; // influencia o ponto1 do bicho:
+	private float ponto1xdirfome; // influencia o ponto1 do bicho: fome
+	private float ponto1ydirfome;
+	private float ponto1xdirfoge; // influencia o ponto1 do bicho: foge
+	private float ponto1ydirfoge;
+	private float ponto1xdirpersegue; // influencia o ponto1 do bicho: persegue
+	private float ponto1ydirpersegue;
+	private float ponto1xdirtarado; // influencia o ponto1 do bicho: tarado
+	private float ponto1ydirtarado;
+	private float ponto1xdirsatisfeito; // influencia o ponto1 do bicho: satisfeito
+	private float ponto1ydirsatisfeito;
+	private float ponto1xdirgangue; // influencia o ponto1 do bicho: gangue
+	private float ponto1ydirgangue;
+	private float ponto1xdirafastapodre; // influencia o ponto1 do bicho:
 									// afastapodre
-	float ponto1ydirafastapodre;
+	private float ponto1ydirafastapodre;
 
 	Bicho( // define valores Vs no construtor com temporárias [CONSTRUTOR]
 	Morfogenese morfogenese, 

@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -54,8 +53,6 @@ public class Morfogenese extends PApplet {
 	private int result; // WASD
 	private int meuindexatual; // para controlar o index do bicho
 
-	private Instrument[] instruments = null; // para iniciar a array de instrumento,
-										// sintetizador e canais midi
 	private Synthesizer synth = null;
 	public MidiChannel[] channels = null;
 
@@ -94,7 +91,7 @@ public class Morfogenese extends PApplet {
 	public float posicaofinalmouseX;
 	public float posicaofinalmouseY;
 
-	private Iterator bichoIt; // cria um iterator para não ter q ficar fazendo i++. Para
+	private Iterator<Bicho> bichoIt; // cria um iterator para não ter q ficar fazendo i++. Para
 						// isso uso o tempbicho
 
 	public Bicho tempbicho; // cria bichotemps para gerar os bichos depois e agir em
@@ -111,7 +108,7 @@ public class Morfogenese extends PApplet {
 
 	public float adaptacaomedia;
 
-	void alteracoesforadna() {
+	private void alteracoesforadna() {
 
 		meubicho.maturidade = 0; // zera a maturidade quando nasce
 		meubicho.geracao = (abs(bichoculpado.geracao + bichaculpada.geracao) / 2)
@@ -199,7 +196,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void ambiente() {
+	private void ambiente() {
 
 		posicaofinalmouseX = (mouseX / escala) - ((width / escala) - width) / 2;
 		posicaofinalmouseY = (mouseY / escala) - ((height / escala) - height)
@@ -698,7 +695,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void controleteclado() {
+	private void controleteclado() {
 
 		if (keyPressed) {
 			if (key == '+') { // zoom :D
@@ -759,7 +756,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void definednagenerico() {
+	private void definednagenerico() {
 
 		meudna[0] = (int) (random(100, (displayWidth / escala) - 100)); // posição
 																		// X
@@ -814,7 +811,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void definednamesclado() {
+	private void definednamesclado() {
 
 		meudna[0] = (int) ((bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2); // posição
 																					// X
@@ -1021,7 +1018,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void iteratordobicho() {
+	private void iteratordobicho() {
 
 		bichoIt = bichos.iterator(); // iterador de bichos. Ele sabe onde estão
 										// os bichos. Evita usar o i++
@@ -1053,7 +1050,7 @@ public class Morfogenese extends PApplet {
 		}
 	}
 
-	void nasce(boolean comalteracoesforadna) {
+	private void nasce(boolean comalteracoesforadna) {
 
 		meubicho = new Bicho(this, meudna[0], // posição X para alocar o bicho
 				meudna[1], // posição Y para alocar o bicho
@@ -1107,7 +1104,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void nascemescladna() {
+	private void nascemescladna() {
 
 		if (filanascimento == 1 && bichos.size() < maximobichos) { // nascimento
 																	// da fera
@@ -1160,7 +1157,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void nascerandomicoautomatico() {
+	private void nascerandomicoautomatico() {
 
 		if (ne <= minimoportipo - 1 && modoexterminio == false) { // nasce um
 																	// automaticamente
@@ -1234,35 +1231,11 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	void setupMIDI() throws MidiUnavailableException { // faz a bagunça do som
+	private void setupMIDI() throws MidiUnavailableException { // faz a bagunça do som
 
 		synth = MidiSystem.getSynthesizer();
-		// println("Synthesizer: " + synth.getDeviceInfo());
 
 		synth.open();
-		// println("Defaut soundbank: " +
-		// synth.getDefaultSoundbank().getDescription());
-
-		instruments = synth.getAvailableInstruments();
-
-		// if ( synth.loadAllInstruments( synth.getDefaultSoundbank() ) ) {
-		// System.out.println( "There are " + instruments.length +
-		// " instruments." );
-		// }
-
-		// for ( int i = 0; i < instruments.length; i++ ) {
-		// System.out.print( instruments[i].getName() + " >> ");
-		// System.out.println( instruments[i].getPatch().getProgram() + "::" +
-		// instruments[i].getPatch().getBank() );
-		// }
-
-		// println("Instruments: " + instruments.length);
 		channels = synth.getChannels();
-		// channels[0].programChange((int)(Math.random()*2+1),
-		// (int)(Math.random()*127));
-		// channels[0].noteOn(69, 100);
-		// try {Thread.sleep((long) 800);}catch (InterruptedException e){ }
-		// channels[0].noteOff(69);
-
 	}
 }
