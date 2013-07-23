@@ -930,7 +930,7 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	private void iteratordobicho() {
+	private synchronized void iteratordobicho() {
 
 		Iterator<Bicho> it = bichos.iterator();
 		
@@ -1218,5 +1218,17 @@ public class Morfogenese extends PApplet {
 
 		synth.open();
 		channels = synth.getChannels();
+	}
+	
+	//FIXME: remover este método
+	public synchronized void criaUmQualquer(){
+		int[] definednagenerico = definednagenerico();
+		definednagenerico[0] = 10;
+		definednagenerico[1] = 10;
+		nasce(false,definednagenerico);
+	}
+	
+	public synchronized void criaBicho(int[] dna){
+		nasce(false,dna);
 	}
 }

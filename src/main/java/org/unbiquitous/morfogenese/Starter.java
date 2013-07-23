@@ -14,7 +14,7 @@ public class Starter {
 						{ "ubiquitos.connectionManager",EthernetTCPConnectionManager.class.getName() },
 						{ "ubiquitos.eth.tcp.port", "14984" },
 						{ "ubiquitos.eth.tcp.passivePortRange", "14985-15000" },
-						{ "ubiquitos.application.deploylist",App.class.getName() 
+						{ "ubiquitos.application.deploylist",MorfoApp.class.getName() 
 					} 
 				};
 			}
