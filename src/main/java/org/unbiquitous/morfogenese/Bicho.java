@@ -832,7 +832,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 					pontoy[1] + 60);
 			this.morfogenese.text("ger: " + geracao, pontox[1] + formadiam + 10,
 					pontoy[1] + 75);
-			this.morfogenese.text("ind: " + this.morfogenese.bichos.indexOf(this.morfogenese.tempbicho), pontox[1] + formadiam
+			this.morfogenese.text("ind: " + this.morfogenese.bichos.indexOf(this), pontox[1] + formadiam
 					+ 10, pontoy[1] + 90);
 		}
 	}
@@ -885,13 +885,13 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	public void sebate() {
 
-		for (int t = this.morfogenese.bichos.indexOf(this.morfogenese.tempbicho) + 1; t < this.morfogenese.bichos.size(); t++) { // condição
+		for (int t = this.morfogenese.bichos.indexOf(this) + 1; t < this.morfogenese.bichos.size(); t++) { // condição
 																				// para
 																				// a
 																				// interseção
 																				// [COLISÃO]
 
-			if (contatoAeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)) == 1) { // de longe
+			if (contatoAeB(this, this.morfogenese.bichos.get(t)) == 1) { // de longe
 																// define se
 																// persegue
 																// ou foge
@@ -916,7 +916,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																		// FORMA==
 																		// VIVOS]
 
-						if (AeBmaduros(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t))) { // procuram
+						if (AeBmaduros(this, this.morfogenese.bichos.get(t))) { // procuram
 																	// pelo
 																	// próximo
 																	// maduros
@@ -926,10 +926,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																	// VIVOS
 																	// MADUROS]
 
-							AquercruzarB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // ESSE
+							AquercruzarB(this, this.morfogenese.bichos.get(t)); // ESSE
 																	// QUER
 																	// CRUZAR
-							AquercruzarB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // OUTRO
+							AquercruzarB(this.morfogenese.bichos.get(t), this); // OUTRO
 																	// QUER
 																	// CRUZAR
 
@@ -938,16 +938,16 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 									// [COLISÃO LONGE FORMA== VIVOS
 									// IMATUROS]
 
-							AdesinteressaB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // ESSE
+							AdesinteressaB(this, this.morfogenese.bichos.get(t)); // ESSE
 																		// BICHO
 																		// SE
 																		// DESINTERESSA
-							AdesinteressaB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // OUTRO
+							AdesinteressaB(this.morfogenese.bichos.get(t), this); // OUTRO
 																		// BICHO
 																		// SE
 																		// DESINTERESSA
 
-							if (AeBseagruparem(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t))) { // gangue:
+							if (AeBseagruparem(this, this.morfogenese.bichos.get(t))) { // gangue:
 																			// assim
 																			// as
 																			// formas
@@ -969,12 +969,12 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																			// IMATUROS
 																			// GANGUE]
 
-								AgangueB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // ESSE
+								AgangueB(this, this.morfogenese.bichos.get(t)); // ESSE
 																	// ENTRA
 																	// PARA
 																	// A
 																	// GANGUE
-								AgangueB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // OUTRO
+								AgangueB(this.morfogenese.bichos.get(t), this); // OUTRO
 																	// ENTRA
 																	// PARA
 																	// A
@@ -986,9 +986,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 					} else { // ...e estiver morto ele evita [COLISÃO LONGE
 								// FORMA== ALGUÉM MORTO]
 
-						AtemnojodeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // ESSE TEM
+						AtemnojodeB(this, this.morfogenese.bichos.get(t)); // ESSE TEM
 																// NOJO
-						AtemnojodeB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // OUTRO TEM
+						AtemnojodeB(this.morfogenese.bichos.get(t), this); // OUTRO TEM
 																// NOJO
 
 					}
@@ -1004,7 +1004,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																		// FORMA!=
 																		// VIVOS]
 
-						if (AmaisfracoqueB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t))) { // se
+						if (AmaisfracoqueB(this, this.morfogenese.bichos.get(t))) { // se
 																		// a
 																		// energia
 																		// ou
@@ -1020,14 +1020,14 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																		// VIVOS
 																		// A<B]
 
-							AfogedeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // EFEITO DE
+							AfogedeB(this, this.morfogenese.bichos.get(t)); // EFEITO DE
 																// FUGA
 																// NESSE
-							AatacaB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // EFEITO DE
+							AatacaB(this.morfogenese.bichos.get(t), this); // EFEITO DE
 																// CAÇA NO
 																// OUTRO
 
-						} else if (AmaisfracoqueB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho)) { // se
+						} else if (AmaisfracoqueB(this.morfogenese.bichos.get(t), this)) { // se
 																				// a
 																				// energia
 																				// ou
@@ -1043,10 +1043,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																				// VIVOS
 																				// A>B]
 
-							AatacaB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // EFEITO DE
+							AatacaB(this, this.morfogenese.bichos.get(t)); // EFEITO DE
 																// CAÇA
 																// NESSE
-							AfogedeB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // EFEITO DE
+							AfogedeB(this.morfogenese.bichos.get(t), this); // EFEITO DE
 																// FUGA NO
 																// OUTRO
 
@@ -1056,15 +1056,15 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 								// para comer [COLISÃO LONGE FORMA!= ALGUÉM
 								// MORTO]
 
-						AvaicomerB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // EFEITO
+						AvaicomerB(this, this.morfogenese.bichos.get(t)); // EFEITO
 																// NESSE
-						AvaicomerB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // EFEITO NO
+						AvaicomerB(this.morfogenese.bichos.get(t), this); // EFEITO NO
 																// OUTRO
 
 					}
 				}
 
-			} else if (contatoAeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)) == 2) { // de
+			} else if (contatoAeB(this, this.morfogenese.bichos.get(t)) == 2) { // de
 																	// perto
 																	// cruza
 																	// ou
@@ -1085,7 +1085,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																		// FORMA==
 																		// VIVOS]
 
-						if (AeBmaduros(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t))) { // [COLISÃO
+						if (AeBmaduros(this, this.morfogenese.bichos.get(t))) { // [COLISÃO
 																	// PERTO
 																	// FORMA==
 																	// A
@@ -1096,22 +1096,22 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 												// [COLISÃO PERTO FORMA== B
 												// VIVOS CRUZANDO]
 
-								AcruzacomB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // EFEITO
+								AcruzacomB(this, this.morfogenese.bichos.get(t)); // EFEITO
 																		// NESSE
-								AcruzacomB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // EFEITO
+								AcruzacomB(this.morfogenese.bichos.get(t), this); // EFEITO
 																		// NO
 																		// OUTRO
 
 							} else { // ...depois reproduz [COLISÃO PERTO
 										// FORMA== B VIVOS REPRODUZINDO]
 
-								AreproduzcomB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // EFEITO
+								AreproduzcomB(this, this.morfogenese.bichos.get(t)); // EFEITO
 																			// NESSE
-								AreproduzcomB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // EFEITO
+								AreproduzcomB(this.morfogenese.bichos.get(t), this); // EFEITO
 																			// NO
 																			// OUTRO
 
-								this.morfogenese.bichoculpado = (Bicho) this.morfogenese.tempbicho; // define
+								this.morfogenese.bichoculpado = (Bicho) this; // define
 																	// quem
 																	// são
 																	// os
@@ -1136,13 +1136,13 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																		// FORMA!=
 																		// VIVOS]
 
-						AbrigacomB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // ESSE BRIGA
-						AbrigacomB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // OUTRO BRIGA
+						AbrigacomB(this, this.morfogenese.bichos.get(t)); // ESSE BRIGA
+						AbrigacomB(this.morfogenese.bichos.get(t), this); // OUTRO BRIGA
 
 					} else { // [COLISÃO PERTO FORMA!= ALGUÉM MORTO]
 
-						AcomeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t)); // ESSE COME
-						AcomeB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho); // OUTRO COME
+						AcomeB(this, this.morfogenese.bichos.get(t)); // ESSE COME
+						AcomeB(this.morfogenese.bichos.get(t), this); // OUTRO COME
 
 					}
 				}
@@ -1153,9 +1153,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																			// teia
 																			// do
 																			// outro
-				if (ApassarpelospontosdeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t), q)) {
+				if (ApassarpelospontosdeB(this, this.morfogenese.bichos.get(t), q)) {
 
-					AcainateiadeB(this.morfogenese.tempbicho, this.morfogenese.bichos.get(t), q); // ESSE CAI
+					AcainateiadeB(this, this.morfogenese.bichos.get(t), q); // ESSE CAI
 																// NA TEIA
 																// DO OUTRO
 
@@ -1164,9 +1164,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 			for (int q = 3; q < numerodepontos - 2; q++) { // gruda na teia
 															// desse
-				if (ApassarpelospontosdeB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho, q)) {
+				if (ApassarpelospontosdeB(this.morfogenese.bichos.get(t), this, q)) {
 
-					AcainateiadeB(this.morfogenese.bichos.get(t), this.morfogenese.tempbicho, q); // OUTRO CAI
+					AcainateiadeB(this.morfogenese.bichos.get(t), this, q); // OUTRO CAI
 																// NA TEIA
 																// DESSE
 
@@ -1802,7 +1802,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 						if (this.morfogenese.keyPressed) {
 							if (this.morfogenese.key == 'u' || this.morfogenese.key == 'U') {
-								this.morfogenese.eubicho = this.morfogenese.tempbicho;
+								this.morfogenese.eubicho = this;
 							}
 						}
 

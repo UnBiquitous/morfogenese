@@ -91,11 +91,6 @@ public class Morfogenese extends PApplet {
 	public float posicaofinalmouseX;
 	public float posicaofinalmouseY;
 
-	private Iterator<Bicho> bichoIt; // cria um iterator para não ter q ficar fazendo i++. Para
-						// isso uso o tempbicho
-
-	public Bicho tempbicho; // cria bichotemps para gerar os bichos depois e agir em
-						// cada bicho sem o i++ com o iterator
 	private Bicho meubicho; // para criar um bicho novo
 	public Bicho bichoculpado; // para ser um dos pais do bicho novo
 	public Bicho bichaculpada; // para ser um dos pais do bicho novo
@@ -107,94 +102,6 @@ public class Morfogenese extends PApplet {
 	private int total; // estatística: número total de bichos
 
 	public float adaptacaomedia;
-
-	private void alteracoesforadna() {
-
-		meubicho.maturidade = 0; // zera a maturidade quando nasce
-		meubicho.geracao = (abs(bichoculpado.geracao + bichaculpada.geracao) / 2)
-				- (abs(bichoculpado.geracao - bichaculpada.geracao) / 2) + 1; // seleciona
-																				// o
-																				// menor
-																				// número
-																				// da
-																				// geração
-																				// dos
-																				// pais
-																				// e
-																				// soma
-																				// 1
-
-		if (bichoculpado.forma2 == bichaculpada.forma2) { // se o pescoço dos
-															// pais for igual o
-															// filho ganha
-															// energia
-			meubicho.energia = meubicho.energia + 5;
-			if (random(1) < 0.25) { // chance de 1/4 de mutação
-				meubicho.forma1 = bichoculpado.forma2;
-			} else {
-				meubicho.forma2 = bichoculpado.forma2;
-			}
-
-			if (bichoculpado.formarabo == bichaculpada.formarabo) { // se o rabo
-																	// dos pais
-																	// for igual
-																	// o filho
-																	// ganha
-																	// mais
-																	// energia
-				meubicho.energia = meubicho.energia + 5;
-
-				if (bichoculpado.formarabo == bichoculpado.forma2) { // se o
-																		// pescoço
-																		// e o
-																		// rabo
-																		// dos
-																		// pais
-																		// forem
-																		// todos
-																		// iguais
-																		// a
-																		// forma
-																		// pode
-																		// mudar
-																		// a
-																		// cabeça
-																		// (mutação)
-																		// :D
-					meubicho.forma1 = bichoculpado.forma2;
-					meubicho.energia = meubicho.energia + 10;
-				} else if (random(1) < 0.25) { // se não, chance de 1/4 de
-												// mutação
-					meubicho.forma1 = bichoculpado.formarabo;
-				} else {
-					meubicho.formarabo = bichoculpado.formarabo;
-				}
-			}
-		}
-
-		meubicho.pontoy[1] = (bichoculpado.pontoy[1] + bichaculpada.pontoy[1]) / 2;
-		meubicho.pontox[1] = (bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2;
-
-		for (int i = 2; i < meubicho.numerodepontos; i++) {
-			meubicho.pontoy[i] = meubicho.pontoy[1];
-		}
-		for (int j = 2; j < meubicho.numerodepontos; j++) {
-			meubicho.pontox[j] = meubicho.pontox[1];
-		}
-
-		meubicho.maxformadiam = (bichoculpado.maxformadiam + bichaculpada.maxformadiam) / 2;
-
-		// MUTAÇÕES fora do DNA:
-
-		if (random(1) < chancemutacao) { // mudar o tamanho máximo da cabeça
-			meubicho.maxformadiam = meubicho.maxformadiam
-					+ (int) (random(-100, 200));
-			if (meubicho.maxformadiam < 20) {
-				meubicho.maxformadiam = 20;
-			}
-		}
-
-	}
 
 	private void ambiente() {
 
@@ -1020,12 +927,11 @@ public class Morfogenese extends PApplet {
 
 	private void iteratordobicho() {
 
-		bichoIt = bichos.iterator(); // iterador de bichos. Ele sabe onde estão
-										// os bichos. Evita usar o i++
-
-		while (bichoIt.hasNext()) { // enquanto houver um próximo na lista com
+		Iterator<Bicho> it = bichos.iterator();
+		
+		while ( it.hasNext()) { // enquanto houver um próximo na lista com
 									// relação ao iterador
-			tempbicho = (Bicho) bichoIt.next(); // o tempbicho é usado para
+			Bicho tempbicho = (Bicho) it.next(); // o tempbicho é usado para
 												// fixar o mesmo bicho para
 												// testar a vida, mover, mostrar
 												// e morrer
@@ -1037,7 +943,7 @@ public class Morfogenese extends PApplet {
 				// (tempbicho.forma1==3){nt=nt-1;} //contagem morte. Essa versão
 				// inclui os bichos mortos ainda não podres
 
-				bichoIt.remove(); // remove os mortos da lista
+				it.remove(); // remove os mortos da lista
 			} else { // criando e movendo os bichos
 				tempbicho.interagemouse(); // função para interagir com o mouse
 											// ou tela de toque
@@ -1089,7 +995,7 @@ public class Morfogenese extends PApplet {
 		);
 
 		if (comalteracoesforadna) {
-			alteracoesforadna();
+			alteracoesforadna(meubicho);
 		}
 
 		if (meubicho.forma1 == 1) { // contagem nascimento
@@ -1104,6 +1010,94 @@ public class Morfogenese extends PApplet {
 
 	}
 
+	private void alteracoesforadna(Bicho meubicho) {
+
+		meubicho.maturidade = 0; // zera a maturidade quando nasce
+		meubicho.geracao = (abs(bichoculpado.geracao + bichaculpada.geracao) / 2)
+				- (abs(bichoculpado.geracao - bichaculpada.geracao) / 2) + 1; // seleciona
+																				// o
+																				// menor
+																				// número
+																				// da
+																				// geração
+																				// dos
+																				// pais
+																				// e
+																				// soma
+																				// 1
+
+		if (bichoculpado.forma2 == bichaculpada.forma2) { // se o pescoço dos
+															// pais for igual o
+															// filho ganha
+															// energia
+			meubicho.energia = meubicho.energia + 5;
+			if (random(1) < 0.25) { // chance de 1/4 de mutação
+				meubicho.forma1 = bichoculpado.forma2;
+			} else {
+				meubicho.forma2 = bichoculpado.forma2;
+			}
+
+			if (bichoculpado.formarabo == bichaculpada.formarabo) { // se o rabo
+																	// dos pais
+																	// for igual
+																	// o filho
+																	// ganha
+																	// mais
+																	// energia
+				meubicho.energia = meubicho.energia + 5;
+
+				if (bichoculpado.formarabo == bichoculpado.forma2) { // se o
+																		// pescoço
+																		// e o
+																		// rabo
+																		// dos
+																		// pais
+																		// forem
+																		// todos
+																		// iguais
+																		// a
+																		// forma
+																		// pode
+																		// mudar
+																		// a
+																		// cabeça
+																		// (mutação)
+																		// :D
+					meubicho.forma1 = bichoculpado.forma2;
+					meubicho.energia = meubicho.energia + 10;
+				} else if (random(1) < 0.25) { // se não, chance de 1/4 de
+												// mutação
+					meubicho.forma1 = bichoculpado.formarabo;
+				} else {
+					meubicho.formarabo = bichoculpado.formarabo;
+				}
+			}
+		}
+
+		meubicho.pontoy[1] = (bichoculpado.pontoy[1] + bichaculpada.pontoy[1]) / 2;
+		meubicho.pontox[1] = (bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2;
+
+		for (int i = 2; i < meubicho.numerodepontos; i++) {
+			meubicho.pontoy[i] = meubicho.pontoy[1];
+		}
+		for (int j = 2; j < meubicho.numerodepontos; j++) {
+			meubicho.pontox[j] = meubicho.pontox[1];
+		}
+
+		meubicho.maxformadiam = (bichoculpado.maxformadiam + bichaculpada.maxformadiam) / 2;
+
+		// MUTAÇÕES fora do DNA:
+
+		if (random(1) < chancemutacao) { // mudar o tamanho máximo da cabeça
+			meubicho.maxformadiam = meubicho.maxformadiam
+					+ (int) (random(-100, 200));
+			if (meubicho.maxformadiam < 20) {
+				meubicho.maxformadiam = 20;
+			}
+		}
+
+	}
+	
 	private void nascemescladna() {
 
 		if (filanascimento == 1 && bichos.size() < maximobichos) { // nascimento
