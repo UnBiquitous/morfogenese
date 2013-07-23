@@ -71,7 +71,6 @@ public class Morfogenese extends PApplet {
 														// bichos. É uma array
 														// de objetos. Bicho é a
 														// classe
-	private int[] meudna = new int[24];
 
 	// float[] escalanotas = {57, 60, 60, 60, 62, 64, 67, 67, 69, 72, 72, 72,
 	// 74, 76, 79}; //escala para o som ficar um pouco mais harmônico. Prefiro o
@@ -528,7 +527,7 @@ public class Morfogenese extends PApplet {
 				if (key == 'q' || key == 'Q') { // cria um novo bicho e
 												// acrescenta à array no local
 												// do mouse
-					definednagenerico(); // define a sequência de dna
+					int[] meudna = definednagenerico(); // define a sequência de dna
 					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
 																							// X
 																							// para
@@ -541,11 +540,11 @@ public class Morfogenese extends PApplet {
 																								// alocar
 																								// o
 																								// bicho
-					nasce(false); // nasce
+					nasce(false,meudna); // nasce
 				} else if (key == 'e' || key == 'E') { // cria um novo bicho com
 														// cabeça de elipse no
 														// local do mouse
-					definednagenerico(); // define a sequência de dna
+					int[] meudna = definednagenerico(); // define a sequência de dna
 					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
 																							// X
 																							// para
@@ -559,11 +558,11 @@ public class Morfogenese extends PApplet {
 																								// o
 																								// bicho
 					meudna[15] = 1; // forma da cabeça
-					nasce(false); // nasce
+					nasce(false, meudna); // nasce
 				} else if (key == 'r' || key == 'R') { // cria um novo bicho com
 														// cabeça de retângulo
 														// no local do mouse
-					definednagenerico(); // define a sequência de dna
+					int[] meudna = definednagenerico(); // define a sequência de dna
 					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
 																							// X
 																							// para
@@ -577,11 +576,11 @@ public class Morfogenese extends PApplet {
 																								// o
 																								// bicho
 					meudna[15] = 2; // forma da cabeça
-					nasce(false); // nasce
+					nasce(false, meudna); // nasce
 				} else if (key == 't' || key == 'T') { // cria um novo bicho com
 														// cabeça de triângulo
 														// no local do mouse
-					definednagenerico(); // define a sequência de dna
+					int[] meudna = definednagenerico(); // define a sequência de dna
 					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
 																							// X
 																							// para
@@ -595,7 +594,7 @@ public class Morfogenese extends PApplet {
 																								// o
 																								// bicho
 					meudna[15] = 3; // forma da cabeça
-					nasce(false); // nasce
+					nasce(false, meudna); // nasce
 				}
 			}
 		}
@@ -663,8 +662,10 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	private void definednagenerico() {
+	private int[] definednagenerico() {
 
+		int[] meudna = new int[24];
+		
 		meudna[0] = (int) (random(100, (displayWidth / escala) - 100)); // posição
 																		// X
 																		// para
@@ -716,10 +717,13 @@ public class Morfogenese extends PApplet {
 											// 5:violento, 6:esperto / tarado>=3
 											// / ataca com bando >=5)
 
+		return meudna;
 	}
 
-	private void definednamesclado() {
+	private int[] definednamesclado() {
 
+		int[] meudna = new int[24];
+		
 		meudna[0] = (int) ((bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2); // posição
 																					// X
 																					// para
@@ -913,6 +917,7 @@ public class Morfogenese extends PApplet {
 			}
 		}
 
+		return meudna;
 	}
 
 	public void draw() {
@@ -956,7 +961,7 @@ public class Morfogenese extends PApplet {
 		}
 	}
 
-	private void nasce(boolean comalteracoesforadna) {
+	private void nasce(boolean comalteracoesforadna, int[] meudna) {
 
 		meubicho = new Bicho(this, meudna[0], // posição X para alocar o bicho
 				meudna[1], // posição Y para alocar o bicho
@@ -1123,8 +1128,7 @@ public class Morfogenese extends PApplet {
 																	// pontox/y
 																	// [NASCIMENTO]
 
-			definednamesclado();
-			nasce(true);
+			nasce(true, definednamesclado());
 
 			if (som == true) {
 				meubicho.pegainstrumento(meubicho.bancodadosinstrumento,
@@ -1153,45 +1157,29 @@ public class Morfogenese extends PApplet {
 
 	private void nascerandomicoautomatico() {
 
-		if (ne <= minimoportipo - 1 && modoexterminio == false) { // nasce um
-																	// automaticamente
-																	// se sobrar
-																	// somente
-																	// um da
-																	// mesma
-																	// forma
-																	// [GERA 1
-																	// AUTOMATICAMENTE
-																	// PARA CADA
-																	// UMA DAS
-																	// FORMAS]
-			definednagenerico(); // define a sequência de dna
+		if (ne <= minimoportipo - 1 && modoexterminio == false) { 
+			// nasce um automaticamente se sobrar somente
+			// um da mesma forma
+			// [GERA 1 AUTOMATICAMENTE PARA CADA UMA DAS FORMAS]
+			int[] meudna = definednagenerico(); // define a sequência de dna
 			meudna[15] = 1; // forma da cabeça
-			nasce(false); // nasce
+			nasce(false,meudna); // nasce
 		}
 
-		if (nr <= minimoportipo - 1 && modoexterminio == false) { // nasce um
-																	// automaticamente
-																	// se sobrar
-																	// somente
-																	// um da
-																	// mesma
-																	// forma
-			definednagenerico(); // define a sequência de dna
+		if (nr <= minimoportipo - 1 && modoexterminio == false) { 
+			// nasce um automaticamente se sobrar somente
+			// um da mesma forma
+			int[] meudna = definednagenerico(); // define a sequência de dna
 			meudna[15] = 2; // forma da cabeça
-			nasce(false); // nasce
+			nasce(false,meudna); // nasce
 		}
 
-		if (nt <= minimoportipo - 1 && modoexterminio == false) { // nasce um
-																	// automaticamente
-																	// se sobrar
-																	// somente
-																	// um da
-																	// mesma
-																	// forma
-			definednagenerico(); // define a sequência de dna
+		if (nt <= minimoportipo - 1 && modoexterminio == false) { 
+			// nasce um automaticamente se sobrar somente
+			// um da mesma forma
+			int[] meudna = definednagenerico(); // define a sequência de dna
 			meudna[15] = 3; // forma da cabeça
-			nasce(false); // nasce
+			nasce(false,meudna); // nasce
 		}
 
 	}
@@ -1217,8 +1205,7 @@ public class Morfogenese extends PApplet {
 
 		for (int i = 0; i < NUMERODEBICHOS; i++) { // criando todos os bichos da
 													// array
-			definednagenerico(); // define a sequência de dna
-			nasce(false); // nasce
+			nasce(false,definednagenerico()); // nasce
 		}
 
 		eubicho = bichos.get(meuindexatual);
