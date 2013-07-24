@@ -5,6 +5,7 @@ package org.unbiquitous.morfogenese;
 //Tiago Barros Pontes e Silva
 //tiagobarros@unb.br
 
+import java.awt.Point;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -175,9 +176,9 @@ public class Morfogenese extends PApplet {
 			tempcorfundob = 0;
 
 			for (int i = 0; i < bichos.size(); i++) {
-				tempcorfundor = tempcorfundor + bichos.get(i).corr;
-				tempcorfundog = tempcorfundog + bichos.get(i).corg;
-				tempcorfundob = tempcorfundob + bichos.get(i).corb;
+				tempcorfundor = tempcorfundor + bichos.get(i).cor.red();
+				tempcorfundog = tempcorfundog + bichos.get(i).cor.green();
+				tempcorfundob = tempcorfundob + bichos.get(i).cor.blue();
 			}
 
 			corfundor = corfundor
@@ -196,9 +197,9 @@ public class Morfogenese extends PApplet {
 			tempcorfundob = 0;
 
 			for (int i = 0; i < bichos.size(); i++) {
-				tempcorfundor = tempcorfundor + bichos.get(i).corr;
-				tempcorfundog = tempcorfundog + bichos.get(i).corg;
-				tempcorfundob = tempcorfundob + bichos.get(i).corb;
+				tempcorfundor = tempcorfundor + bichos.get(i).cor.red();
+				tempcorfundog = tempcorfundog + bichos.get(i).cor.green();
+				tempcorfundob = tempcorfundob + bichos.get(i).cor.blue();
 			}
 
 			corfundor = corfundor
@@ -597,9 +598,9 @@ public class Morfogenese extends PApplet {
 		strokeWeight(5); // só para saber qual é o seu :) [MEU BICHO]
 							// //eubicho.pesodalinha
 		noFill();
-		stroke(eubicho.cor, 255); // eubicho.coralpha
+		stroke(eubicho.cor.color(), 255); // eubicho.coralpha
 		ellipse(eubicho.pontox[1], eubicho.pontoy[1], 100, 100);
-		stroke(eubicho.corlinha, 255); // eubicho.corlinhaalpha
+		stroke(eubicho.corlinha.color(), 255); // eubicho.corlinhaalpha
 		ellipse(eubicho.pontox[1], eubicho.pontoy[1], 120, 120);
 
 		if (eubicho.vida == false) {
@@ -703,45 +704,24 @@ public class Morfogenese extends PApplet {
 																				// (em
 																				// cascata:
 																				// easing+o*o*easingaceleration)
-		meudna[4] = (int) ((bichoculpado.easingaceleration + bichaculpada.easingaceleration) / 2); // easingaceleration
+		meudna[4] = (int) ((bichoculpado.easingAcceleration + bichaculpada.easingAcceleration) / 2); // easingaceleration
 		meudna[5] = (int) ((bichoculpado.tamanho + bichaculpada.tamanho) / 2); // tamanho
 																				// (retângulo
 																				// possível)
-		meudna[6] = (int) ((((float) (bichoculpado.numerodepontos + bichaculpada.numerodepontos)) / 2) + ((int) (random(
+		meudna[6] = (int) ((((float) (bichoculpado.numeroDePontos() + bichaculpada.numeroDePontos())) / 2) + ((int) (random(
 				4, 6)) * 0.1)); // número de pontos do bicho. O index é 0. Com
 								// todos os pontos separados o menor número é 5.
 								// A maluquice é para permitir q filho de
 								// números ímpares não seja fixo
 		meudna[7] = (int) (((bichoculpado.pesodalinha + bichaculpada.pesodalinha) / 2) + ((int) (random(
 				4, 6)) * 0.1)); // peso da linha do bicho
-		meudna[8] = (int) ((bichoculpado.corr + bichaculpada.corr) / 2); // cores
-																			// linha
-																			// R
-		meudna[9] = (int) ((bichoculpado.corg + bichaculpada.corg) / 2); // cores
-																			// linha
-																			// G
-		meudna[10] = (int) ((bichoculpado.corb + bichaculpada.corb) / 2); // cores
-																			// linha
-																			// B
-		meudna[11] = (int) ((bichoculpado.corlinhar + bichaculpada.corlinhar) / 2); // cores
-																					// forma
-																					// R
-		meudna[12] = (int) ((bichoculpado.corlinhag + bichaculpada.corlinhag) / 2); // cores
-																					// forma
-																					// G
-		meudna[13] = (int) ((bichoculpado.corlinhab + bichaculpada.corlinhab) / 2); // cores
-																					// forma
-																					// B
-		meudna[14] = (int) ((bichoculpado.formadiam + bichaculpada.formadiam) / 2); // diâmetro
-																					// de
-																					// cada
-																					// forma
-																					// (todas
-																					// elas)
-																					// a
-																					// partir
-																					// do
-																					// diam
+		meudna[8] = (int) ((bichoculpado.cor.red() + bichaculpada.cor.red()) / 2); // cores  linha  R
+		meudna[9] = (int) ((bichoculpado.cor.green() + bichaculpada.cor.green()) / 2); // cores  linha  G
+		meudna[10] = (int) ((bichoculpado.cor.blue() + bichaculpada.cor.blue()) / 2); // cores  linha  B
+		meudna[11] = (int) ((bichoculpado.corlinha.red() + bichaculpada.corlinha.red()) / 2); // cores  forma  R
+		meudna[12] = (int) ((bichoculpado.corlinha.green() + bichaculpada.corlinha.green()) / 2); // cores  forma  G
+		meudna[13] = (int) ((bichoculpado.corlinha.blue() + bichaculpada.corlinha.blue()) / 2); // cores  forma  B
+		meudna[14] = (int) ((bichoculpado.formadiam + bichaculpada.formadiam) / 2); // diâmetro  de  cada  forma  (todas  elas)  a  partir  do  diam
 		meudna[15] = bichoculpado.forma1; // forma da cabeça
 		meudna[16] = (int) (random(1, 4)); // forma do pescoço
 		meudna[17] = (int) (random(1, 4)); // forma do rabo
@@ -913,8 +893,8 @@ public class Morfogenese extends PApplet {
 
 	private void nasce(boolean comalteracoesforadna, int[] meudna) {
 
-		meubicho = new Bicho(this, meudna[0], // posição X para alocar o bicho
-				meudna[1], // posição Y para alocar o bicho
+		meubicho = new Bicho(this, 
+				new Point(meudna[0],meudna[1]),// posição para alocar o bicho
 				meudna[2], // velocidadeauto (treme treme) É fixa depois de
 							// gerada, só muda em situações específicas
 				meudna[3], // easing (em cascata: easing+o*o*easingaceleration)
@@ -923,12 +903,8 @@ public class Morfogenese extends PApplet {
 				meudna[6], // número de pontos do bicho. O index é 0. Com todos
 							// os pontos separados o menor número é 5
 				meudna[7], // peso da linha do bicho
-				meudna[8], // cores linha R
-				meudna[9], // cores linha G
-				meudna[10], // cores linha B
-				meudna[11], // cores forma R
-				meudna[12], // cores forma G
-				meudna[13], // cores forma B
+				Color.color(this, meudna[8], meudna[9], meudna[10]),
+				Color.color(this, meudna[11], meudna[12], meudna[12]),
 				meudna[14], // diâmetro de cada forma (todas elas) a partir do
 							// diam
 				meudna[15], // forma da cabeça
@@ -1032,10 +1008,10 @@ public class Morfogenese extends PApplet {
 		meubicho.pontoy[1] = (bichoculpado.pontoy[1] + bichaculpada.pontoy[1]) / 2;
 		meubicho.pontox[1] = (bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2;
 
-		for (int i = 2; i < meubicho.numerodepontos; i++) {
+		for (int i = 2; i < meubicho.numeroDePontos(); i++) {
 			meubicho.pontoy[i] = meubicho.pontoy[1];
 		}
-		for (int j = 2; j < meubicho.numerodepontos; j++) {
+		for (int j = 2; j < meubicho.numeroDePontos(); j++) {
 			meubicho.pontox[j] = meubicho.pontox[1];
 		}
 
@@ -1084,19 +1060,12 @@ public class Morfogenese extends PApplet {
 				meubicho.pegainstrumento(meubicho.bancodadosinstrumento,
 						meubicho.instrumento); // faz barulho quando nasce
 				meubicho.tocanota(meubicho.nota, volume, duracao);
-				stroke(meubicho.corlinhar, meubicho.corlinhag,
-						meubicho.corlinhab, meubicho.corlinhaalpha); // para
-																		// saber
-																		// qual
-																		// é o
-																		// que
-																		// está
-																		// fazendo
-																		// barulho
-				fill(meubicho.corr, meubicho.corg, meubicho.corb,
+				stroke(meubicho.corlinha.red(), meubicho.corlinha.green(),
+						meubicho.corlinha.blue(), meubicho.corlinhaalpha); // para saber qual é o que está fazendo barulho
+				fill(meubicho.cor.red(), meubicho.cor.green(), meubicho.cor.blue(),
 						meubicho.coralpha / 3);
-				ellipse(meubicho.pontox[meubicho.numerodepontos - 1],
-						meubicho.pontoy[meubicho.numerodepontos - 1],
+				ellipse(meubicho.pontox[meubicho.numeroDePontos() - 1],
+						meubicho.pontoy[meubicho.numeroDePontos() - 1],
 						meubicho.formadiam * 2, meubicho.formadiam * 2);
 			}
 
