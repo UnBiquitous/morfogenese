@@ -8,11 +8,14 @@ package org.unbiquitous.morfogenese;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
+
+import com.google.common.collect.Sets;
 
 import processing.core.PApplet;
 import processing.video.Capture;
@@ -102,6 +105,12 @@ public class Morfogenese extends PApplet {
 
 	public float adaptacaomedia;
 
+	protected Runnable M_Listener;
+	
+	public void setMListener(Runnable M_Listener){
+		this.M_Listener = M_Listener;
+	}
+	
 	private void ambiente() {
 
 		posicaofinalmouseX = (mouseX / escala) - ((width / escala) - width) / 2;
@@ -524,78 +533,26 @@ public class Morfogenese extends PApplet {
 
 		if (mouseButton == LEFT) {
 			if (keyPressed) {
-				if (key == 'q' || key == 'Q') { // cria um novo bicho e
-												// acrescenta à array no local
-												// do mouse
+				
+				Set<Character> teclasDeCriacao = Sets.newHashSet('Q','E','R','T');
+				
+				if (teclasDeCriacao.contains(Character.toUpperCase(key))){
 					int[] meudna = definednagenerico(); // define a sequência de dna
-					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
-																							// X
-																							// para
-																							// alocar
-																							// o
-																							// bicho
-					meudna[1] = (int) ((mouseY / escala) - ((height / escala) - height) / 2); // posição
-																								// Y
-																								// para
-																								// alocar
-																								// o
-																								// bicho
+					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição X para alocar obicho
+					meudna[1] = (int) ((mouseY / escala) - ((height / escala) - height) / 2); // posição Y para alocar o bicho
+					switch(Character.toUpperCase(key)){
+					case 'E' : meudna[15] = 1; // forma da cabeça elipse
+						break;
+					case 'R' : meudna[15] = 2; // forma da cabeça retângulo
+						break;
+					case 'T' : meudna[15] = 3; // forma da cabeça triângulo
+						break;
+					}
 					nasce(false,meudna); // nasce
-				} else if (key == 'e' || key == 'E') { // cria um novo bicho com
-														// cabeça de elipse no
-														// local do mouse
-					int[] meudna = definednagenerico(); // define a sequência de dna
-					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
-																							// X
-																							// para
-																							// alocar
-																							// o
-																							// bicho
-					meudna[1] = (int) ((mouseY / escala) - ((height / escala) - height) / 2); // posição
-																								// Y
-																								// para
-																								// alocar
-																								// o
-																								// bicho
-					meudna[15] = 1; // forma da cabeça
-					nasce(false, meudna); // nasce
-				} else if (key == 'r' || key == 'R') { // cria um novo bicho com
-														// cabeça de retângulo
-														// no local do mouse
-					int[] meudna = definednagenerico(); // define a sequência de dna
-					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
-																							// X
-																							// para
-																							// alocar
-																							// o
-																							// bicho
-					meudna[1] = (int) ((mouseY / escala) - ((height / escala) - height) / 2); // posição
-																								// Y
-																								// para
-																								// alocar
-																								// o
-																								// bicho
-					meudna[15] = 2; // forma da cabeça
-					nasce(false, meudna); // nasce
-				} else if (key == 't' || key == 'T') { // cria um novo bicho com
-														// cabeça de triângulo
-														// no local do mouse
-					int[] meudna = definednagenerico(); // define a sequência de dna
-					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição
-																							// X
-																							// para
-																							// alocar
-																							// o
-																							// bicho
-					meudna[1] = (int) ((mouseY / escala) - ((height / escala) - height) / 2); // posição
-																								// Y
-																								// para
-																								// alocar
-																								// o
-																								// bicho
-					meudna[15] = 3; // forma da cabeça
-					nasce(false, meudna); // nasce
 				}
+//				else if (){
+//					this.M_Listener.execute(key,position);
+//				}
 			}
 		}
 
