@@ -8,17 +8,16 @@ package org.unbiquitous.morfogenese;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 
-import com.google.common.collect.Sets;
-
 import processing.core.PApplet;
 import processing.video.Capture;
+
+import com.google.common.collect.Sets;
 
 public class Morfogenese extends PApplet {
 	private static final long serialVersionUID = 1571384757247787839L;
@@ -105,9 +104,9 @@ public class Morfogenese extends PApplet {
 
 	public float adaptacaomedia;
 
-	protected Runnable M_Listener;
+	protected MorfoClickListener M_Listener;
 	
-	public void setMListener(Runnable M_Listener){
+	public void setMListener(MorfoClickListener M_Listener){
 		this.M_Listener = M_Listener;
 	}
 	
@@ -533,7 +532,6 @@ public class Morfogenese extends PApplet {
 
 		if (mouseButton == LEFT) {
 			if (keyPressed) {
-				
 				if (Sets.newHashSet('Q','E','R','T').contains(Character.toUpperCase(key))){
 					int[] meudna = definednagenerico(); // define a sequência de dna
 					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição X para alocar obicho
@@ -548,9 +546,6 @@ public class Morfogenese extends PApplet {
 					}
 					nasce(false,meudna); // nasce
 				}
-//				else if (){
-//					this.M_Listener.execute(key,position);
-//				}
 			}
 		}
 

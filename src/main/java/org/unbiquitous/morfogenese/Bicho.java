@@ -1,5 +1,7 @@
 package org.unbiquitous.morfogenese;
 
+import java.awt.Point;
+
 class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				// CADA INDIVÍDUO!!!]
 
@@ -7,8 +9,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	 * 
 	 */
 	private final Morfogenese morfogenese;
-	private float positionx; // posição X para alocar o bicho
-	private float positiony; // posição Y para alocar o bicho
+	private Point position; // posição do bicho
 	private float velocidadeauto; // velocidadeauto (treme treme) É fixa depois de
 							// gerada, só muda em situações específicas
 	public float easing; // easing (em cascata: easing+o*o*easingaceleration)
@@ -163,8 +164,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	) {
 
 		this.morfogenese = morfogenese;
-		this.positionx = temppositionx; // posição X para alocar o bicho
-		this.positiony = temppositiony; // posição Y para alocar o bicho
+		this.position = new Point(temppositionx,temppositiony); 
 		this.velocidadeauto = tempvelocidadeauto; // velocidadeauto (treme treme)
 												// É fixa depois de gerada,
 												// só muda em situações
@@ -226,11 +226,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 		for (int i = 1; i < this.numerodepontos; i++) { // iniciando pontos x e y
 													// com listas
-			this.pontox[i] = (int) (this.morfogenese.random(this.positionx - this.tamanho, this.positionx
+			this.pontox[i] = (int) (this.morfogenese.random(this.position.x - this.tamanho, this.position.x
 					+ this.tamanho));
 		}
 		for (int j = 1; j < this.numerodepontos; j++) {
-			this.pontoy[j] = (int) (this.morfogenese.random(this.positiony - this.tamanho, this.positiony
+			this.pontoy[j] = (int) (this.morfogenese.random(this.position.y - this.tamanho, this.position.y
 					+ this.tamanho));
 		}
 
@@ -1803,6 +1803,14 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 						if (this.morfogenese.keyPressed) {
 							if (this.morfogenese.key == 'u' || this.morfogenese.key == 'U') {
 								this.morfogenese.eubicho = this;
+							}else if (Character.toUpperCase(morfogenese.key) == 'M'){
+								Point position = new Point(
+//										(int)this.morfogenese.posicaofinalmouseX, 
+//										(int)this.morfogenese.posicaofinalmouseY
+										this.morfogenese.mouseX, 
+										this.morfogenese.mouseY
+										);
+								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
 							}
 						}
 
@@ -1842,4 +1850,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
+	@Override
+	public String toString() {
+		return String.format("head: %s, index:%s, position:(%s,%s)", forma1,
+				this.morfogenese.bichos.indexOf(this), position);
+	}
+	
 }
