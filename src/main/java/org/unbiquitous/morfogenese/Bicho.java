@@ -15,24 +15,24 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	public float easing; // easing (em cascata: easing+o*o*easingaceleration)
 	public float easingAcceleration; // easingaceleration
 	public float tamanho; // tamanho (retângulo possível)
-	public float pesodalinha; // peso da linha do bicho
-	public float formadiam; // diâmetro de cada forma (todas elas) a partir do diam
-	public int forma1; // forma da cabeça
-	public int forma2; // forma do pescoço
-	public int formarabo; // forma do rabo
+	public float pesoDaLinha; // peso da linha do bicho
+	public float diametroDaForma; // diâmetro de cada forma (todas elas) a partir do diam
+	public int formaCabeca; // forma da cabeça
+	public int formaPescoco; // forma do pescoço
+	public int formaRabo; // forma do rabo
 	public int instrumento; // para definir o instrumento de cada som
-	public int nota; // define a nota que o bicho vai reproduzir
+	public int notaMusical; // define a nota que o bicho vai reproduzir
 	public float energia; // equivale à quantidade de vida inicial
-	public float pontomadurocruza; // define um ponto de maturidade para que possam
+	public float pontoDeMaturidadeParaCruzamento; // define um ponto de maturidade para que possam
 							// cruzar novamente
 	public int chance; // pode fazer ou não algo: surtar, caçar, fugir (1:chapado,
 				// 2:surta, 3:berserker, 4:medroso, 5:violento, 6:esperto /
 				// tarado>=3 / ataca com bando >=5)
 
 	public Color cor;
-	public Color corlinha;
-	public float coralpha; // alpha da linha associado à vida
-	public float corlinhaalpha; // alpha da corlinha associado à vida
+	public Color corLinha;
+	public float corAlpha; // alpha da linha associado à vida
+	public float corLinhaAlpha; // alpha da corlinha associado à vida
 	public float velocidade; // velocidade WASD
 	private float novachance; // contador para alterar a probabilidade da chance
 	private float evoluichance; // para mudar de personalidade conforme ganha experiência
@@ -42,12 +42,12 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private float angulorabo; // para rodar as formas geométricas do rabo
 	public boolean vida; // vivo ou morto
 	public boolean podre; // morto e podre
-	public float velocidadeautooriginal; // para que ele tenda a retoranar a essa
+	public float velocidadeAutoOriginal; // para que ele tenda a retoranar a essa
 									// velocidade
 	private int cruza; // para poder ter 2 fazes no cruzamento
 	private float bando; // V que determina se a energia coletiva é maior que a do
 					// inimigo
-	private float finalbando; // V que determina se a energia coletiva é maior que a
+	private float finalBando; // V que determina se a energia coletiva é maior que a
 						// do inimigo
 	private float tamanhoformadiam; // para que eles decidam a área de interação e
 							// aprendam com os próprios erros
@@ -130,20 +130,20 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			int numerodepontos, // número de pontos do bicho. O index é
 									// 0. Com todos os pontos separados o
 									// menor número é 5
-			float temppesodalinha, // peso da linha do bicho
+			float pesodalinha, // peso da linha do bicho
 			Color cor, // cores linha R
 			Color corlinha, // cores corlinha B
-			float tempformadiam, // diâmetro de cada forma (todas elas) a
+			float formadiam, // diâmetro de cada forma (todas elas) a
 									// partir do diam
-			int tempforma1, // forma da cabeça
-			int tempforma2, // forma do pescoço
-			int tempformarabo, // forma do rabo
-			int tempinstrumento, // para definir o instrumento de cada som
-			int tempnota, // define a nota que o bicho vai reproduzir
-			float tempenergia, // equivale à quantidade de vida inicial
-			float temppontomadurocruza, // define um ponto de maturidade
+			int formaCabeca, // forma da cabeça
+			int formaPescoco, // forma do pescoço
+			int formaRabo, // forma do rabo
+			int instrumento, // para definir o instrumento de cada som
+			int notaMusical, // define a nota que o bicho vai reproduzir
+			float energia, // equivale à quantidade de vida inicial
+			float pontoDeMaturidadeParaCruzamento, // define um ponto de maturidade
 										// para que possam cruzar novamente
-			int tempchance // pode fazer ou não algo: surtar, caçar, fugir
+			int chance // pode fazer ou não algo: surtar, caçar, fugir
 							// (1:chapado, 2:surta, 3:berserker, 4:medroso,
 							// 5:violento, 6:esperto / tarado>=3 / ataca com
 							// bando >=5)
@@ -159,40 +159,34 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 								// easing+o*o*easingaceleration)
 		this.easingAcceleration = easingaceleration; // easingaceleration
 		this.tamanho = tamanho; // tamanho (retângulo possível)
-		this.pesodalinha = temppesodalinha; // peso da linha do bicho
-		this.formadiam = tempformadiam; // diâmetro de cada forma (todas elas) a
+		this.pesoDaLinha = pesodalinha; // peso da linha do bicho
+		this.diametroDaForma = formadiam; // diâmetro de cada forma (todas elas) a
 									// partir do diam
-		this.forma1 = tempforma1; // forma da cabeça
-		this.forma2 = tempforma2; // forma do pescoço
-		this.formarabo = tempformarabo; // forma do rabo
-		this.instrumento = tempinstrumento; // para definir o instrumento de cada
-										// som
-		this.nota = tempnota; // define a nota que o bicho vai reproduzir
-		this.energia = tempenergia; // equivale à quantidade de vida inicial
-		this.pontomadurocruza = temppontomadurocruza; // define um ponto de
-													// maturidade para que
-													// possam cruzar
-													// novamente
-		this.chance = tempchance; // pode fazer ou não algo: surtar, caçar, fugir
+		this.formaCabeca = formaCabeca; // forma da cabeça
+		this.formaPescoco = formaPescoco; // forma do pescoço
+		this.formaRabo = formaRabo; // forma do rabo
+		this.instrumento = instrumento; // para definir o instrumento de cada som
+		this.notaMusical = notaMusical; // define a nota que o bicho vai reproduzir
+		this.energia = energia; // equivale à quantidade de vida inicial
+		this.pontoDeMaturidadeParaCruzamento = pontoDeMaturidadeParaCruzamento; // define um ponto de maturidade para que possam cruzar novamente
+		this.chance = chance; // pode fazer ou não algo: surtar, caçar, fugir
 								// (1:chapado, 2:surta, 3:berserker,
 								// 4:medroso, 5:violento, 6:esperto /
 								// tarado>=3 / ataca com bando >=5)
 
-//		this.cor = this.morfogenese.color(corr, corg, corb);
 		this.cor = cor;
-//		this.corlinha = this.morfogenese.color(corlinhar, corlinhag, corlinhab);
-		this.corlinha = corlinha;
-		this.coralpha = 50 + energia * 4; // características de cada bicho
+		this.corLinha = corlinha;
+		this.corAlpha = 50 + energia * 4; // características de cada bicho
 										// geradas aleatoriamente e outras
 										// Vs definidas automaticamente
-		this.corlinhaalpha = 50 + energia * 4;
+		this.corLinhaAlpha = 50 + energia * 4;
 		this.velocidade = 5;
 		this.novachance = this.morfogenese.random(100);
-		this.maturidade = (int) this.morfogenese.random(pontomadurocruza);
+		this.maturidade = (int) this.morfogenese.random(pontoDeMaturidadeParaCruzamento);
 		this.vida = true;
 		this.podre = false;
-		this.velocidadeautooriginal = velocidadeauto;
-		this.finalbando = energia;
+		this.velocidadeAutoOriginal = velocidadeauto;
+		this.finalBando = energia;
 		this.bancodadosinstrumento = (int) this.morfogenese.random(4);
 		this.atracao = 0.5f;
 		this.maxformadiam = (int) (this.morfogenese.random(40, 60));
@@ -256,27 +250,27 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 		if (this.morfogenese.mudadia == 5) {
 			cor.set(0, 0, 0);
-			corlinha.set(0, 0, 0);
-			coralpha = 255;
-			corlinhaalpha = 255;
+			corLinha.set(0, 0, 0);
+			corAlpha = 255;
+			corLinhaAlpha = 255;
 		} else {
 			//TODO: somthing is not right here
 //			cor.set(corr, corg, corb);
 //			corlinha = this.morfogenese.color(corlinhar, corlinhag, corlinhab);
 		}
 
-		desenhaforma(pontox[1], pontoy[1], angulo1, forma1, formadiam, 1,
-				pesodalinha, cor.color(), coralpha, corlinha.color(), corlinhaalpha); // desenha
+		desenhaforma(pontox[1], pontoy[1], angulo1, formaCabeca, diametroDaForma, 1,
+				pesoDaLinha, cor.color(), corAlpha, corLinha.color(), corLinhaAlpha); // desenha
 																		// a
 																		// cabeça
-		desenhaforma(pontox[2], pontoy[2], angulo2, forma2, formadiam, 2,
-				pesodalinha, cor.color(), coralpha, corlinha.color(), corlinhaalpha); // desenha
+		desenhaforma(pontox[2], pontoy[2], angulo2, formaPescoco, diametroDaForma, 2,
+				pesoDaLinha, cor.color(), corAlpha, corLinha.color(), corLinhaAlpha); // desenha
 																		// o
 																		// dorso
 		desenhaforma(pontox[numeroDePontos() - 1],
-				pontoy[numeroDePontos() - 1], angulorabo, formarabo,
-				formadiam, 5, pesodalinha, cor.color(), coralpha, corlinha.color(),
-				corlinhaalpha); // desenha o rabo
+				pontoy[numeroDePontos() - 1], angulorabo, formaRabo,
+				diametroDaForma, 5, pesoDaLinha, cor.color(), corAlpha, corLinha.color(),
+				corLinhaAlpha); // desenha o rabo
 
 		this.morfogenese.noFill(); // desenho da estrutura
 		this.morfogenese.beginShape();
@@ -358,8 +352,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private void semove() { // função para mover os bichos no automático e criar os
 					// easings [SEMOVE]
 
-		coralpha = 50 + energia * 4;
-		corlinhaalpha = 50 + energia * 4;
+		corAlpha = 50 + energia * 4;
+		corLinhaAlpha = 50 + energia * 4;
 
 		energia = energia - 0.0001f * velocidadeAuto * numeroDePontos(); // a  vida tende a acabar
 		maturidade = maturidade + 0.1f; // amadurece para reproduzir
@@ -410,28 +404,28 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			selimita(cor.red(), 0, 255),
 			selimita(cor.green(), 0, 255),
 			selimita(cor.blue(), 0, 255));
-		corlinha.set(
-			selimita(corlinha.red(), 0, 255),
-			selimita(corlinha.green(), 0, 255),
-			selimita(corlinha.blue(), 0, 255));
+		corLinha.set(
+			selimita(corLinha.red(), 0, 255),
+			selimita(corLinha.green(), 0, 255),
+			selimita(corLinha.blue(), 0, 255));
 
-		coralpha = selimita(coralpha, 0, 255);
-		corlinhaalpha = selimita(corlinhaalpha, 0, 255);
+		corAlpha = selimita(corAlpha, 0, 255);
+		corLinhaAlpha = selimita(corLinhaAlpha, 0, 255);
 
 		if (this.morfogenese.random(1) < 0.005 * velocidadeAuto) {
-			nota = nota + (int) (this.morfogenese.random(-2, 2));
+			notaMusical = notaMusical + (int) (this.morfogenese.random(-2, 2));
 		}
 
-		nota = (int) (selimita(nota, 0, 99));
+		notaMusical = (int) (selimita(notaMusical, 0, 99));
 		instrumento = (int) (selimita(instrumento, 0, 127));
 
 		if (this.morfogenese.random(1) < 0.005 * velocidadeAuto) {
 			instrumento = instrumento + (int) (this.morfogenese.random(-2, 2));
 		}
 
-		formadiam = movimentorandomico(formadiam, -1, 1, 1,
+		diametroDaForma = movimentorandomico(diametroDaForma, -1, 1, 1,
 				tamanhoformadiam, velocidadeAuto / 1.5f, 0);
-		formadiam = selimita(formadiam, 5, maxformadiam);
+		diametroDaForma = selimita(diametroDaForma, 5, maxformadiam);
 
 		for (int o = 2; o < numeroDePontos(); o++) { // quando a cabeça move,
 													// o resto deve
@@ -537,10 +531,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 								movimentaeasing(cor.red(), r1, 10),
 								movimentaeasing(cor.green(), g1, 10),
 								movimentaeasing(cor.blue(), b1, 10));
-							corlinha.set(
-								movimentaeasing(corlinha.red(), r1, 10),
-								movimentaeasing(corlinha.green(), g1, 10),
-								movimentaeasing(corlinha.blue(), b1, 10));
+							corLinha.set(
+								movimentaeasing(corLinha.red(), r1, 10),
+								movimentaeasing(corLinha.green(), g1, 10),
+								movimentaeasing(corLinha.blue(), b1, 10));
 						}
 					}
 
@@ -569,9 +563,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 							-atracao);
 
 					if (this.morfogenese.commetadados >= 2) {
-						desenhaforma(closestX, closestY, -angulo1, forma1,
-								formadiam, 0.5f, pesodalinha, cor.color(),
-								coralpha / 3, corlinha.color(), corlinhaalpha / 3);
+						desenhaforma(closestX, closestY, -angulo1, formaCabeca,
+								diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
+								corAlpha / 3, corLinha.color(), corLinhaAlpha / 3);
 						desenhalinhacontato(pontox[1], pontoy[1], closestX,
 								closestY);
 					}
@@ -615,15 +609,15 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			velocidadeAuto = 9;
 		}
 
-		if (finalbando > energia) { // retoma energia se não está em bando e
+		if (finalBando > energia) { // retoma energia se não está em bando e
 									// atualiza caso perca energia
-			finalbando = finalbando - 1;
-		} else if (finalbando < energia) { // acompanha a energia caso ela
+			finalBando = finalBando - 1;
+		} else if (finalBando < energia) { // acompanha a energia caso ela
 											// aumente
-			finalbando = finalbando + 1;
+			finalBando = finalBando + 1;
 		}
 
-		if (velocidadeAuto > velocidadeautooriginal) { // tendência a
+		if (velocidadeAuto > velocidadeAutoOriginal) { // tendência a
 														// retomar
 														// velocidade
 														// original
@@ -744,12 +738,12 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	private void semostravivo() { // função para desenhar as formas [SEMOSTRA]
 
-		if (maturidade >= pontomadurocruza) { // mostra a elipse no
+		if (maturidade >= pontoDeMaturidadeParaCruzamento) { // mostra a elipse no
 												// penúltimo ponto se ele
 												// estiver maduro
 			desenhaforma(pontox[numeroDePontos() - 2],
-					pontoy[numeroDePontos() - 2], angulo1, forma1, formadiam,
-					3, pesodalinha, corlinha.color(), corlinhaalpha, 0, 0); // com
+					pontoy[numeroDePontos() - 2], angulo1, formaCabeca, diametroDaForma,
+					3, pesoDaLinha, corLinha.color(), corLinhaAlpha, 0, 0); // com
 																	// preenchimento
 																	// igual
 																	// ao
@@ -761,11 +755,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 																	// poucas
 																	// vezes
 			pegainstrumento(bancodadosinstrumento, instrumento);
-			tocanota(nota, this.morfogenese.volume, this.morfogenese.duracao);
+			tocanota(notaMusical, this.morfogenese.volume, this.morfogenese.duracao);
 			desenhaforma(pontox[numeroDePontos() - 1],
-					pontoy[numeroDePontos() - 1], angulorabo, 1, formadiam,
-					0.5f, pesodalinha, cor.color(), coralpha / 3, corlinha.color(),
-					corlinhaalpha); // para saber qual é o que está fazendo
+					pontoy[numeroDePontos() - 1], angulorabo, 1, diametroDaForma,
+					0.5f, pesoDaLinha, cor.color(), corAlpha / 3, corLinha.color(),
+					corLinhaAlpha); // para saber qual é o que está fazendo
 									// barulho
 
 		}
@@ -775,37 +769,37 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 			for (int w = 1; w < numeroDePontos(); w++) {
 				desenhaforma(pontox[w], pontoy[w], angulorabo, 1,
-						formadiam, 7, pesodalinha, cor.color(), coralpha, corlinha.color(),
-						corlinhaalpha);
+						diametroDaForma, 7, pesoDaLinha, cor.color(), corAlpha, corLinha.color(),
+						corLinhaAlpha);
 			}
 
 			this.morfogenese.fill(cor.red(), cor.green(), cor.blue(), 255); // preenchimento do texto na cor do
 											// contorno do bicho!
 			this.morfogenese.textSize(12);
-			this.morfogenese.text("adp: " + (int) (minhaadaptacao), pontox[1] + formadiam
+			this.morfogenese.text("adp: " + (int) (minhaadaptacao), pontox[1] + diametroDaForma
 					+ 10, pontoy[1] - 15);
-			this.morfogenese.text("vid: " + (int) (energia) + "  |  " + (int) (finalbando),
-					pontox[1] + formadiam + 10, pontoy[1]); // texto em cada
+			this.morfogenese.text("vid: " + (int) (energia) + "  |  " + (int) (finalBando),
+					pontox[1] + diametroDaForma + 10, pontoy[1]); // texto em cada
 															// bicho para
 															// realizar os
 															// testes
 			this.morfogenese.text("som: " + (int) (bancodadosinstrumento) + "  |  "
-					+ (int) (instrumento) + "  |  " + (int) (nota),
-					pontox[1] + formadiam + 10, pontoy[1] + 15);
+					+ (int) (instrumento) + "  |  " + (int) (notaMusical),
+					pontox[1] + diametroDaForma + 10, pontoy[1] + 15);
 			this.morfogenese.text("tam: " + (numeroDePontos() - 1) + "  |  "
 					+ (numerodepontosdalinha) + "  |  "
 					+ (int) (tamanhoformadiam * 100) + "  |  "
-					+ (int) (sova), pontox[1] + formadiam + 10,
+					+ (int) (sova), pontox[1] + diametroDaForma + 10,
 					pontoy[1] + 30);
 			this.morfogenese.text("cha: " + (int) (chance) + "  |  " + (int) (evoluichance)
-					+ "  |  " + (int) (novachance), pontox[1] + formadiam
+					+ "  |  " + (int) (novachance), pontox[1] + diametroDaForma
 					+ 10, pontoy[1] + 45);
 			this.morfogenese.text("mat: " + (int) (maturidade) + "  |  "
-					+ (int) (pontomadurocruza), pontox[1] + formadiam + 10,
+					+ (int) (pontoDeMaturidadeParaCruzamento), pontox[1] + diametroDaForma + 10,
 					pontoy[1] + 60);
-			this.morfogenese.text("ger: " + geracao, pontox[1] + formadiam + 10,
+			this.morfogenese.text("ger: " + geracao, pontox[1] + diametroDaForma + 10,
 					pontoy[1] + 75);
-			this.morfogenese.text("ind: " + this.morfogenese.bichos.indexOf(this), pontox[1] + formadiam
+			this.morfogenese.text("ind: " + this.morfogenese.bichos.indexOf(this), pontox[1] + diametroDaForma
 					+ 10, pontoy[1] + 90);
 		}
 	}
@@ -819,14 +813,14 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 			energia = energia - 0.002f; // continua até ficar podre
 
-			coralpha = 100 + energia * 10;
-			corlinhaalpha = 100 + energia * 10;
+			corAlpha = 100 + energia * 10;
+			corLinhaAlpha = 100 + energia * 10;
 
-			coralpha = selimita(coralpha, 0, 100);
-			corlinhaalpha = selimita(corlinhaalpha, 0, 100);
+			corAlpha = selimita(corAlpha, 0, 100);
+			corLinhaAlpha = selimita(corLinhaAlpha, 0, 100);
 
 			cor.set(100,100,100);
-			corlinha.set(100,100,100);
+			corLinha.set(100,100,100);
 
 			chance = 0;
 			novachance = 0;
@@ -835,11 +829,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			maturidade = 0;
 
 			if (contagemmorte == 0) { // contagem morte
-				if (forma1 == 1) {
+				if (formaCabeca == 1) {
 					this.morfogenese.ne = this.morfogenese.ne - 1;
-				} else if (forma1 == 2) {
+				} else if (formaCabeca == 2) {
 					this.morfogenese.nr = this.morfogenese.nr - 1;
-				} else if (forma1 == 3) {
+				} else if (formaCabeca == 3) {
 					this.morfogenese.nt = this.morfogenese.nt - 1;
 				}
 			}
@@ -873,7 +867,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				desenhalinhacontato(pontox[1], pontoy[1],
 						this.morfogenese.bichos.get(t).pontox[1], this.morfogenese.bichos.get(t).pontoy[1]);
 
-				if (forma1 == this.morfogenese.bichos.get(t).forma1) { // se for da mesma
+				if (formaCabeca == this.morfogenese.bichos.get(t).formaCabeca) { // se for da mesma
 														// forma... [COLISÃO
 														// LONGE FORMA==]
 
@@ -1046,7 +1040,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				novachance = 0;
 				this.morfogenese.bichos.get(t).novachance = 0;
 
-				if (forma1 == this.morfogenese.bichos.get(t).forma1) { // [COLISÃO PERTO
+				if (formaCabeca == this.morfogenese.bichos.get(t).formaCabeca) { // [COLISÃO PERTO
 														// FORMA==]
 
 					if (vida == true && this.morfogenese.bichos.get(t).vida == true) { // [COLISÃO
@@ -1188,7 +1182,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		ponto1ydirafastapodre = 0;
 
 		if (bando != energia) {
-			finalbando = bando;
+			finalBando = bando;
 		}
 
 		bando = energia;
@@ -1246,8 +1240,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			anguloAB = calculaanguloAB(anguloAB, A, B);
 
 			desenhaforma(A.pontox[2], A.pontoy[2], B.angulo2 + A.angulo2
-					* -1 * 2, 3, A.formadiam, 1, A.pesodalinha * 0.5f, 0,
-					0, A.corlinha.color(), A.corlinhaalpha); // EFEITO DE FUGA
+					* -1 * 2, 3, A.diametroDaForma, 1, A.pesoDaLinha * 0.5f, 0,
+					0, A.corLinha.color(), A.corLinhaAlpha); // EFEITO DE FUGA
 
 			A.angulo2 = A.angulo2 + 2;
 
@@ -1267,8 +1261,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			anguloAB = calculaanguloAB(anguloAB, A, B);
 
 			desenhaforma(A.pontox[2], A.pontoy[2], B.angulo2 + A.angulo2
-					* 2, 2, A.formadiam, 1, A.pesodalinha * 0.5f, 0, 0,
-					A.corlinha.color(), A.corlinhaalpha); // EFEITO DE CAÇA
+					* 2, 2, A.diametroDaForma, 1, A.pesoDaLinha * 0.5f, 0, 0,
+					A.corLinha.color(), A.corLinhaAlpha); // EFEITO DE CAÇA
 
 			A.angulo2 = A.angulo2 + 2;
 
@@ -1289,8 +1283,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 			desenhaforma(A.pontox[A.pontox.length - 2],
 					A.pontoy[A.pontox.length - 2], A.angulo1, 1,
-					A.formadiam, 1, A.pesodalinha * 0.5f, 0, 0, A.corlinha.color(),
-					A.corlinhaalpha);
+					A.diametroDaForma, 1, A.pesoDaLinha * 0.5f, 0, 0, A.corLinha.color(),
+					A.corLinhaAlpha);
 
 			A.ponto1xdirtarado = desloca(A.ponto1xdirtarado, 1, anguloAB,
 					A.atracao * -1 * (B.energia / 20));
@@ -1342,14 +1336,14 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			movimentaeasing(A.cor.green(), B.cor.green(), 70),
 			movimentaeasing(A.cor.blue(), B.cor.blue(), 70));
 
-		A.corlinha.set(// compartilha a cor da corlinha
-			movimentaeasing(A.corlinha.red(), B.corlinha.red(), 70), 
-			movimentaeasing(A.corlinha.green(), B.corlinha.green(), 70),
-			movimentaeasing(A.corlinha.blue(), B.corlinha.blue(), 70));
+		A.corLinha.set(// compartilha a cor da corlinha
+			movimentaeasing(A.corLinha.red(), B.corLinha.red(), 70), 
+			movimentaeasing(A.corLinha.green(), B.corLinha.green(), 70),
+			movimentaeasing(A.corLinha.blue(), B.corLinha.blue(), 70));
 
 		A.angulorabo = A.angulorabo + 10; // roda forma
 
-		A.nota = (int) (movimentaeasing(A.nota, B.nota, 2) + ((int) (this.morfogenese.random(
+		A.notaMusical = (int) (movimentaeasing(A.notaMusical, B.notaMusical, 2) + ((int) (this.morfogenese.random(
 				4, 6)) * 0.1)); // compartilha a nota
 
 		A.instrumento = (int) (movimentaeasing(A.instrumento,
@@ -1389,12 +1383,12 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		A.angulo2 = A.angulo2 + A.velocidadeAuto;
 		A.angulorabo = A.angulorabo + A.velocidadeAuto;
 
-		A.desenhaforma(A.pontox[1], A.pontoy[1], A.angulo1, 1, A.formadiam,
-				0.25f, A.pesodalinha, A.cor.color(), A.coralpha * 0.75f,
-				A.corlinha.color(), A.corlinhaalpha); // resposta visual do toque
+		A.desenhaforma(A.pontox[1], A.pontoy[1], A.angulo1, 1, A.diametroDaForma,
+				0.25f, A.pesoDaLinha, A.cor.color(), A.corAlpha * 0.75f,
+				A.corLinha.color(), A.corLinhaAlpha); // resposta visual do toque
 		A.desenhaforma(A.pontox[A.pontox.length - 2],
-				A.pontoy[A.pontox.length - 2], A.angulo1, 1, A.formadiam,
-				1, A.pesodalinha * 0.5f, 0, 0, A.corlinha.color(), A.corlinhaalpha); // quando
+				A.pontoy[A.pontox.length - 2], A.angulo1, 1, A.diametroDaForma,
+				1, A.pesoDaLinha * 0.5f, 0, 0, A.corLinha.color(), A.corLinhaAlpha); // quando
 																				// cruza
 																				// o
 																				// órgão
@@ -1422,11 +1416,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			pegainstrumento(A.bancodadosinstrumento, A.instrumento); // toca
 																		// o
 																		// som
-			tocanota(A.nota, this.morfogenese.volume, this.morfogenese.duracao);
+			tocanota(A.notaMusical, this.morfogenese.volume, this.morfogenese.duracao);
 			desenhaforma(A.pontox[A.pontox.length - 1],
 					A.pontoy[A.pontox.length - 1], A.angulorabo, 1,
-					A.formadiam, 0.5f, A.pesodalinha, A.cor.color(),
-					A.coralpha / 3, A.corlinha.color(), A.corlinhaalpha); // para
+					A.diametroDaForma, 0.5f, A.pesoDaLinha, A.cor.color(),
+					A.corAlpha / 3, A.corLinha.color(), A.corLinhaAlpha); // para
 																	// saber
 																	// qual
 																	// é o
@@ -1474,8 +1468,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		A.energia = A.energia - 1;
 
 		desenhaforma(A.pontox[1], A.pontoy[1], A.angulo1 * -1 * 2, 2,
-				A.formadiam, 0.25f, A.pesodalinha, A.cor.color(),
-				A.coralpha * 0.75f, A.corlinha.color(), A.corlinhaalpha); // resposta
+				A.diametroDaForma, 0.25f, A.pesoDaLinha, A.cor.color(),
+				A.corAlpha * 0.75f, A.corLinha.color(), A.corLinhaAlpha); // resposta
 																	// visual
 																	// do
 																	// toque
@@ -1484,11 +1478,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			pegainstrumento(A.bancodadosinstrumento, A.instrumento); // toca
 																		// o
 																		// som
-			tocanota(A.nota, this.morfogenese.volume, this.morfogenese.duracao);
+			tocanota(A.notaMusical, this.morfogenese.volume, this.morfogenese.duracao);
 			desenhaforma(A.pontox[A.pontox.length - 1],
 					A.pontoy[A.pontox.length - 1], A.angulorabo, 1,
-					A.formadiam, 0.5f, A.pesodalinha, A.cor.color(),
-					A.coralpha / 3, A.corlinha.color(), A.corlinhaalpha); // para
+					A.diametroDaForma, 0.5f, A.pesoDaLinha, A.cor.color(),
+					A.corAlpha / 3, A.corLinha.color(), A.corLinhaAlpha); // para
 																	// saber
 																	// qual
 																	// é o
@@ -1508,8 +1502,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		if (A.vida == true) {
 
 			desenhaforma(A.pontox[1], A.pontoy[1], B.angulo1 + A.angulo1
-					* -1 * 2, 2, A.formadiam, 0.5f, A.pesodalinha, 0, 0,
-					A.corlinha.color(), A.corlinhaalpha);
+					* -1 * 2, 2, A.diametroDaForma, 0.5f, A.pesoDaLinha, 0, 0,
+					A.corLinha.color(), A.corLinhaAlpha);
 
 			A.angulo1 = A.angulo1 + 8; // roda mais rápido quando se
 										// alimenta
@@ -1534,19 +1528,19 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		A.velocidadeAuto = B.velocidadeAuto;
 		B.energia = B.energia + 0.01f;
 		A.energia = A.energia - 0.01f;
-		A.formadiam = movimentaeasing(A.formadiam, B.formadiam * 0.5f, 100);
+		A.diametroDaForma = movimentaeasing(A.diametroDaForma, B.diametroDaForma * 0.5f, 100);
 		B.tamanhoformadiam = B.tamanhoformadiam + 0.01f;
 		A.tamanhoformadiam = 0;
-		A.pesodalinha = movimentaeasing(A.pesodalinha, B.pesodalinha, 100);
+		A.pesoDaLinha = movimentaeasing(A.pesoDaLinha, B.pesoDaLinha, 100);
 		A.cor.set(
 			movimentaeasing(A.cor.red(), B.cor.red(), 100),
 			movimentaeasing(A.cor.green(), B.cor.green(), 100),
 			movimentaeasing(A.cor.blue(), B.cor.blue(), 100));
-		A.corlinha.set(
-			movimentaeasing(A.corlinha.red(), B.corlinha.red(), 100),
-			movimentaeasing(A.corlinha.green(), B.corlinha.green(), 100),
-			movimentaeasing(A.corlinha.blue(), B.corlinha.blue(), 100));
-		A.nota = (int) (movimentaeasing(A.nota, B.nota, 2) + ((int) (this.morfogenese.random(
+		A.corLinha.set(
+			movimentaeasing(A.corLinha.red(), B.corLinha.red(), 100),
+			movimentaeasing(A.corLinha.green(), B.corLinha.green(), 100),
+			movimentaeasing(A.corLinha.blue(), B.corLinha.blue(), 100));
+		A.notaMusical = (int) (movimentaeasing(A.notaMusical, B.notaMusical, 2) + ((int) (this.morfogenese.random(
 				4, 6)) * 0.1));
 		A.instrumento = (int) (movimentaeasing(A.instrumento,
 				B.instrumento, 2) + ((int) (this.morfogenese.random(4, 6)) * 0.1));
@@ -1561,10 +1555,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				B.pontoy[1]); // calcula o tamanho da diagonal entre os
 								// bichos
 
-		if (distanciaAB > (A.formadiam + B.formadiam) / 2
-				&& distanciaAB < (A.formadiam + B.formadiam) * 4) {
+		if (distanciaAB > (A.diametroDaForma + B.diametroDaForma) / 2
+				&& distanciaAB < (A.diametroDaForma + B.diametroDaForma) * 4) {
 			return 1;
-		} else if (distanciaAB < (A.formadiam + B.formadiam) / 2) {
+		} else if (distanciaAB < (A.diametroDaForma + B.diametroDaForma) / 2) {
 			return 2;
 		} else {
 			return 0;
@@ -1579,8 +1573,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				B.pontoy[1]); // calcula o tamanho da diagonal entre os
 								// bichos
 
-		if (distanciaAB > (A.formadiam + B.formadiam) * 1.5
-				&& A.formarabo == B.formarabo) {
+		if (distanciaAB > (A.diametroDaForma + B.diametroDaForma) * 1.5
+				&& A.formaRabo == B.formaRabo) {
 			return true;
 		} else {
 			return false;
@@ -1591,7 +1585,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private boolean AmaisfracoqueB(Bicho A, Bicho B) {
 
 		if (A.energia < B.energia || A.energia > B.energia
-				&& A.energia < B.finalbando) {
+				&& A.energia < B.finalBando) {
 			return true;
 		} else {
 			return false;
@@ -1601,8 +1595,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	private boolean AeBmaduros(Bicho A, Bicho B) {
 
-		if (A.maturidade > A.pontomadurocruza
-				&& B.maturidade > B.pontomadurocruza) {
+		if (A.maturidade > A.pontoDeMaturidadeParaCruzamento
+				&& B.maturidade > B.pontoDeMaturidadeParaCruzamento) {
 			return true;
 		} else {
 			return false;
@@ -1612,7 +1606,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	private boolean ApassarpelospontosdeB(Bicho A, Bicho B, int nponto) {
 
-		if (A.vida == true && B.vida == true && A.forma1 == B.forma2
+		if (A.vida == true && B.vida == true && A.formaCabeca == B.formaPescoco
 				&& A.pontox[1] >= B.pontox[nponto] - 10
 				&& A.pontox[1] <= B.pontox[nponto] + 10
 				&& A.pontoy[1] >= B.pontoy[nponto] - 10
@@ -1629,7 +1623,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 		if (this.morfogenese.commetadados >= 3) { // mostrador de distâncias de colisão
 			this.morfogenese.noFill(); // desenho que liga os que interagem
-			this.morfogenese.stroke(corlinha.red(), corlinha.green(), corlinha.blue(), corlinhaalpha);
+			this.morfogenese.stroke(corLinha.red(), corLinha.green(), corLinha.blue(), corLinhaAlpha);
 			this.morfogenese.strokeWeight(2);
 			this.morfogenese.beginShape();
 			this.morfogenese.curveVertex(pontoxA, pontoyA);
@@ -1643,36 +1637,36 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	private boolean mousetocarnessebicho() {
 
-		if (this.morfogenese.posicaofinalmouseX > pontox[1] - (formadiam / 2)
-				&& this.morfogenese.posicaofinalmouseX < pontox[1] + (formadiam / 2)
-				&& this.morfogenese.posicaofinalmouseY > pontoy[1] - (formadiam / 2)
-				&& this.morfogenese.posicaofinalmouseY < pontoy[1] + (formadiam / 2)
+		if (this.morfogenese.posicaofinalmouseX > pontox[1] - (diametroDaForma / 2)
+				&& this.morfogenese.posicaofinalmouseX < pontox[1] + (diametroDaForma / 2)
+				&& this.morfogenese.posicaofinalmouseY > pontoy[1] - (diametroDaForma / 2)
+				&& this.morfogenese.posicaofinalmouseY < pontoy[1] + (diametroDaForma / 2)
 				||
 
-				this.morfogenese.posicaofinalmouseX > pontox[2] - (formadiam / 4)
-				&& this.morfogenese.posicaofinalmouseX < pontox[2] + (formadiam / 4)
-				&& this.morfogenese.posicaofinalmouseY > pontoy[2] - (formadiam / 4)
-				&& this.morfogenese.posicaofinalmouseY < pontoy[2] + (formadiam / 4)
+				this.morfogenese.posicaofinalmouseX > pontox[2] - (diametroDaForma / 4)
+				&& this.morfogenese.posicaofinalmouseX < pontox[2] + (diametroDaForma / 4)
+				&& this.morfogenese.posicaofinalmouseY > pontoy[2] - (diametroDaForma / 4)
+				&& this.morfogenese.posicaofinalmouseY < pontoy[2] + (diametroDaForma / 4)
 				||
 
 				this.morfogenese.posicaofinalmouseX > pontox[numeroDePontos() - 2]
-						- (formadiam / 6)
+						- (diametroDaForma / 6)
 				&& this.morfogenese.posicaofinalmouseX < pontox[numeroDePontos() - 2]
-						+ (formadiam / 6)
+						+ (diametroDaForma / 6)
 				&& this.morfogenese.posicaofinalmouseY > pontoy[numeroDePontos() - 2]
-						- (formadiam / 6)
+						- (diametroDaForma / 6)
 				&& this.morfogenese.posicaofinalmouseY < pontoy[numeroDePontos() - 2]
-						+ (formadiam / 6)
+						+ (diametroDaForma / 6)
 				||
 
 				this.morfogenese.posicaofinalmouseX > pontox[numeroDePontos() - 1]
-						- (formadiam / 10)
+						- (diametroDaForma / 10)
 				&& this.morfogenese.posicaofinalmouseX < pontox[numeroDePontos() - 1]
-						+ (formadiam / 10)
+						+ (diametroDaForma / 10)
 				&& this.morfogenese.posicaofinalmouseY > pontoy[numeroDePontos() - 1]
-						- (formadiam / 10)
+						- (diametroDaForma / 10)
 				&& this.morfogenese.posicaofinalmouseY < pontoy[numeroDePontos() - 1]
-						+ (formadiam / 10)) {
+						+ (diametroDaForma / 10)) {
 
 			return true;
 		} else {
@@ -1712,8 +1706,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 						desenhaforma(this.morfogenese.posicaofinalmouseX,
 								this.morfogenese.posicaofinalmouseY, angulo1, 1, 50,
-								this.morfogenese.random(0.5f, 1), pesodalinha, cor.color(),
-								coralpha / 5, corlinha.color(), corlinhaalpha / 5);
+								this.morfogenese.random(0.5f, 1), pesoDaLinha, cor.color(),
+								corAlpha / 5, corLinha.color(), corLinhaAlpha / 5);
 
 						desenhalinhacontato(pontox[1], pontoy[1],
 								this.morfogenese.posicaofinalmouseX, this.morfogenese.posicaofinalmouseY);
@@ -1729,10 +1723,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 									anguloentrebichoemouse, -1);
 
 							desenhaforma(this.morfogenese.posicaofinalmouseX,
-									this.morfogenese.posicaofinalmouseY, -angulo1, forma1,
-									formadiam, 0.5f, pesodalinha, cor.color(),
-									coralpha / 3, corlinha.color(),
-									corlinhaalpha / 3);
+									this.morfogenese.posicaofinalmouseY, -angulo1, formaCabeca,
+									diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
+									corAlpha / 3, corLinha.color(),
+									corLinhaAlpha / 3);
 
 							desenhalinhacontato(pontox[1], pontoy[1],
 									this.morfogenese.posicaofinalmouseX, this.morfogenese.posicaofinalmouseY);
@@ -1749,16 +1743,16 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 					if (mousetocarnessebicho()) {
 
-						desenhaforma(pontox[1], pontoy[1], angulo1, forma1,
-								formadiam, 0.5f, pesodalinha, cor.color(),
-								coralpha, corlinha.color(), corlinhaalpha);
+						desenhaforma(pontox[1], pontoy[1], angulo1, formaCabeca,
+								diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
+								corAlpha, corLinha.color(), corLinhaAlpha);
 						velocidadeAuto = velocidadeAuto + 3;
 						pegainstrumento(bancodadosinstrumento, instrumento);
-						tocanota(nota, this.morfogenese.volume, this.morfogenese.duracao);
+						tocanota(notaMusical, this.morfogenese.volume, this.morfogenese.duracao);
 						desenhaforma(pontox[numeroDePontos() - 1],
 								pontoy[numeroDePontos() - 1], angulorabo, 1,
-								formadiam, 0.5f, pesodalinha, cor.color(),
-								coralpha / 3, corlinha.color(), corlinhaalpha); // para
+								diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
+								corAlpha / 3, corLinha.color(), corLinhaAlpha); // para
 																		// saber
 																		// qual
 																		// é
@@ -1790,15 +1784,15 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				if (mousetocarnessebicho()) {
 
 					if (vida == true) { // mata
-						desenhaforma(pontox[1], pontoy[1], angulo1, forma1,
-								formadiam, 0.5f, pesodalinha, cor.color(),
-								coralpha, corlinha.color(), corlinhaalpha);
+						desenhaforma(pontox[1], pontoy[1], angulo1, formaCabeca,
+								diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
+								corAlpha, corLinha.color(), corLinhaAlpha);
 						energia = -1;
 
 					} else if (vida == false) { // apodrece
-						desenhaforma(pontox[1], pontoy[1], angulo1, forma1,
-								formadiam, 0.5f, pesodalinha, cor.color(),
-								coralpha, corlinha.color(), corlinhaalpha);
+						desenhaforma(pontox[1], pontoy[1], angulo1, formaCabeca,
+								diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
+								corAlpha, corLinha.color(), corLinhaAlpha);
 						energia = energia - 1;
 
 					}
@@ -1824,7 +1818,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	@Override
 	public String toString() {
-		return String.format("head: %s, index:%s, position:(%s,%s)", forma1,
+		return String.format("head: %s, index:%s, position:(%s,%s)", formaCabeca,
 				this.morfogenese.bichos.indexOf(this), position);
 	}
 	

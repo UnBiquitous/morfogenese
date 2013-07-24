@@ -12,8 +12,36 @@ public class DNA {
 	private float easingAcceleration;
 	
 	private float tamanho;
-	private float pesodalinha;
+	private float pesoDaLinha;
+	private float diametroDaForma;
+	private int formaCabeca;
+	private int formaPescoco;
+	private int formaRabo;
+	private int instrumento;
+	private int notaMusical;
+	private float energia;
+	private float pontoDeMaturidadeParaCruzamento;
+	private int chance;
+	private boolean vida;
+	private boolean podre;
 
+	private Color cor;
+	private Color corLinha;
+	
+	private float corAlpha; // Calculated
+	private float corLinhaAlpha; // Calculated
+	private float velocidade; // Init
+	private float novachance; // Init
+	private float maturidade; // Init
+	private float velocidadeAutoOriginal; // = velocidadeAuto
+	private float finalBando; // = energia
+	private int bancodadosinstrumento; // Calculated
+	private float atracao; // Init
+	private float maxformadiam; // Calculated
+	private int numerodepontosdalinha; // Calculated
+	
+	
+	
 	public DNA position(Point position) {
 		this.position = position;
 		return this;

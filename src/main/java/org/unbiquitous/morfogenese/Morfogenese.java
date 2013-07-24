@@ -600,7 +600,7 @@ public class Morfogenese extends PApplet {
 		noFill();
 		stroke(eubicho.cor.color(), 255); // eubicho.coralpha
 		ellipse(eubicho.pontox[1], eubicho.pontoy[1], 100, 100);
-		stroke(eubicho.corlinha.color(), 255); // eubicho.corlinhaalpha
+		stroke(eubicho.corLinha.color(), 255); // eubicho.corlinhaalpha
 		ellipse(eubicho.pontox[1], eubicho.pontoy[1], 120, 120);
 
 		if (eubicho.vida == false) {
@@ -687,7 +687,7 @@ public class Morfogenese extends PApplet {
 																					// alocar
 																					// o
 																					// bicho
-		meudna[2] = (int) ((bichoculpado.velocidadeautooriginal + bichaculpada.velocidadeautooriginal) / 2); // velocidadeauto
+		meudna[2] = (int) ((bichoculpado.velocidadeAutoOriginal + bichaculpada.velocidadeAutoOriginal) / 2); // velocidadeauto
 																												// (treme
 																												// treme)
 																												// É
@@ -713,22 +713,22 @@ public class Morfogenese extends PApplet {
 								// todos os pontos separados o menor número é 5.
 								// A maluquice é para permitir q filho de
 								// números ímpares não seja fixo
-		meudna[7] = (int) (((bichoculpado.pesodalinha + bichaculpada.pesodalinha) / 2) + ((int) (random(
+		meudna[7] = (int) (((bichoculpado.pesoDaLinha + bichaculpada.pesoDaLinha) / 2) + ((int) (random(
 				4, 6)) * 0.1)); // peso da linha do bicho
 		meudna[8] = (int) ((bichoculpado.cor.red() + bichaculpada.cor.red()) / 2); // cores  linha  R
 		meudna[9] = (int) ((bichoculpado.cor.green() + bichaculpada.cor.green()) / 2); // cores  linha  G
 		meudna[10] = (int) ((bichoculpado.cor.blue() + bichaculpada.cor.blue()) / 2); // cores  linha  B
-		meudna[11] = (int) ((bichoculpado.corlinha.red() + bichaculpada.corlinha.red()) / 2); // cores  forma  R
-		meudna[12] = (int) ((bichoculpado.corlinha.green() + bichaculpada.corlinha.green()) / 2); // cores  forma  G
-		meudna[13] = (int) ((bichoculpado.corlinha.blue() + bichaculpada.corlinha.blue()) / 2); // cores  forma  B
-		meudna[14] = (int) ((bichoculpado.formadiam + bichaculpada.formadiam) / 2); // diâmetro  de  cada  forma  (todas  elas)  a  partir  do  diam
-		meudna[15] = bichoculpado.forma1; // forma da cabeça
+		meudna[11] = (int) ((bichoculpado.corLinha.red() + bichaculpada.corLinha.red()) / 2); // cores  forma  R
+		meudna[12] = (int) ((bichoculpado.corLinha.green() + bichaculpada.corLinha.green()) / 2); // cores  forma  G
+		meudna[13] = (int) ((bichoculpado.corLinha.blue() + bichaculpada.corLinha.blue()) / 2); // cores  forma  B
+		meudna[14] = (int) ((bichoculpado.diametroDaForma + bichaculpada.diametroDaForma) / 2); // diâmetro  de  cada  forma  (todas  elas)  a  partir  do  diam
+		meudna[15] = bichoculpado.formaCabeca; // forma da cabeça
 		meudna[16] = (int) (random(1, 4)); // forma do pescoço
 		meudna[17] = (int) (random(1, 4)); // forma do rabo
 		meudna[18] = (int) ((((float) (bichoculpado.instrumento + bichaculpada.instrumento)) / 2) + ((int) (random(
 				4, 6)) * 0.1)); // para definir o instrumento de cada som. São
 								// todos os instrumentos
-		meudna[19] = (int) ((((float) (bichoculpado.nota + bichaculpada.nota)) / 2) + ((int) (random(
+		meudna[19] = (int) ((((float) (bichoculpado.notaMusical + bichaculpada.notaMusical)) / 2) + ((int) (random(
 				4, 6)) * 0.1)); // define a nota que o bicho vai reproduzir em 5
 								// oitavas diferentes
 								// //nota=(int)(escalanotas[(int)(random(escalanotas.length))]);
@@ -739,7 +739,7 @@ public class Morfogenese extends PApplet {
 																				// de
 																				// vida
 																				// inicial
-		meudna[21] = (int) ((bichoculpado.pontomadurocruza + bichaculpada.pontomadurocruza) / 2); // define
+		meudna[21] = (int) ((bichoculpado.pontoDeMaturidadeParaCruzamento + bichaculpada.pontoDeMaturidadeParaCruzamento) / 2); // define
 																									// um
 																									// ponto
 																									// de
@@ -929,11 +929,11 @@ public class Morfogenese extends PApplet {
 			alteracoesforadna(meubicho);
 		}
 
-		if (meubicho.forma1 == 1) { // contagem nascimento
+		if (meubicho.formaCabeca == 1) { // contagem nascimento
 			ne = ne + 1;
-		} else if (meubicho.forma1 == 2) {
+		} else if (meubicho.formaCabeca == 2) {
 			nr = nr + 1;
-		} else if (meubicho.forma1 == 3) {
+		} else if (meubicho.formaCabeca == 3) {
 			nt = nt + 1;
 		}
 
@@ -957,18 +957,18 @@ public class Morfogenese extends PApplet {
 																				// soma
 																				// 1
 
-		if (bichoculpado.forma2 == bichaculpada.forma2) { // se o pescoço dos
+		if (bichoculpado.formaPescoco == bichaculpada.formaPescoco) { // se o pescoço dos
 															// pais for igual o
 															// filho ganha
 															// energia
 			meubicho.energia = meubicho.energia + 5;
 			if (random(1) < 0.25) { // chance de 1/4 de mutação
-				meubicho.forma1 = bichoculpado.forma2;
+				meubicho.formaCabeca = bichoculpado.formaPescoco;
 			} else {
-				meubicho.forma2 = bichoculpado.forma2;
+				meubicho.formaPescoco = bichoculpado.formaPescoco;
 			}
 
-			if (bichoculpado.formarabo == bichaculpada.formarabo) { // se o rabo
+			if (bichoculpado.formaRabo == bichaculpada.formaRabo) { // se o rabo
 																	// dos pais
 																	// for igual
 																	// o filho
@@ -977,7 +977,7 @@ public class Morfogenese extends PApplet {
 																	// energia
 				meubicho.energia = meubicho.energia + 5;
 
-				if (bichoculpado.formarabo == bichoculpado.forma2) { // se o
+				if (bichoculpado.formaRabo == bichoculpado.formaPescoco) { // se o
 																		// pescoço
 																		// e o
 																		// rabo
@@ -994,13 +994,13 @@ public class Morfogenese extends PApplet {
 																		// cabeça
 																		// (mutação)
 																		// :D
-					meubicho.forma1 = bichoculpado.forma2;
+					meubicho.formaCabeca = bichoculpado.formaPescoco;
 					meubicho.energia = meubicho.energia + 10;
 				} else if (random(1) < 0.25) { // se não, chance de 1/4 de
 												// mutação
-					meubicho.forma1 = bichoculpado.formarabo;
+					meubicho.formaCabeca = bichoculpado.formaRabo;
 				} else {
-					meubicho.formarabo = bichoculpado.formarabo;
+					meubicho.formaRabo = bichoculpado.formaRabo;
 				}
 			}
 		}
@@ -1059,14 +1059,14 @@ public class Morfogenese extends PApplet {
 			if (som == true) {
 				meubicho.pegainstrumento(meubicho.bancodadosinstrumento,
 						meubicho.instrumento); // faz barulho quando nasce
-				meubicho.tocanota(meubicho.nota, volume, duracao);
-				stroke(meubicho.corlinha.red(), meubicho.corlinha.green(),
-						meubicho.corlinha.blue(), meubicho.corlinhaalpha); // para saber qual é o que está fazendo barulho
+				meubicho.tocanota(meubicho.notaMusical, volume, duracao);
+				stroke(meubicho.corLinha.red(), meubicho.corLinha.green(),
+						meubicho.corLinha.blue(), meubicho.corLinhaAlpha); // para saber qual é o que está fazendo barulho
 				fill(meubicho.cor.red(), meubicho.cor.green(), meubicho.cor.blue(),
-						meubicho.coralpha / 3);
+						meubicho.corAlpha / 3);
 				ellipse(meubicho.pontox[meubicho.numeroDePontos() - 1],
 						meubicho.pontoy[meubicho.numeroDePontos() - 1],
-						meubicho.formadiam * 2, meubicho.formadiam * 2);
+						meubicho.diametroDaForma * 2, meubicho.diametroDaForma * 2);
 			}
 
 			filanascimento = 0; // encerra fila de nascimentos
