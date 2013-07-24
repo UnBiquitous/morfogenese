@@ -196,29 +196,19 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		this.pontox = new float[numerodepontos];
 		this.pontoy = new float[numerodepontos];
 
-		for (int i = 1; i < numerodepontos; i++) { // iniciando pontos x e y
-													// com listas
+		for (int i = 1; i < numerodepontos; i++) { // iniciando pontos x e y com listas
 			this.pontox[i] = (int) (this.morfogenese.random(this.position.x - this.tamanho, this.position.x
 					+ this.tamanho));
-		}
-		for (int j = 1; j < numerodepontos; j++) {
-			this.pontoy[j] = (int) (this.morfogenese.random(this.position.y - this.tamanho, this.position.y
+			this.pontoy[i] = (int) (this.morfogenese.random(this.position.y - this.tamanho, this.position.y
 					+ this.tamanho));
 		}
 
-		this.distx1 = new float[numerodepontos]; // distâncias inicial dos pontos
-											// que define a forma do corpo
-											// de cada bicho. Outras listas
+		this.distx1 = new float[numerodepontos]; // distâncias inicial dos pontos  que define a forma do corpo de cada bicho. Outras listas
 		this.disty1 = new float[numerodepontos];
 
-		for (int i = 1; i < numerodepontos; i++) { // captura das distâncias
-													// iniciais dos pontos
-													// para manter forma do
-													// bicho. Listas de novo
+		for (int i = 1; i < numerodepontos; i++) { // captura das distâncias  iniciais dos pontos para manter forma do bicho. Listas de novo
 			this.distx1[i] = Morfogenese.abs(Morfogenese.abs(this.pontox[1]) - Morfogenese.abs(this.pontox[i]));
-		}
-		for (int j = 1; j < numerodepontos; j++) {
-			this.disty1[j] = Morfogenese.abs(Morfogenese.abs(this.pontoy[1]) - Morfogenese.abs(this.pontoy[j]));
+			this.disty1[i] = Morfogenese.abs(Morfogenese.abs(this.pontoy[1]) - Morfogenese.abs(this.pontoy[i]));
 		}
 
 		this.ordemxy = new int[this.numerodepontosdalinha];
