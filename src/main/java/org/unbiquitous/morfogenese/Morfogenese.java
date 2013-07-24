@@ -534,9 +534,7 @@ public class Morfogenese extends PApplet {
 		if (mouseButton == LEFT) {
 			if (keyPressed) {
 				
-				Set<Character> teclasDeCriacao = Sets.newHashSet('Q','E','R','T');
-				
-				if (teclasDeCriacao.contains(Character.toUpperCase(key))){
+				if (Sets.newHashSet('Q','E','R','T').contains(Character.toUpperCase(key))){
 					int[] meudna = definednagenerico(); // define a sequência de dna
 					meudna[0] = (int) ((mouseX / escala) - ((width / escala) - width) / 2); // posição X para alocar obicho
 					meudna[1] = (int) ((mouseY / escala) - ((height / escala) - height) / 2); // posição Y para alocar o bicho
