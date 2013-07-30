@@ -28,15 +28,16 @@ public class DNA {
 	private Color cor;
 	private Color corLinha;
 	
-	private float corAlpha; // Calculated
-	private float corLinhaAlpha; // Calculated
 	private float velocidade; // Init
 	private float novachance; // Init
 	private float maturidade; // Init
 	private float velocidadeAutoOriginal; // = velocidadeAuto
 	private float finalBando; // = energia
-	private int bancodadosinstrumento; // Calculated
 	private float atracao; // Init
+	
+	private float corLinhaAlpha; // Calculated
+	private float corAlpha; // Calculated
+	private int bancodadosinstrumento; // Calculated
 	private float maxformadiam; // Calculated
 	private int numerodepontosdalinha; // Calculated
 	private float[] pontox; // Calculated
@@ -57,7 +58,6 @@ public class DNA {
 		theMap.put("velocidadeAuto", velocidadeAuto);
 		theMap.put("easing", easing);
 		theMap.put("easingAcceleration", easingAcceleration);
-		
 		theMap.put("tamanho", tamanho);
 		theMap.put("pesoDaLinha", pesoDaLinha);
 		theMap.put("diametroDaForma", diametroDaForma);
@@ -71,8 +71,66 @@ public class DNA {
 		theMap.put("chance", chance);
 		theMap.put("vida", vida);
 		theMap.put("podre", podre);
+		theMap.put("cor", cor);
+		theMap.put("corLinha", corLinha);
+		theMap.put("velocidade", velocidade);
+		theMap.put("novachance", novachance);
+		theMap.put("maturidade", maturidade);
+		theMap.put("velocidadeAutoOriginal", velocidadeAutoOriginal);
+		theMap.put("finalBando", finalBando);
+		theMap.put("atracao", atracao);
+		theMap.put("corLinhaAlpha", corLinhaAlpha);
+		theMap.put("corAlpha", corAlpha);
+		theMap.put("bancodadosinstrumento", bancodadosinstrumento);
+		theMap.put("maxformadiam", maxformadiam);
+		theMap.put("numerodepontosdalinha", numerodepontosdalinha);
+		theMap.put("pontox", pontox);
+		theMap.put("pontoy", pontoy);
+		theMap.put("distx1", distx1);
+		theMap.put("disty1", disty1);
+		theMap.put("ordemxy", ordemxy);
 		
 		return theMap;
+	}
+	
+	public static DNA fromMap(Map<String, Object> theMap) {
+		DNA dna = new DNA();
+		dna.position( (Point) theMap.get("position"));
+		dna.velocidadeAuto( (Float) theMap.get("velocidadeAuto"));
+		dna.easing( (Float) theMap.get("easing"));
+		dna.easingAcceleration( (Float) theMap.get("easingAcceleration"));
+		dna.tamanho( (Float) theMap.get("tamanho"));
+		dna.pesoDaLinha( (Float) theMap.get("pesoDaLinha"));
+		dna.diametroDaForma( (Float) theMap.get("diametroDaForma"));
+		dna.formaCabeca( (Integer) theMap.get("formaCabeca"));
+		dna.formaPescoco( (Integer) theMap.get("formaPescoco"));
+		dna.formaRabo( (Integer) theMap.get("formaRabo"));
+		dna.instrumento( (Integer) theMap.get("instrumento"));
+		dna.notaMusical( (Integer) theMap.get("notaMusical"));
+		dna.energia( (Float) theMap.get("energia"));
+		dna.pontoDeMaturidadeParaCruzamento( (Float) theMap.get("pontoDeMaturidadeParaCruzamento"));
+		dna.chance( (Integer) theMap.get("chance"));
+		dna.vida( (Boolean) theMap.get("vida"));
+		dna.podre( (Boolean) theMap.get("podre"));
+		dna.cor( (Color) theMap.get("cor"));
+		dna.corLinha( (Color) theMap.get("corLinha"));
+		dna.velocidade( (Float) theMap.get("velocidade"));
+		dna.novachance( (Float) theMap.get("novachance"));
+		dna.maturidade( (Float) theMap.get("maturidade"));
+		dna.velocidadeAutoOriginal( (Float) theMap.get("velocidadeAutoOriginal"));
+		dna.finalBando( (Float) theMap.get("finalBando"));
+		dna.atracao( (Float) theMap.get("atracao"));
+		dna.corLinhaAlpha( (Float) theMap.get("corLinhaAlpha"));
+		dna.corAlpha( (Float) theMap.get("corAlpha"));
+		dna.bancodadosinstrumento( (Integer) theMap.get("bancodadosinstrumento"));
+		dna.maxformadiam( (Float) theMap.get("maxformadiam"));
+		dna.numerodepontosdalinha( (Integer) theMap.get("numerodepontosdalinha"));
+		dna.pontox( (float[]) theMap.get("pontox"));
+		dna.pontoy( (float[]) theMap.get("pontoy"));
+		dna.distx1( (float[]) theMap.get("distx1"));
+		dna.disty1( (float[]) theMap.get("disty1"));
+		dna.ordemxy( (int[]) theMap.get("ordemxy"));
+		return dna;
 	}
 	
 	public DNA velocidadeAuto(float velocidadeAuto) {
@@ -152,6 +210,96 @@ public class DNA {
 
 	public DNA podre(boolean podre) {
 		this.podre = podre;
+		return this;
+	}
+
+	public DNA cor(Color cor) {
+		this.cor = cor;
+		return this;
+	}
+
+	public DNA corLinha(Color corLinha) {
+		this.corLinha = corLinha;
+		return this;
+	}
+
+	public DNA velocidade(float velocidade) {
+		this.velocidade = velocidade;
+		return this;
+	}
+
+	public DNA novachance(float novachance) {
+		this.novachance = novachance;
+		return this;
+	}
+
+	public DNA maturidade(float maturidade) {
+		this.maturidade = maturidade;
+		return this;
+	}
+
+	public DNA velocidadeAutoOriginal(float velocidadeAutoOriginal) {
+		this.velocidadeAutoOriginal = velocidadeAutoOriginal;
+		return this;
+	}
+
+	public DNA finalBando(float finalBando) {
+		this.finalBando = finalBando;
+		return this;
+	}
+
+	public DNA atracao(float atracao) {
+		this.atracao = atracao;
+		return this;
+	}
+
+	public DNA corLinhaAlpha(float corLinhaAlpha) {
+		this.corLinhaAlpha = corLinhaAlpha;
+		return this;
+	}
+
+	public DNA corAlpha(float corAlpha) {
+		this.corAlpha = corAlpha;
+		return this;
+	}
+
+	public DNA bancodadosinstrumento(int bancodadosinstrumento) {
+		this.bancodadosinstrumento = bancodadosinstrumento;
+		return this;
+	}
+
+	public DNA maxformadiam(float maxformadiam) {
+		this.maxformadiam = maxformadiam;
+		return this;
+	}
+
+	public DNA numerodepontosdalinha(int numerodepontosdalinha) {
+		this.numerodepontosdalinha = numerodepontosdalinha;
+		return this;
+	}
+
+	public DNA pontox(float[] pontox) {
+		this.pontox = pontox;
+		return this;
+	}
+
+	public DNA pontoy(float[] pontoy) {
+		this.pontoy = pontoy;
+		return this;
+	}
+
+	public DNA distx1(float[] distx1) {
+		this.distx1 = distx1;
+		return this;
+	}
+
+	public DNA disty1(float[] disty1) {
+		this.disty1 = disty1;
+		return this;
+	}
+
+	public DNA ordemxy(int[] ordemxy) {
+		this.ordemxy = ordemxy;
 		return this;
 	}
 

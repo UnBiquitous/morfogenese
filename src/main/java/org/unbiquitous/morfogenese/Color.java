@@ -37,5 +37,12 @@ public class Color {
 		return new Color(parent, 0).set(r, g, b);
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Color){
+			Color that = (Color) obj;
+			return this == obj || this.color() == that.color();
+		}
+		return false;
+	}
 }
