@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import processing.core.PApplet;
+
 public class DNA {
 
 	private Point position;
@@ -46,11 +48,6 @@ public class DNA {
 	private float[] disty1; // Calculated
 	private int[] ordemxy; // Calculated
 	
-	public DNA position(Point position) {
-		this.position = position;
-		return this;
-	}
-
 	public Map<String, Object> toMap() {
 		Map<String, Object> theMap = new HashMap<String, Object>();
 		
@@ -131,6 +128,51 @@ public class DNA {
 		dna.disty1( (float[]) theMap.get("disty1"));
 		dna.ordemxy( (int[]) theMap.get("ordemxy"));
 		return dna;
+	}
+	
+	public static DNA autoGenese(PApplet p,
+			int displayWidth, int displayHeight, 
+			float escala ) {
+		DNA meudna = new DNA()
+			.position(new Point(
+							(int) (random(100, (displayWidth / escala) - 100)),
+							(int) (random(100, (displayHeight / escala) - 100))
+							)
+						)
+			.velocidadeAuto((int) (random(1, 5)))
+			.easing((int) (random(40, 100)))
+			.easingAcceleration((int) (random(5, 15)))
+			.tamanho((int) (random(50, 200)))
+			.numerodepontosdalinha((int) (random(4, 9)))
+			.pesoDaLinha((int) (random(1, 5)))
+			.cor(Color.color(p, (int) (random(255)), (int) (random(255)), (int) (random(255))))
+			.corLinha(Color.color(p, (int) (random(255)), (int) (random(255)), (int) (random(255))))
+			.diametroDaForma((int) (random(5, 50)))
+			.formaCabeca((int) (random(1, 4)))
+			.formaPescoco((int) (random(1, 4)))
+			.formaRabo((int) (random(1, 4)))
+			.instrumento((int) (random(127)))
+			.notaMusical((int) (random(99)))
+			.energia((int) (random(30, 50)))
+			.pontoDeMaturidadeParaCruzamento((int) (random(50, 200)))
+			.chance((int) (random(1, 11)));
+
+		return meudna;
+	}
+	
+	//TODO: POG
+	static float random(float low, float high){
+		float diff = high - low;
+		return random(diff)+low;
+	}
+	
+	static float random(float high){
+		return (float)(Math.random()*high);
+	}
+	
+	public DNA position(Point position) {
+		this.position = position;
+		return this;
 	}
 	
 	public DNA velocidadeAuto(float velocidadeAuto) {
@@ -301,6 +343,146 @@ public class DNA {
 	public DNA ordemxy(int[] ordemxy) {
 		this.ordemxy = ordemxy;
 		return this;
+	}
+	
+	public Point position() {
+		return this.position;
+	}
+	
+	public float velocidadeAuto() {
+		return this.velocidadeAuto;
+	}
+
+	public float easing() {
+		return this.easing;
+	}
+
+	public float easingAcceleration() {
+		return this.easingAcceleration;
+	}
+	
+	public float tamanho() {
+		return this.tamanho;
+	}
+
+	public float pesoDaLinha() {
+		return this.pesoDaLinha;
+	}
+
+	public float diametroDaForma() {
+		return this.diametroDaForma;
+	}
+
+	public int formaCabeca() {
+		return this.formaCabeca;
+	}
+
+	public int formaPescoco() {
+		return this.formaPescoco;
+	}
+
+	public int formaRabo() {
+		return this.formaRabo;
+	}
+
+	public int instrumento() {
+		return this.instrumento;
+	}
+
+	public int notaMusical() {
+		return this.notaMusical;
+	}
+
+	public float energia() {
+		return this.energia;
+	}
+
+	public float pontoDeMaturidadeParaCruzamento() {
+		return this.pontoDeMaturidadeParaCruzamento;
+	}
+
+	public int chance() {
+		return this.chance;
+	}
+
+	public boolean vida() {
+		return this.vida;
+	}
+
+	public boolean podre() {
+		return this.podre;
+	}
+
+	public Color cor() {
+		return this.cor;
+	}
+
+	public Color corLinha() {
+		return this.corLinha;
+	}
+
+	public float velocidade() {
+		return this.velocidade;
+	}
+
+	public float novachance() {
+		return this.novachance;
+	}
+
+	public float maturidade() {
+		return this.maturidade;
+	}
+
+	public float velocidadeAutoOriginal() {
+		return this.velocidadeAutoOriginal;
+	}
+
+	public float finalBando() {
+		return this.finalBando;
+	}
+
+	public float atracao() {
+		return this.atracao;
+	}
+
+	public float corLinhaAlpha() {
+		return this.corLinhaAlpha;
+	}
+
+	public float corAlpha() {
+		return this.corAlpha;
+	}
+
+	public int bancodadosinstrumento() {
+		return this.bancodadosinstrumento;
+	}
+
+	public float maxformadiam() {
+		return this.maxformadiam;
+	}
+
+	public int numerodepontosdalinha() {
+		return this.numerodepontosdalinha;
+	}
+
+	public float[] pontox() {
+		return this.pontox;
+	}
+
+	public float[] pontoy() {
+		return this.pontoy;
+	}
+
+	public float[] distx1() {
+		return this.distx1;
+	}
+
+	public float[] disty1() {
+		return this.disty1;
+	}
+
+	public int[] ordemxy() {
+		return this.ordemxy;
 	}
 
 }

@@ -225,6 +225,75 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		randomizar(this.ordemxy);
 
 	}
+	
+	public Bicho(Morfogenese morfogenese,DNA dna) {
+
+				this.morfogenese = morfogenese;
+				this.position = dna.position(); 
+				this.velocidadeAuto = dna.velocidadeAuto(); 
+				this.easing = dna.easing(); 
+				this.easingAcceleration = dna.easingAcceleration();
+				this.tamanho = dna.tamanho(); 
+				this.pesoDaLinha = dna.pesoDaLinha();
+				this.diametroDaForma = dna.diametroDaForma();
+				this.formaCabeca = dna.formaCabeca();
+				this.formaPescoco = dna.formaPescoco();
+				this.formaRabo = dna.formaRabo();
+				this.instrumento = dna.instrumento();
+				this.notaMusical = dna.notaMusical();
+				this.energia = dna.energia();
+				this.pontoDeMaturidadeParaCruzamento = dna.pontoDeMaturidadeParaCruzamento();
+				this.chance = dna.chance();
+
+				this.cor = dna.cor();
+				this.corLinha = dna.corLinha();
+				this.corAlpha = 50 + dna.energia() * 4;
+				this.corLinhaAlpha = 50 + dna.energia() * 4;
+				this.velocidade = 5;
+				this.novachance = this.morfogenese.random(100);
+				this.maturidade = (int) this.morfogenese.random(dna.pontoDeMaturidadeParaCruzamento());
+				this.vida = true;
+				this.podre = false;
+				this.velocidadeAutoOriginal = dna.velocidadeAuto();
+				this.finalBando = dna.energia();
+				this.bancodadosinstrumento = (int) this.morfogenese.random(4);
+				this.atracao = 0.5f;
+				this.maxformadiam = (int) (this.morfogenese.random(40, 60));
+				this.numerodepontosdalinha = (int) (this.morfogenese.random(dna.numerodepontosdalinha() - 4,
+						dna.numerodepontosdalinha() - 2));
+
+				this.pontox = new float[dna.numerodepontosdalinha()];
+				this.pontoy = new float[dna.numerodepontosdalinha()];
+
+				for (int i = 1; i < dna.numerodepontosdalinha(); i++) { 
+					this.pontox[i] = (int) (this.morfogenese.random(this.position.x - this.tamanho, this.position.x
+							+ this.tamanho));
+					this.pontoy[i] = (int) (this.morfogenese.random(this.position.y - this.tamanho, this.position.y
+							+ this.tamanho));
+				}
+
+				this.distx1 = new float[dna.numerodepontosdalinha()];
+				this.disty1 = new float[dna.numerodepontosdalinha()];
+
+				for (int i = 1; i < dna.numerodepontosdalinha(); i++) { 
+					this.distx1[i] = Morfogenese.abs(Morfogenese.abs(this.pontox[1]) - Morfogenese.abs(this.pontox[i]));
+					this.disty1[i] = Morfogenese.abs(Morfogenese.abs(this.pontoy[1]) - Morfogenese.abs(this.pontoy[i]));
+				}
+
+				this.ordemxy = new int[this.numerodepontosdalinha];
+
+				for (int i = 1; i < this.numerodepontosdalinha; i++) {
+					if (i + 2 < dna.numerodepontosdalinha() - 1) {
+						this.ordemxy[i] = i + 2;
+					} else {
+						this.ordemxy[i] = (int) (this.morfogenese.random(2, dna.numerodepontosdalinha() - 1));
+					}
+
+				}
+
+				randomizar(this.ordemxy);
+
+			}
 
 	private void randomizar(int[] a) {
 		for (int k = 1; k < a.length - 2; k++) {
@@ -1755,14 +1824,15 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 						if (this.morfogenese.keyPressed) {
 							if (this.morfogenese.key == 'u' || this.morfogenese.key == 'U') {
 								this.morfogenese.eubicho = this;
-							}else if (Character.toUpperCase(morfogenese.key) == 'M'){
+							}else if (Character.toUpperCase(morfogenese.key) == 'N'){
 								Point position = new Point(
 //										(int)this.morfogenese.posicaofinalmouseX, 
 //										(int)this.morfogenese.posicaofinalmouseY
 										this.morfogenese.mouseX, 
 										this.morfogenese.mouseY
 										);
-								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
+//								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
+//								this.morfogenese.criaUmQualquer(position);
 							}
 						}
 

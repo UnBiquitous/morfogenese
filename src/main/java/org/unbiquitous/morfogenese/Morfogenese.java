@@ -546,6 +546,10 @@ public class Morfogenese extends PApplet {
 						break;
 					}
 					nasce(false,meudna); // nasce
+				}else if ('H' == Character.toUpperCase(key)){
+					int x = (int) ((mouseX / escala) - ((width / escala) - width) / 2);
+					int y = (int) ((mouseY / escala) - ((height / escala) - height) / 2);
+					criaUmQualquer(new Point(x,y));
 				}
 			}
 		}
@@ -670,7 +674,7 @@ public class Morfogenese extends PApplet {
 
 		return meudna;
 	}
-
+	
 	private int[] definednamesclado() {
 
 		int[] meudna = new int[24];
@@ -891,6 +895,24 @@ public class Morfogenese extends PApplet {
 		}
 	}
 
+	private void nasce(boolean comalteracoesforadna, DNA meudna) {
+		meubicho = new Bicho(this,meudna);
+		
+		if (comalteracoesforadna) {
+			alteracoesforadna(meubicho);
+		}
+
+		if (meubicho.formaCabeca == 1) { // contagem nascimento
+			ne = ne + 1;
+		} else if (meubicho.formaCabeca == 2) {
+			nr = nr + 1;
+		} else if (meubicho.formaCabeca == 3) {
+			nt = nt + 1;
+		}
+
+		bichos.add(meubicho);
+	}
+	
 	private void nasce(boolean comalteracoesforadna, int[] meudna) {
 
 		meubicho = new Bicho(this, 
@@ -945,22 +967,11 @@ public class Morfogenese extends PApplet {
 
 		meubicho.maturidade = 0; // zera a maturidade quando nasce
 		meubicho.geracao = (abs(bichoculpado.geracao + bichaculpada.geracao) / 2)
-				- (abs(bichoculpado.geracao - bichaculpada.geracao) / 2) + 1; // seleciona
-																				// o
-																				// menor
-																				// número
-																				// da
-																				// geração
-																				// dos
-																				// pais
-																				// e
-																				// soma
-																				// 1
+				- (abs(bichoculpado.geracao - bichaculpada.geracao) / 2) + 1; 
+		// seleciona o menor número da geração dos pais e soma 1
 
-		if (bichoculpado.formaPescoco == bichaculpada.formaPescoco) { // se o pescoço dos
-															// pais for igual o
-															// filho ganha
-															// energia
+		if (bichoculpado.formaPescoco == bichaculpada.formaPescoco) { 
+			// se o pescoço dos pais for igual o filho ganha energia
 			meubicho.energia = meubicho.energia + 5;
 			if (random(1) < 0.25) { // chance de 1/4 de mutação
 				meubicho.formaCabeca = bichoculpado.formaPescoco;
@@ -968,32 +979,13 @@ public class Morfogenese extends PApplet {
 				meubicho.formaPescoco = bichoculpado.formaPescoco;
 			}
 
-			if (bichoculpado.formaRabo == bichaculpada.formaRabo) { // se o rabo
-																	// dos pais
-																	// for igual
-																	// o filho
-																	// ganha
-																	// mais
-																	// energia
+			if (bichoculpado.formaRabo == bichaculpada.formaRabo) { 
+				// se o rabo dos pais for igual o filho ganha mais energia
 				meubicho.energia = meubicho.energia + 5;
 
-				if (bichoculpado.formaRabo == bichoculpado.formaPescoco) { // se o
-																		// pescoço
-																		// e o
-																		// rabo
-																		// dos
-																		// pais
-																		// forem
-																		// todos
-																		// iguais
-																		// a
-																		// forma
-																		// pode
-																		// mudar
-																		// a
-																		// cabeça
-																		// (mutação)
-																		// :D
+				if (bichoculpado.formaRabo == bichoculpado.formaPescoco) { 
+					// se o pescoço e o rabo dos pais forem todos iguais
+					// a forma pode mudar a cabeça (mutação) :D
 					meubicho.formaCabeca = bichoculpado.formaPescoco;
 					meubicho.energia = meubicho.energia + 10;
 				} else if (random(1) < 0.25) { // se não, chance de 1/4 de
@@ -1031,28 +1023,10 @@ public class Morfogenese extends PApplet {
 	
 	private void nascemescladna() {
 
-		if (filanascimento == 1 && bichos.size() < maximobichos) { // nascimento
-																	// da fera
-																	// :D
-																	// mistura
-																	// papai e
-																	// mamãe
-																	// (não usei
-																	// a
-																	// meudna[]
-																	// e o
-																	// nasce()
-																	// porque
-																	// depois
-																	// que cria
-																	// e antes
-																	// de
-																	// adicionar
-																	// à fila
-																	// tenho que
-																	// mudar
-																	// pontox/y
-																	// [NASCIMENTO]
+		if (filanascimento == 1 && bichos.size() < maximobichos) { 
+			// nascimento da fera :D mistura papai e mamãe (não usei
+			// a meudna[] e o nasce() porque depois que cria e antes
+			// de adicionar à fila tenho que mudar pontox/y [NASCIMENTO]
 
 			nasce(true, definednamesclado());
 
@@ -1140,10 +1114,9 @@ public class Morfogenese extends PApplet {
 	}
 	
 	//FIXME: remover este método
-	public synchronized void criaUmQualquer(){
-		int[] definednagenerico = definednagenerico();
-		definednagenerico[0] = 10;
-		definednagenerico[1] = 10;
+	public synchronized void criaUmQualquer(Point position){
+		DNA definednagenerico = DNA.autoGenese(this, displayWidth, displayHeight, escala);
+		definednagenerico.position(position);
 		nasce(false,definednagenerico);
 	}
 	
