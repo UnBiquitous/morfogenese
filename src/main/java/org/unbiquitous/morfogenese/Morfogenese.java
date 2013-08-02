@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -70,10 +71,11 @@ public class Morfogenese extends PApplet {
 								// processamento)
 	private PrintWriter saida; // para fazer os gráficos das Vs
 
-	public ArrayList<Bicho> bichos = new ArrayList<Bicho>(); // crio a arraylist
+	public List<Bicho> bichos = new ArrayList<Bicho>(); // crio a arraylist
 														// bichos. É uma array
 														// de objetos. Bicho é a
 														// classe
+	public List<Bicho> novosbichos = new ArrayList<Bicho>();
 
 	// float[] escalanotas = {57, 60, 60, 60, 62, 64, 67, 67, 69, 72, 72, 72,
 	// 74, 76, 79}; //escala para o som ficar um pouco mais harmônico. Prefiro o
@@ -548,9 +550,6 @@ public class Morfogenese extends PApplet {
 						break;
 					}
 					nasce(false,meudna); // nasce
-				}else if ('H' == Character.toUpperCase(key)){
-					
-					criaUmQualquer(mousePosition);
 				}
 			}
 		}
@@ -618,254 +617,17 @@ public class Morfogenese extends PApplet {
 
 	}
 
-	private int[] definednagenerico() {
-
-		int[] meudna = new int[24];
-		
-		meudna[0] = (int) (random(100, (displayWidth / escala) - 100)); // posição
-																		// X
-																		// para
-																		// alocar
-																		// o
-																		// bicho
-		meudna[1] = (int) (random(100, (displayHeight / escala) - 100)); // posição
-																			// Y
-																			// para
-																			// alocar
-																			// o
-																			// bicho
-		meudna[2] = (int) (random(1, 5)); // velocidadeauto (treme treme) É fixa
-											// depois de gerada, só muda em
-											// situações específicas
-		meudna[3] = (int) (random(40, 100)); // easing (em cascata:
-												// easing+o*o*easingaceleration)
-		meudna[4] = (int) (random(5, 15)); // easingaceleration
-		meudna[5] = (int) (random(50, 200)); // tamanho (retângulo possível)
-		meudna[6] = (int) (random(4, 9)); // número de pontos do bicho. O index
-											// é 0, o i é 1. Entre 3 e 7
-		meudna[7] = (int) (random(1, 5)); // peso da linha do bicho
-		meudna[8] = (int) (random(255)); // cores linha R
-		meudna[9] = (int) (random(255)); // cores linha G
-		meudna[10] = (int) (random(255)); // cores linha B
-		meudna[11] = (int) (random(255)); // cores forma R
-		meudna[12] = (int) (random(255)); // cores forma G
-		meudna[13] = (int) (random(255)); // cores forma B
-		meudna[14] = (int) (random(5, 50)); // diâmetro de cada forma (todas
-											// elas) a partir do diam
-		meudna[15] = (int) (random(1, 4)); // forma da cabeça
-		meudna[16] = (int) (random(1, 4)); // forma do pescoço
-		meudna[17] = (int) (random(1, 4)); // forma do rabo
-		meudna[18] = (int) (random(127)); // para definir o instrumento de cada
-											// som. São todos os instrumentos
-		meudna[19] = (int) (random(99)); // define a nota que o bicho vai
-											// reproduzir em 5 oitavas
-											// diferentes
-											// //(int)(escalanotas[(int)(random(escalanotas.length))]);
-											// //usando uma escala específica
-		meudna[20] = (int) (random(30, 50)); // equivale à quantidade de vida
-												// inicial
-		meudna[21] = (int) (random(50, 200)); // define um ponto de maturidade
-												// para que possam cruzar
-												// novamente
-		meudna[22] = (int) (random(1, 11)); // pode fazer ou não algo: surtar,
-											// caçar, fugir (1:chapado, 2:surta,
-											// 3:berserker, 4:medroso,
-											// 5:violento, 6:esperto / tarado>=3
-											// / ataca com bando >=5)
-
-		return meudna;
-	}
-	
-	private int[] definednamesclado() {
-
-		int[] meudna = new int[24];
-		
-		meudna[0] = (int) ((bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2); // posição
-																					// X
-																					// para
-																					// alocar
-																					// o
-																					// bicho
-		meudna[1] = (int) ((bichoculpado.pontoy[1] + bichaculpada.pontoy[1]) / 2); // posição
-																					// Y
-																					// para
-																					// alocar
-																					// o
-																					// bicho
-		meudna[2] = (int) ((bichoculpado.velocidadeAutoOriginal + bichaculpada.velocidadeAutoOriginal) / 2); // velocidadeauto
-																												// (treme
-																												// treme)
-																												// É
-																												// fixa
-																												// depois
-																												// de
-																												// gerada,
-																												// só
-																												// muda
-																												// em
-																												// situações
-																												// específicas
-		meudna[3] = (int) ((bichoculpado.easing + bichaculpada.easing) / 2); // easing
-																				// (em
-																				// cascata:
-																				// easing+o*o*easingaceleration)
-		meudna[4] = (int) ((bichoculpado.easingAcceleration + bichaculpada.easingAcceleration) / 2); // easingaceleration
-		meudna[5] = (int) ((bichoculpado.tamanho + bichaculpada.tamanho) / 2); // tamanho
-																				// (retângulo
-																				// possível)
-		meudna[6] = (int) ((((float) (bichoculpado.numeroDePontos() + bichaculpada.numeroDePontos())) / 2) + ((int) (random(
-				4, 6)) * 0.1)); // número de pontos do bicho. O index é 0. Com
-								// todos os pontos separados o menor número é 5.
-								// A maluquice é para permitir q filho de
-								// números ímpares não seja fixo
-		meudna[7] = (int) (((bichoculpado.pesoDaLinha + bichaculpada.pesoDaLinha) / 2) + ((int) (random(
-				4, 6)) * 0.1)); // peso da linha do bicho
-		meudna[8] = (int) ((bichoculpado.cor.red() + bichaculpada.cor.red()) / 2); // cores  linha  R
-		meudna[9] = (int) ((bichoculpado.cor.green() + bichaculpada.cor.green()) / 2); // cores  linha  G
-		meudna[10] = (int) ((bichoculpado.cor.blue() + bichaculpada.cor.blue()) / 2); // cores  linha  B
-		meudna[11] = (int) ((bichoculpado.corLinha.red() + bichaculpada.corLinha.red()) / 2); // cores  forma  R
-		meudna[12] = (int) ((bichoculpado.corLinha.green() + bichaculpada.corLinha.green()) / 2); // cores  forma  G
-		meudna[13] = (int) ((bichoculpado.corLinha.blue() + bichaculpada.corLinha.blue()) / 2); // cores  forma  B
-		meudna[14] = (int) ((bichoculpado.diametroDaForma + bichaculpada.diametroDaForma) / 2); // diâmetro  de  cada  forma  (todas  elas)  a  partir  do  diam
-		meudna[15] = bichoculpado.formaCabeca; // forma da cabeça
-		meudna[16] = (int) (random(1, 4)); // forma do pescoço
-		meudna[17] = (int) (random(1, 4)); // forma do rabo
-		meudna[18] = (int) ((((float) (bichoculpado.instrumento + bichaculpada.instrumento)) / 2) + ((int) (random(
-				4, 6)) * 0.1)); // para definir o instrumento de cada som. São
-								// todos os instrumentos
-		meudna[19] = (int) ((((float) (bichoculpado.notaMusical + bichaculpada.notaMusical)) / 2) + ((int) (random(
-				4, 6)) * 0.1)); // define a nota que o bicho vai reproduzir em 5
-								// oitavas diferentes
-								// //nota=(int)(escalanotas[(int)(random(escalanotas.length))]);
-								// //usando uma escala específica
-		meudna[20] = (int) ((bichoculpado.energia + bichaculpada.energia) / 2); // equivale
-																				// à
-																				// quantidade
-																				// de
-																				// vida
-																				// inicial
-		meudna[21] = (int) ((bichoculpado.pontoDeMaturidadeParaCruzamento + bichaculpada.pontoDeMaturidadeParaCruzamento) / 2); // define
-																									// um
-																									// ponto
-																									// de
-																									// maturidade
-																									// para
-																									// que
-																									// possam
-																									// cruzar
-																									// novamente
-		meudna[22] = (int) ((((float) (bichoculpado.chance + bichaculpada.chance)) / 2) + ((int) (random(
-				4, 6)) * 0.1)); // pode fazer ou não algo: surtar, caçar, fugir
-								// (1:chapado, 2:surta, 3:berserker, 4:medroso,
-								// 5:violento, 6:esperto / tarado>=3 / ataca com
-								// bando >=5)
-
-		// MUTAÇÕES no DNA de entrada da classe:
-
-		if (random(1) < chancemutacao) { // mudar a velocidade automática
-			meudna[2] = meudna[2] + (int) (random(-5, 5));
-			if (meudna[2] < 1) {
-				meudna[2] = 1;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar o easing do corpo
-			meudna[3] = meudna[3] + (int) (random(-100, 100));
-			if (meudna[3] < 0) {
-				meudna[3] = 0;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar o easing entre os pontos do
-											// corpo
-			meudna[4] = meudna[4] + (int) (random(-10, 10));
-			if (meudna[4] < 1) {
-				meudna[4] = 1;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar o espaço que o corpo ocupa
-			meudna[5] = meudna[5] + (int) (random(-100, 100));
-			if (meudna[5] < 10) {
-				meudna[5] = 10;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar o número de pontos do corpo
-			meudna[6] = meudna[6] + (int) (random(-4, 10));
-			if (meudna[6] < 4) {
-				meudna[6] = 4;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar a espessura da linha do corpo
-			meudna[7] = meudna[7] + (int) (random(-5, 5));
-			if (meudna[7] < 1) {
-				meudna[7] = 1;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar a cor
-			meudna[8] = meudna[8] + (int) (random(-200, 200));
-			meudna[9] = meudna[9] + (int) (random(-200, 200));
-			meudna[10] = meudna[10] + (int) (random(-200, 200));
-		}
-
-		if (random(1) < chancemutacao) { // mudar a cor
-			meudna[11] = meudna[11] + (int) (random(-200, 200));
-			meudna[12] = meudna[12] + (int) (random(-200, 200));
-			meudna[13] = meudna[13] + (int) (random(-200, 200));
-		}
-
-		if (random(1) < chancemutacao) { // mudar a forma da cabeça
-			meudna[15] = (int) (random(1, 4));
-		}
-
-		if (random(1) < chancemutacao) { // mudar a forma do pescoço
-			meudna[16] = (int) (random(1, 4));
-		}
-
-		if (random(1) < chancemutacao) { // mudar a forma do rabo
-			meudna[17] = (int) (random(1, 4));
-		}
-
-		if (random(1) < chancemutacao) { // mudar o instrumento
-			meudna[18] = (int) (random(127));
-		}
-
-		if (random(1) < chancemutacao) { // mudar a nota
-			meudna[19] = (int) (random(127));
-		}
-
-		if (random(1) < chancemutacao) { // mudar a quantidade de vida inicial
-			meudna[20] = meudna[20] + (int) (random(-20, 20));
-			if (meudna[20] < 0) {
-				meudna[20] = 0;
-			}
-		}
-
-		if (random(1) < chancemutacao) { // mudar o ponto de maturação para
-											// acasalar
-			meudna[21] = meudna[21] + (int) (random(-100, 100));
-			if (meudna[21] < 10) {
-				meudna[21] = 10;
-			}
-		}
-
-		return meudna;
-	}
-
 	public void draw() {
-
-		ambiente();
-		iteratordobicho();
-		nascemescladna();
-		nascerandomicoautomatico();
-		controleteclado();
-
+		synchronized (bichos) {
+			ambiente();
+			iteratordobicho();
+			nascemescladna();
+			nascerandomicoautomatico();
+			controleteclado();
+		}
 	}
 
-	private synchronized void iteratordobicho() {
+	private  void iteratordobicho() {
 
 		Iterator<Bicho> it = bichos.iterator();
 		
@@ -894,6 +656,8 @@ public class Morfogenese extends PApplet {
 
 			}
 		}
+		bichos.addAll(novosbichos);
+		novosbichos.clear();
 	}
 
 	private void nasce(boolean comalteracoesforadna, DNA meudna) {
@@ -911,59 +675,9 @@ public class Morfogenese extends PApplet {
 			nt = nt + 1;
 		}
 
-		bichos.add(meubicho);
+		novosbichos.add(meubicho);
 	}
 	
-	private void nasce(boolean comalteracoesforadna, int[] meudna) {
-
-		meubicho = new Bicho(this, 
-				new Point(meudna[0],meudna[1]),// posição para alocar o bicho
-				meudna[2], // velocidadeauto (treme treme) É fixa depois de
-							// gerada, só muda em situações específicas
-				meudna[3], // easing (em cascata: easing+o*o*easingaceleration)
-				meudna[4], // easingaceleration
-				meudna[5], // tamanho (retângulo possível)
-				meudna[6], // número de pontos do bicho. O index é 0. Com todos
-							// os pontos separados o menor número é 5
-				meudna[7], // peso da linha do bicho
-				Color.color(this, meudna[8], meudna[9], meudna[10]),
-				Color.color(this, meudna[11], meudna[12], meudna[12]),
-				meudna[14], // diâmetro de cada forma (todas elas) a partir do
-							// diam
-				meudna[15], // forma da cabeça
-				meudna[16], // forma do pescoço
-				meudna[17], // forma do rabo
-				meudna[18], // para definir o instrumento de cada som. São todos
-							// os instrumentos
-				meudna[19], // define a nota que o bicho vai reproduzir em 5
-							// oitavas diferentes
-							// //nota=int(escalanotas[int(random(escalanotas.length))]);
-							// //usando uma escala específica
-				meudna[20], // equivale à quantidade de vida inicial
-				meudna[21], // define um ponto de maturidade para que possam
-							// cruzar novamente
-				meudna[22] // pode fazer ou não algo: surtar, caçar, fugir
-							// (1:chapado, 2:surta, 3:berserker, 4:medroso,
-							// 5:violento, 6:esperto / tarado>=3 / ataca com
-							// bando >=5)
-		);
-
-		if (comalteracoesforadna) {
-			alteracoesforadna(meubicho);
-		}
-
-		if (meubicho.formaCabeca == 1) { // contagem nascimento
-			ne = ne + 1;
-		} else if (meubicho.formaCabeca == 2) {
-			nr = nr + 1;
-		} else if (meubicho.formaCabeca == 3) {
-			nt = nt + 1;
-		}
-
-		bichos.add(meubicho); // adiciona ao final da lista bichos
-
-	}
-
 	private void alteracoesforadna(Bicho meubicho) {
 
 		meubicho.maturidade = 0; // zera a maturidade quando nasce
@@ -1029,7 +743,8 @@ public class Morfogenese extends PApplet {
 			// a meudna[] e o nasce() porque depois que cria e antes
 			// de adicionar à fila tenho que mudar pontox/y [NASCIMENTO]
 
-			nasce(true, definednamesclado());
+			//TODO: Não saquei o que esse nasce faz
+			nasce(true, DNA.autoGenese(this, displayWidth, displayHeight, escala));
 
 			if (som == true) {
 				meubicho.pegainstrumento(meubicho.bancodadosinstrumento,
@@ -1051,28 +766,26 @@ public class Morfogenese extends PApplet {
 
 	private void nascerandomicoautomatico() {
 
+		DNA meudna = DNA.autoGenese(this, displayWidth, displayHeight, escala);
 		if (ne <= minimoportipo - 1 && modoexterminio == false) { 
 			// nasce um automaticamente se sobrar somente
 			// um da mesma forma
 			// [GERA 1 AUTOMATICAMENTE PARA CADA UMA DAS FORMAS]
-			int[] meudna = definednagenerico(); // define a sequência de dna
-			meudna[15] = 1; // forma da cabeça
+			meudna.formaCabeca(1);
 			nasce(false,meudna); // nasce
 		}
 
 		if (nr <= minimoportipo - 1 && modoexterminio == false) { 
 			// nasce um automaticamente se sobrar somente
 			// um da mesma forma
-			int[] meudna = definednagenerico(); // define a sequência de dna
-			meudna[15] = 2; // forma da cabeça
+			meudna.formaCabeca(2);
 			nasce(false,meudna); // nasce
 		}
 
 		if (nt <= minimoportipo - 1 && modoexterminio == false) { 
 			// nasce um automaticamente se sobrar somente
 			// um da mesma forma
-			int[] meudna = definednagenerico(); // define a sequência de dna
-			meudna[15] = 3; // forma da cabeça
+			meudna.formaCabeca(3);
 			nasce(false,meudna); // nasce
 		}
 
@@ -1099,9 +812,11 @@ public class Morfogenese extends PApplet {
 
 		for (int i = 0; i < NUMERODEBICHOS; i++) { // criando todos os bichos da
 													// array
-			nasce(false,definednagenerico()); // nasce
+			DNA meudna = DNA.autoGenese(this, displayWidth, displayHeight, escala);
+			nasce(false,meudna); // nasce
 		}
-
+		bichos.addAll(novosbichos);
+		novosbichos.clear();
 		eubicho = bichos.get(meuindexatual);
 
 	}
@@ -1114,14 +829,9 @@ public class Morfogenese extends PApplet {
 		channels = synth.getChannels();
 	}
 	
-	//FIXME: remover este método
-	public synchronized void criaUmQualquer(Point position){
-		DNA definednagenerico = DNA.autoGenese(this, displayWidth, displayHeight, escala);
-		definednagenerico.position(position);
-		nasce(false,definednagenerico);
-	}
-	
-	public synchronized void criaBicho(int[] dna){
-		nasce(false,dna);
+	public void criaBicho(DNA dna){
+		synchronized (bichos) {
+			nasce(false,dna);
+		}
 	}
 }

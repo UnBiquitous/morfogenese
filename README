@@ -1,0 +1,39 @@
+MAPA DE TECLAS MORFOGÊNESE:
+
+	W: indivíduo anda para cima
+	A: indivíduo anda para esquerda
+	S: indivíduo anda para baixo
+	D: indivíduo anda para direita
+	
+	Y: muda o indivíduo que é controlado
+	
+	C: mostra Vs contexto / mostra Vs indivíduos
+	
+	Z: liga e desliga o som
+	B: modo de background colorido / preto e branco / somente preto / somente branco
+	F: liga e desliga a autoescala
+	+: aumenta o zoom
+	-: diminui o zoom
+	): aumenta a taxa de quadros por segundo (FPS)
+	(: diminui a taxa de quadros por segundo (FPS)
+	
+	X: liga e desliga o modo extermínio
+	M: todos fogem do mouse / todos seguem o mouse / desliga efeito mouse
+	
+	P: tira uma foto em TIFF da tela
+	o: liga e desliga o registro de saída de Vs
+	O: atualiza e fecha o arquivo de saída de Vs
+	V: liga as câmeras de vídeo
+	v: liga a função de buscar pela cor mais próxima
+	
+	Q + Mouse esquerdo: cria um ser de forma aleatória
+	E + Mouse esquerdo: cria um ser de forma circular
+	R + Mouse esquerdo: cria um ser de forma quadrada
+	T + Mouse esquerdo: cria um ser de forma triangular
+	
+	
+	U + Mouse esquerdo: define o ser selecionado para ser controlado
+	N + Mouse esquerdo: Move para um novo ecossistema
+	J + Mouse esquerdo: Clona o ser
+	
+	Mouse direito: mata o ser

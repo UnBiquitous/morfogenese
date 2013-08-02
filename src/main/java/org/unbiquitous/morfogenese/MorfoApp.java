@@ -62,7 +62,8 @@ public class MorfoApp implements UosApplication {
 	public void tearDown(OntologyUndeploy ontology) throws Exception {}
 
 	public void migrate(Map<String, Object> parameter) {
-		this.morfogenese.criaBicho((int[]) parameter.get("dna"));
+		//TODO: Fix
+//		this.morfogenese.criaBicho((int[]) parameter.get("dna"));
 	}
 
 }

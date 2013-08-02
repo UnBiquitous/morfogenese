@@ -1,15 +1,15 @@
 package org.unbiquitous.morfogenese;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.fest.assertions.data.MapEntry;
 import org.junit.Test;
 
 import processing.core.PApplet;
-import static org.fest.assertions.api.Assertions.*;
 
 public class DNATest {
 

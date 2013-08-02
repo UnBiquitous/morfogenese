@@ -5,10 +5,9 @@ import java.awt.Point;
 class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				// CADA INDIVÍDUO!!!]
 
-	/**
-	 * 
-	 */
 	private final Morfogenese morfogenese;
+	public DNA dna;
+	
 	private Point position; // posição do bicho
 	private float velocidadeAuto; // velocidadeauto (treme treme) É fixa depois de
 							// gerada, só muda em situações específicas
@@ -117,117 +116,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 									// afastapodre
 	private float ponto1ydirafastapodre;
 
-	Bicho( // define valores Vs no construtor com temporárias [CONSTRUTOR]
-	Morfogenese morfogenese, 
-			Point position,  // posição para alocar o bicho
-			float velocidadeauto, // velocidadeauto (treme treme) É fixa
-										// depois de gerada, só muda em
-										// situações específicas
-			float easing, // easing (em cascata:
-								// easing+o*o*easingaceleration)
-			float easingaceleration, // easingaceleration
-			float tamanho, // tamanho (retângulo possível)
-			int numerodepontos, // número de pontos do bicho. O index é
-									// 0. Com todos os pontos separados o
-									// menor número é 5
-			float pesodalinha, // peso da linha do bicho
-			Color cor, // cores linha R
-			Color corlinha, // cores corlinha B
-			float formadiam, // diâmetro de cada forma (todas elas) a
-									// partir do diam
-			int formaCabeca, // forma da cabeça
-			int formaPescoco, // forma do pescoço
-			int formaRabo, // forma do rabo
-			int instrumento, // para definir o instrumento de cada som
-			int notaMusical, // define a nota que o bicho vai reproduzir
-			float energia, // equivale à quantidade de vida inicial
-			float pontoDeMaturidadeParaCruzamento, // define um ponto de maturidade
-										// para que possam cruzar novamente
-			int chance // pode fazer ou não algo: surtar, caçar, fugir
-							// (1:chapado, 2:surta, 3:berserker, 4:medroso,
-							// 5:violento, 6:esperto / tarado>=3 / ataca com
-							// bando >=5)
-	) {
-
-		this.morfogenese = morfogenese;
-		this.position = position; 
-		this.velocidadeAuto = velocidadeauto; // velocidadeauto (treme treme)
-												// É fixa depois de gerada,
-												// só muda em situações
-												// específicas
-		this.easing = easing; // easing (em cascata:
-								// easing+o*o*easingaceleration)
-		this.easingAcceleration = easingaceleration; // easingaceleration
-		this.tamanho = tamanho; // tamanho (retângulo possível)
-		this.pesoDaLinha = pesodalinha; // peso da linha do bicho
-		this.diametroDaForma = formadiam; // diâmetro de cada forma (todas elas) a
-									// partir do diam
-		this.formaCabeca = formaCabeca; // forma da cabeça
-		this.formaPescoco = formaPescoco; // forma do pescoço
-		this.formaRabo = formaRabo; // forma do rabo
-		this.instrumento = instrumento; // para definir o instrumento de cada som
-		this.notaMusical = notaMusical; // define a nota que o bicho vai reproduzir
-		this.energia = energia; // equivale à quantidade de vida inicial
-		this.pontoDeMaturidadeParaCruzamento = pontoDeMaturidadeParaCruzamento; // define um ponto de maturidade para que possam cruzar novamente
-		this.chance = chance; // pode fazer ou não algo: surtar, caçar, fugir
-								// (1:chapado, 2:surta, 3:berserker,
-								// 4:medroso, 5:violento, 6:esperto /
-								// tarado>=3 / ataca com bando >=5)
-
-		this.cor = cor;
-		this.corLinha = corlinha;
-		this.corAlpha = 50 + energia * 4; // características de cada bicho
-										// geradas aleatoriamente e outras
-										// Vs definidas automaticamente
-		this.corLinhaAlpha = 50 + energia * 4;
-		this.velocidade = 5;
-		this.novachance = this.morfogenese.random(100);
-		this.maturidade = (int) this.morfogenese.random(pontoDeMaturidadeParaCruzamento);
-		this.vida = true;
-		this.podre = false;
-		this.velocidadeAutoOriginal = velocidadeauto;
-		this.finalBando = energia;
-		this.bancodadosinstrumento = (int) this.morfogenese.random(4);
-		this.atracao = 0.5f;
-		this.maxformadiam = (int) (this.morfogenese.random(40, 60));
-		this.numerodepontosdalinha = (int) (this.morfogenese.random(numerodepontos - 4,
-				numerodepontos - 2));
-
-		this.pontox = new float[numerodepontos];
-		this.pontoy = new float[numerodepontos];
-
-		for (int i = 1; i < numerodepontos; i++) { // iniciando pontos x e y com listas
-			this.pontox[i] = (int) (this.morfogenese.random(this.position.x - this.tamanho, this.position.x
-					+ this.tamanho));
-			this.pontoy[i] = (int) (this.morfogenese.random(this.position.y - this.tamanho, this.position.y
-					+ this.tamanho));
-		}
-
-		this.distx1 = new float[numerodepontos]; // distâncias inicial dos pontos  que define a forma do corpo de cada bicho. Outras listas
-		this.disty1 = new float[numerodepontos];
-
-		for (int i = 1; i < numerodepontos; i++) { // captura das distâncias  iniciais dos pontos para manter forma do bicho. Listas de novo
-			this.distx1[i] = Morfogenese.abs(Morfogenese.abs(this.pontox[1]) - Morfogenese.abs(this.pontox[i]));
-			this.disty1[i] = Morfogenese.abs(Morfogenese.abs(this.pontoy[1]) - Morfogenese.abs(this.pontoy[i]));
-		}
-
-		this.ordemxy = new int[this.numerodepontosdalinha];
-
-		for (int i = 1; i < this.numerodepontosdalinha; i++) {
-			if (i + 2 < numerodepontos - 1) {
-				this.ordemxy[i] = i + 2;
-			} else {
-				this.ordemxy[i] = (int) (this.morfogenese.random(2, numerodepontos - 1));
-			}
-
-		}
-
-		randomizar(this.ordemxy);
-
-	}
-	
 	public Bicho(Morfogenese morfogenese,DNA dna) {
-
+				this.dna = dna;
 				this.morfogenese = morfogenese;
 				this.position = dna.position(); 
 				this.velocidadeAuto = dna.velocidadeAuto(); 
@@ -243,11 +133,16 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				this.notaMusical = dna.notaMusical();
 				this.energia = dna.energia();
 				this.pontoDeMaturidadeParaCruzamento = dna.pontoDeMaturidadeParaCruzamento();
-				this.chance = dna.chance();
+				this.chance = dna.chance();	// pode fazer ou não algo: surtar, caçar, fugir
+											// (1:chapado, 2:surta, 3:berserker,
+											// 4:medroso, 5:violento, 6:esperto /
+											// tarado>=3 / ataca com bando >=5)
 
 				this.cor = dna.cor();
 				this.corLinha = dna.corLinha();
-				this.corAlpha = 50 + dna.energia() * 4;
+				this.corAlpha = 50 + dna.energia() * 4;	// características de cada bicho
+														// geradas aleatoriamente e outras
+														// Vs definidas automaticamente
 				this.corLinhaAlpha = 50 + dna.energia() * 4;
 				this.velocidade = 5;
 				this.novachance = this.morfogenese.random(100);
@@ -265,7 +160,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				this.pontox = new float[dna.numerodepontosdalinha()];
 				this.pontoy = new float[dna.numerodepontosdalinha()];
 
-				for (int i = 1; i < dna.numerodepontosdalinha(); i++) { 
+				for (int i = 1; i < dna.numerodepontosdalinha(); i++) { // iniciando pontos x e y com listas
 					this.pontox[i] = (int) (this.morfogenese.random(this.position.x - this.tamanho, this.position.x
 							+ this.tamanho));
 					this.pontoy[i] = (int) (this.morfogenese.random(this.position.y - this.tamanho, this.position.y
@@ -276,6 +171,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				this.disty1 = new float[dna.numerodepontosdalinha()];
 
 				for (int i = 1; i < dna.numerodepontosdalinha(); i++) { 
+					// distâncias inicial dos pontos  que define a forma 
+					// do corpo de cada bicho. Outras listas
+					// captura das distâncias  iniciais dos pontos para manter 
+					// forma do bicho. Listas de novo
 					this.distx1[i] = Morfogenese.abs(Morfogenese.abs(this.pontox[1]) - Morfogenese.abs(this.pontox[i]));
 					this.disty1[i] = Morfogenese.abs(Morfogenese.abs(this.pontoy[1]) - Morfogenese.abs(this.pontoy[i]));
 				}
@@ -1811,28 +1710,27 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 						desenhaforma(pontox[numeroDePontos() - 1],
 								pontoy[numeroDePontos() - 1], angulorabo, 1,
 								diametroDaForma, 0.5f, pesoDaLinha, cor.color(),
-								corAlpha / 3, corLinha.color(), corLinhaAlpha); // para
-																		// saber
-																		// qual
-																		// é
-																		// o
-																		// que
-																		// está
-																		// fazendo
-																		// barulho
-
+								corAlpha / 3, corLinha.color(), corLinhaAlpha); 
+						// para saber qual é o que está fazendo barulho
 						if (this.morfogenese.keyPressed) {
 							if (this.morfogenese.key == 'u' || this.morfogenese.key == 'U') {
 								this.morfogenese.eubicho = this;
 							}else if (Character.toUpperCase(morfogenese.key) == 'N'){
-								Point position = new Point(
-//										(int)this.morfogenese.posicaofinalmouseX, 
-//										(int)this.morfogenese.posicaofinalmouseY
-										this.morfogenese.mouseX, 
-										this.morfogenese.mouseY
-										);
+//								Point position = new Point(
+////										(int)this.morfogenese.posicaofinalmouseX, 
+////										(int)this.morfogenese.posicaofinalmouseY
+//										this.morfogenese.mouseX, 
+//										this.morfogenese.mouseY
+//										);
 //								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
 //								this.morfogenese.criaUmQualquer(position);
+							}else if (Character.toUpperCase(morfogenese.key) == 'J'){
+								DNA dnaCopy = DNA.fromMap(this.dna.toMap());
+								dnaCopy.position(new Point(
+										this.morfogenese.mouseX, 
+										this.morfogenese.mouseY
+										));
+								this.morfogenese.criaBicho(dnaCopy);
 							}
 						}
 
