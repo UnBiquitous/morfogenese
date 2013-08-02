@@ -484,5 +484,13 @@ public class DNA {
 	public int[] ordemxy() {
 		return this.ordemxy;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof DNA){
+			DNA that = (DNA) obj;
+			return this == that || this.toMap().equals(that.toMap());
+		}
+		return super.equals(obj);
+	}
 }

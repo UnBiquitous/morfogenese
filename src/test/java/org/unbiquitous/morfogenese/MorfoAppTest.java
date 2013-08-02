@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
+
+import processing.core.PApplet;
 import static org.mockito.Mockito.*;
 
 public class MorfoAppTest {
@@ -12,18 +14,13 @@ public class MorfoAppTest {
 		MorfoApp app = new MorfoApp();
 		app.morfogenese = mock(Morfogenese.class);
 		
-		int[] dna = new int[]{
-			1,2,3,4,5,6,7,8,9,0,
-			1,2,3,4,5,6,7,8,9,0,
-			1,2,3,4
-		};
+		DNA dna = DNA.autoGenese(new PApplet(), 100, 100, 2);
 		
 		Map<String,Object> parameter = new HashMap<String, Object>();
-		parameter.put("dna", dna);
+		parameter.put("dna", dna.toMap());
 		app.migrate(parameter);
 		
-		//TODO: FIX
-//		verify(app.morfogenese).criaBicho(dna);
+		verify(app.morfogenese).criaBicho(eq(dna));
 	}
 	
 }

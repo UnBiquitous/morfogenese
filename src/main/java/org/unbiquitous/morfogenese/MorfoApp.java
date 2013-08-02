@@ -29,8 +29,8 @@ public class MorfoApp implements UosApplication {
 			
 			synchronized public void perform(Point position, Character key, Object param) {
 				System.out.println(
-						String.format(	"Selected Creature %s " +
-										"at position %s with key '%s'", 
+						String.format(	"Selected Creature at position %s " +
+										"with key '%s' and param '%s'", 
 										position, key, param));
 				List<UpDevice> listDevices = gateway.listDevices();
 				String[] options = 
@@ -43,6 +43,7 @@ public class MorfoApp implements UosApplication {
 						"pra onde?", "Migrar o Bicho", 
 						options, options[0], options[0]);
 				
+				System.out.println("Selected Device :"+ option);
 				//TODO: Test this and finish it
 //				ServiceCall call = new ServiceCall("app","migrate","morfogenese_app");
 //				call.addParameter("dna", value)
@@ -61,9 +62,9 @@ public class MorfoApp implements UosApplication {
 
 	public void tearDown(OntologyUndeploy ontology) throws Exception {}
 
+	@SuppressWarnings("unchecked")
 	public void migrate(Map<String, Object> parameter) {
-		//TODO: Fix
-//		this.morfogenese.criaBicho((int[]) parameter.get("dna"));
+		this.morfogenese.criaBicho(DNA.fromMap((Map<String, Object>)parameter.get("dna")));
 	}
 
 }

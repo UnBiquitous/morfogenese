@@ -1722,7 +1722,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 //										this.morfogenese.mouseX, 
 //										this.morfogenese.mouseY
 //										);
-//								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
+								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
 //								this.morfogenese.criaUmQualquer(position);
 							}else if (Character.toUpperCase(morfogenese.key) == 'J'){
 								DNA dnaCopy = DNA.fromMap(this.dna.toMap());
@@ -1777,7 +1777,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	@Override
 	public String toString() {
 		return String.format("head: %s, index:%s, position:(%s,%s)", formaCabeca,
-				this.morfogenese.bichos.indexOf(this), position);
+				this.morfogenese.bichos.indexOf(this), position.x, position.y);
 	}
 	
 }
