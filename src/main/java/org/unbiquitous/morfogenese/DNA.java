@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class DNA {
 
@@ -152,6 +151,7 @@ public class DNA {
 		return Integer.parseInt(o.toString());
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static float[] toFloatArray(Object o){
 		if(o == null) return null;
 		Object[] original = null;
@@ -175,6 +175,7 @@ public class DNA {
 		return result;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static int[] toIntArray(Object o){
 		if(o == null) return null;
 		Object[] original = null;

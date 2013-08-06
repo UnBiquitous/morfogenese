@@ -1,8 +1,10 @@
 package org.unbiquitous.morfogenese;
 
 import java.awt.Point;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.unbiquitous.json.JSONException;
 import org.unbiquitous.json.JSONObject;
@@ -26,16 +28,44 @@ public class MorfoApp implements UosApplication {
 
 	protected Morfogenese morfogenese;
 	protected Gateway gateway;
+	protected Set<Bicho> migrando = new HashSet<Bicho>(); 
 
 	public void init(OntologyDeploy ontology, String appId) {
 		this.morfogenese = new Morfogenese();
 		this.morfogenese.setMListener(new MorfoClickListener() {
 			
-			synchronized public void perform(Point position, Character key, Object param) {
-				System.out.println(
-						String.format(	"Selected Creature at position %s " +
-										"with key '%s' and param '%s'", 
-										position, key, param));
+			public void perform(Point position, Character key, final Object param) {
+				new Thread(new Runnable() {
+					public void run() {
+						synchronized (migrando) {
+							if(migrando.contains(param)){
+								return;
+							}
+							migrando.add((Bicho) param);
+						}
+						migrate(param, selectDevice());
+						synchronized (migrando) {
+							migrando.remove((Bicho) param);
+						}
+					}
+				}).start();
+				
+			}
+
+			private void migrate(Object param, UpDevice selectedDevice) {
+				//TODO: Test this and finish it
+				ServiceCall call = new ServiceCall("app","migrate","morfogenese_app");
+				call.addParameter("dna", ((Bicho)param).dna.toMap());
+				try {
+					gateway.callService(selectedDevice, call);
+					morfogenese.removeBicho((Bicho) param);
+				} catch (ServiceCallException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			private UpDevice selectDevice() {
 				List<UpDevice> listDevices = gateway.listDevices();
 				String[] options = 
 						Lists.transform(listDevices, new Function<UpDevice, String>() {
@@ -54,18 +84,7 @@ public class MorfoApp implements UosApplication {
 						break;
 					}
 				}
-				
-				System.out.println("Selected Device :"+ option);
-				//TODO: Test this and finish it
-				ServiceCall call = new ServiceCall("app","migrate","morfogenese_app");
-				call.addParameter("dna", ((Bicho)param).dna.toMap());
-				try {
-					gateway.callService(selectedDevice, call);
-					morfogenese.removeBicho((Bicho) param);
-				} catch (ServiceCallException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				return selectedDevice;
 			}
 		});
 	}
