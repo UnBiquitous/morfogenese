@@ -76,6 +76,7 @@ public class Morfogenese extends PApplet {
 														// de objetos. Bicho é a
 														// classe
 	public List<Bicho> novosbichos = new ArrayList<Bicho>();
+	public List<Bicho> removerbichos = new ArrayList<Bicho>();
 
 	// float[] escalanotas = {57, 60, 60, 60, 62, 64, 67, 67, 69, 72, 72, 72,
 	// 74, 76, 79}; //escala para o som ficar um pouco mais harmônico. Prefiro o
@@ -539,7 +540,7 @@ public class Morfogenese extends PApplet {
 			Point mousePosition = new Point(x,y);
 			if (keyPressed) {
 				if (Sets.newHashSet('Q','E','R','T').contains(Character.toUpperCase(key))){
-					DNA meudna = DNA.autoGenese(this, displayWidth, displayHeight, escala);
+					DNA meudna = DNA.autoGenese(displayWidth, displayHeight, escala);
 					meudna.position(mousePosition);
 					switch(Character.toUpperCase(key)){
 					case 'E' : meudna.formaCabeca(1); // forma da cabeça elipse
@@ -658,6 +659,8 @@ public class Morfogenese extends PApplet {
 		}
 		bichos.addAll(novosbichos);
 		novosbichos.clear();
+		bichos.removeAll(removerbichos);
+		removerbichos.clear();
 	}
 
 	private void nasce(boolean comalteracoesforadna, DNA meudna) {
@@ -744,7 +747,7 @@ public class Morfogenese extends PApplet {
 			// de adicionar à fila tenho que mudar pontox/y [NASCIMENTO]
 
 			//TODO: Não saquei o que esse nasce faz
-			nasce(true, DNA.autoGenese(this, displayWidth, displayHeight, escala));
+			nasce(true, DNA.autoGenese(displayWidth, displayHeight, escala));
 
 			if (som == true) {
 				meubicho.pegainstrumento(meubicho.bancodadosinstrumento,
@@ -766,7 +769,7 @@ public class Morfogenese extends PApplet {
 
 	private void nascerandomicoautomatico() {
 
-		DNA meudna = DNA.autoGenese(this, displayWidth, displayHeight, escala);
+		DNA meudna = DNA.autoGenese(displayWidth, displayHeight, escala);
 		if (ne <= minimoportipo - 1 && modoexterminio == false) { 
 			// nasce um automaticamente se sobrar somente
 			// um da mesma forma
@@ -812,7 +815,7 @@ public class Morfogenese extends PApplet {
 
 		for (int i = 0; i < NUMERODEBICHOS; i++) { // criando todos os bichos da
 													// array
-			DNA meudna = DNA.autoGenese(this, displayWidth, displayHeight, escala);
+			DNA meudna = DNA.autoGenese(displayWidth, displayHeight, escala);
 			nasce(false,meudna); // nasce
 		}
 		bichos.addAll(novosbichos);
@@ -832,6 +835,11 @@ public class Morfogenese extends PApplet {
 	public void criaBicho(DNA dna){
 		synchronized (bichos) {
 			nasce(false,dna);
+		}
+	}
+	public void removeBicho(Bicho b){
+		synchronized (bichos) {
+			removerbichos.add(b);
 		}
 	}
 }

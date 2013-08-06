@@ -4,9 +4,13 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import org.unbiquitous.json.JSONException;
+import org.unbiquitous.json.JSONObject;
 import org.unbiquitous.uos.core.adaptabitilyEngine.Gateway;
+import org.unbiquitous.uos.core.adaptabitilyEngine.ServiceCallException;
 import org.unbiquitous.uos.core.applicationManager.UosApplication;
 import org.unbiquitous.uos.core.messageEngine.dataType.UpDevice;
+import org.unbiquitous.uos.core.messageEngine.messages.ServiceCall;
 import org.unbiquitous.uos.core.ontologyEngine.api.OntologyDeploy;
 import org.unbiquitous.uos.core.ontologyEngine.api.OntologyStart;
 import org.unbiquitous.uos.core.ontologyEngine.api.OntologyUndeploy;
@@ -43,17 +47,30 @@ public class MorfoApp implements UosApplication {
 						"pra onde?", "Migrar o Bicho", 
 						options, options[0], options[0]);
 				
+				UpDevice selectedDevice = null;
+				for(UpDevice d : gateway.listDevices()){
+					if (option.equalsIgnoreCase(d.getName())){
+						selectedDevice = d;
+						break;
+					}
+				}
+				
 				System.out.println("Selected Device :"+ option);
 				//TODO: Test this and finish it
-//				ServiceCall call = new ServiceCall("app","migrate","morfogenese_app");
-//				call.addParameter("dna", value)
+				ServiceCall call = new ServiceCall("app","migrate","morfogenese_app");
+				call.addParameter("dna", ((Bicho)param).dna.toMap());
+				try {
+					gateway.callService(selectedDevice, call);
+					morfogenese.removeBicho((Bicho) param);
+				} catch (ServiceCallException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}
 	
 	public void start(Gateway gateway, OntologyStart ontology) {
-//		PApplet.main(Morfogenese.class.getName());
-//		PApplet.main(new String[] { "--present", Morfogenese.class.getName()});
 		this.gateway = gateway;
 		PApplet.runSketch(new String[]{"Morfogenese"},  morfogenese);
 	}
@@ -64,7 +81,20 @@ public class MorfoApp implements UosApplication {
 
 	@SuppressWarnings("unchecked")
 	public void migrate(Map<String, Object> parameter) {
-		this.morfogenese.criaBicho(DNA.fromMap((Map<String, Object>)parameter.get("dna")));
+		try {
+			Object paramObj = parameter.get("dna");
+			Map<String, Object> dnaMap;
+			if (paramObj instanceof JSONObject){
+				dnaMap = ((JSONObject) paramObj).toMap();
+			}else{
+				dnaMap = (Map<String, Object>) paramObj;
+			}
+			DNA dna = DNA.fromMap(dnaMap);
+			this.morfogenese.criaBicho(dna);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

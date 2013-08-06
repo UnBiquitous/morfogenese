@@ -1,10 +1,11 @@
 package org.unbiquitous.morfogenese;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import processing.core.PApplet;
+import java.util.Set;
 
 public class DNA {
 
@@ -51,7 +52,7 @@ public class DNA {
 	public Map<String, Object> toMap() {
 		Map<String, Object> theMap = new HashMap<String, Object>();
 		
-		theMap.put("position", position);
+		theMap.put("position", fromPoint(position));
 		theMap.put("velocidadeAuto", velocidadeAuto);
 		theMap.put("easing", easing);
 		theMap.put("easingAcceleration", easingAcceleration);
@@ -68,8 +69,8 @@ public class DNA {
 		theMap.put("chance", chance);
 		theMap.put("vida", vida);
 		theMap.put("podre", podre);
-		theMap.put("cor", cor);
-		theMap.put("corLinha", corLinha);
+		theMap.put("cor", fromColor(cor));
+		theMap.put("corLinha", fromColor(corLinha));
 		theMap.put("velocidade", velocidade);
 		theMap.put("novachance", novachance);
 		theMap.put("maturidade", maturidade);
@@ -87,50 +88,148 @@ public class DNA {
 		theMap.put("disty1", disty1);
 		theMap.put("ordemxy", ordemxy);
 		
+		List<String> keySet = new ArrayList<String>(theMap.keySet());
+		for(String k : keySet){
+			if (theMap.get(k) == null){
+				theMap.remove(k);
+			}
+		}
+		
 		return theMap;
 	}
 	
 	public static DNA fromMap(Map<String, Object> theMap) {
 		DNA dna = new DNA();
-		dna.position( (Point) theMap.get("position"));
-		dna.velocidadeAuto( (Float) theMap.get("velocidadeAuto"));
-		dna.easing( (Float) theMap.get("easing"));
-		dna.easingAcceleration( (Float) theMap.get("easingAcceleration"));
-		dna.tamanho( (Float) theMap.get("tamanho"));
-		dna.pesoDaLinha( (Float) theMap.get("pesoDaLinha"));
-		dna.diametroDaForma( (Float) theMap.get("diametroDaForma"));
+		dna.position( toPoint((String)theMap.get("position")));
+		dna.velocidadeAuto( toFloat(theMap.get("velocidadeAuto")));
+		dna.easing( toFloat(theMap.get("easing")));
+		dna.easingAcceleration( toFloat(theMap.get("easingAcceleration")));
+		dna.tamanho( toFloat(theMap.get("tamanho")));
+		dna.pesoDaLinha( toFloat(theMap.get("pesoDaLinha")));
+		dna.diametroDaForma( toFloat(theMap.get("diametroDaForma")));
 		dna.formaCabeca( (Integer) theMap.get("formaCabeca"));
 		dna.formaPescoco( (Integer) theMap.get("formaPescoco"));
 		dna.formaRabo( (Integer) theMap.get("formaRabo"));
 		dna.instrumento( (Integer) theMap.get("instrumento"));
 		dna.notaMusical( (Integer) theMap.get("notaMusical"));
-		dna.energia( (Float) theMap.get("energia"));
-		dna.pontoDeMaturidadeParaCruzamento( (Float) theMap.get("pontoDeMaturidadeParaCruzamento"));
+		dna.energia( toFloat(theMap.get("energia")));
+		dna.pontoDeMaturidadeParaCruzamento( toFloat(theMap.get("pontoDeMaturidadeParaCruzamento")));
 		dna.chance( (Integer) theMap.get("chance"));
 		dna.vida( (Boolean) theMap.get("vida"));
 		dna.podre( (Boolean) theMap.get("podre"));
-		dna.cor( (Color) theMap.get("cor"));
-		dna.corLinha( (Color) theMap.get("corLinha"));
-		dna.velocidade( (Float) theMap.get("velocidade"));
-		dna.novachance( (Float) theMap.get("novachance"));
-		dna.maturidade( (Float) theMap.get("maturidade"));
-		dna.velocidadeAutoOriginal( (Float) theMap.get("velocidadeAutoOriginal"));
-		dna.finalBando( (Float) theMap.get("finalBando"));
-		dna.atracao( (Float) theMap.get("atracao"));
-		dna.corLinhaAlpha( (Float) theMap.get("corLinhaAlpha"));
-		dna.corAlpha( (Float) theMap.get("corAlpha"));
+		dna.cor( toColor((String) theMap.get("cor")));
+		dna.corLinha( toColor( (String) theMap.get("corLinha")));
+		dna.velocidade( toFloat(theMap.get("velocidade")));
+		dna.novachance( toFloat( theMap.get("novachance")));
+		dna.maturidade( toFloat( theMap.get("maturidade")));
+		dna.velocidadeAutoOriginal( toFloat(theMap.get("velocidadeAutoOriginal")));
+		dna.finalBando( toFloat(theMap.get("finalBando")));
+		dna.atracao( toFloat(theMap.get("atracao")));
+		dna.corLinhaAlpha( toFloat(theMap.get("corLinhaAlpha")));
+		dna.corAlpha( toFloat(theMap.get("corAlpha")));
 		dna.bancodadosinstrumento( (Integer) theMap.get("bancodadosinstrumento"));
-		dna.maxformadiam( (Float) theMap.get("maxformadiam"));
+		dna.maxformadiam( toFloat(theMap.get("maxformadiam")));
 		dna.numerodepontosdalinha( (Integer) theMap.get("numerodepontosdalinha"));
-		dna.pontox( (float[]) theMap.get("pontox"));
-		dna.pontoy( (float[]) theMap.get("pontoy"));
-		dna.distx1( (float[]) theMap.get("distx1"));
-		dna.disty1( (float[]) theMap.get("disty1"));
-		dna.ordemxy( (int[]) theMap.get("ordemxy"));
+		dna.pontox( toFloatArray(theMap.get("pontox")));
+		dna.pontoy( toFloatArray(theMap.get("pontoy")));
+		dna.distx1( toFloatArray(theMap.get("distx1")));
+		dna.disty1( toFloatArray(theMap.get("disty1")));
+		dna.ordemxy( toIntArray(theMap.get("ordemxy")));
 		return dna;
 	}
 	
-	public static DNA autoGenese(PApplet p,
+	private static Float toFloat(Object o){
+		if (o instanceof Number){
+			return ((Number) o).floatValue();
+		}
+		return Float.parseFloat(o.toString());
+	}
+	
+	private static Integer toInt(Object o){
+		if (o instanceof Number){
+			return ((Number) o).intValue();
+		}
+		return Integer.parseInt(o.toString());
+	}
+	
+	private static float[] toFloatArray(Object o){
+		if(o == null) return null;
+		Object[] original = null;
+		if (o instanceof float[]){
+			return (float[]) o;
+		}else if (o instanceof Object[]){
+			original = (Object[]) o;
+		}else if (o instanceof List){
+			original = ((List)o).toArray();
+		}else{
+			throw new IllegalArgumentException(
+					String.format("parameter of type '%s' and value '%s'",
+							o.getClass(), o.toString()
+							)
+					);
+		}
+		float[] result = new float[original.length];
+		for(int i = 0 ; i < original.length; i ++){
+			result[i] = toFloat(original[i]);
+		}
+		return result;
+	}
+	
+	private static int[] toIntArray(Object o){
+		if(o == null) return null;
+		Object[] original = null;
+		if (o instanceof int[]){
+			return (int[]) o;
+		}else if (o instanceof Object[]){
+			original = (Object[]) o;
+		}else if (o instanceof List){
+			original = ((List)o).toArray();
+		}else{
+			throw new IllegalArgumentException("for parameter "+o);
+		}
+		int[] result = new int[original.length];
+		for(int i = 0 ; i < original.length; i ++){
+			result[i] = toInt(original[i]);
+		}
+		return result;
+	}
+	
+	private static Point toPoint(String param) {
+		if (param == null) return null;
+		String[] parts = stringTuple(param);
+		return new Point(
+					Integer.parseInt(parts[0]),
+					Integer.parseInt(parts[1])
+				);
+	}
+
+	private static String fromPoint(Point param) {
+		if(param == null) return null;
+		return String.format("(%s,%s)", param.x, param.y);
+	}
+	
+	private static Color toColor(String param) {
+		if (param == null) return null;
+		String[] parts = stringTuple(param);
+		return Color.color( 
+					Integer.parseInt(parts[0]),
+					Integer.parseInt(parts[1]),
+					Integer.parseInt(parts[2])
+				);
+	}
+
+	private static String fromColor(Color param) {
+		return String.format("(%s,%s,%s)", 
+				(int)param.red(), (int)param.green(), (int)param.blue());
+	}
+
+	private static String[] stringTuple(String param) {
+		String noParenthesis = param.replace("(", "").replace(")", "");
+		String[] parts = noParenthesis.split(",");
+		return parts;
+	}
+	
+	public static DNA autoGenese(
 			int displayWidth, int displayHeight, 
 			float escala ) {
 		DNA meudna = new DNA()
@@ -145,8 +244,8 @@ public class DNA {
 			.tamanho((int) (random(50, 200)))
 			.numerodepontosdalinha((int) (random(4, 9)))
 			.pesoDaLinha((int) (random(1, 5)))
-			.cor(Color.color(p, (int) (random(255)), (int) (random(255)), (int) (random(255))))
-			.corLinha(Color.color(p, (int) (random(255)), (int) (random(255)), (int) (random(255))))
+			.cor(Color.color((int) (random(255)), (int) (random(255)), (int) (random(255))))
+			.corLinha(Color.color((int) (random(255)), (int) (random(255)), (int) (random(255))))
 			.diametroDaForma((int) (random(5, 50)))
 			.formaCabeca((int) (random(1, 4)))
 			.formaPescoco((int) (random(1, 4)))

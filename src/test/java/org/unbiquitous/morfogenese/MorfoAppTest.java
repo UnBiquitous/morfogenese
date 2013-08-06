@@ -1,12 +1,13 @@
 package org.unbiquitous.morfogenese;
 
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-
-import processing.core.PApplet;
-import static org.mockito.Mockito.*;
 
 public class MorfoAppTest {
 
@@ -14,7 +15,7 @@ public class MorfoAppTest {
 		MorfoApp app = new MorfoApp();
 		app.morfogenese = mock(Morfogenese.class);
 		
-		DNA dna = DNA.autoGenese(new PApplet(), 100, 100, 2);
+		DNA dna = DNA.autoGenese(100, 100, 2);
 		
 		Map<String,Object> parameter = new HashMap<String, Object>();
 		parameter.put("dna", dna.toMap());

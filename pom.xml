@@ -10,6 +10,10 @@
 			<id>ubiquitos</id>
 			<url>http://ubiquitos.googlecode.com/svn/trunk/src/Java/maven/</url>
 		</repository>
+		<repository>
+		    <id>local-processing-org</id>
+		    <url>file://${basedir}/lib</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -17,16 +21,16 @@
 			<groupId>org.processing</groupId>
 			<artifactId>core</artifactId>
 			<version>2.0.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/processing-core-2.0.1.jar</systemPath>
+			<!--scope>system</scope>
+			<systemPath>${basedir}/lib/processing-core-2.0.1.jar</systemPath-->
 		</dependency>
 		
 		<dependency>
 			<groupId>org.processing</groupId>
 			<artifactId>video</artifactId>
 			<version>master</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/processing-video.jar</systemPath>
+			<!--scope>system</scope>
+			<systemPath>${basedir}/lib/processing-video.jar</systemPath-->
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.gstreamer-java</groupId>
@@ -52,8 +56,6 @@
 			<version>3.0.0-SNAPSHOT</version>
 		</dependency>
 		
-		
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -73,5 +75,40 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+		    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>org.unbiquitous.morfogenese.Starter</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Test;
-
-import processing.core.PApplet;
+import org.unbiquitous.json.JSONException;
+import org.unbiquitous.json.JSONObject;
 
 public class DNATest {
 
@@ -34,9 +34,30 @@ public class DNATest {
 		}
 	}
 
+	@Test public void surviveBeingJSONfyied() throws JSONException{
+		Map<String, Object> theMap = createTestDNAMap();
+		JSONObject json = new JSONObject(new JSONObject(theMap).toString());
+		Map<String, Object> resultMap = DNA.fromMap(json.toMap()).toMap();
+		for(Entry<String, Object> e : theMap.entrySet()){
+			assertThat(resultMap.get(e.getKey())).isEqualTo(e.getValue());
+		}
+	}
+	
+	@Test public void surviveBeingJSONfyiedWithNull() throws JSONException{
+		DNA theDna = createTestDNA();
+		theDna.pontox(null);
+		theDna.position(null);
+		Map<String, Object> theMap = theDna.toMap();
+		JSONObject json = new JSONObject(new JSONObject(theMap).toString());
+		Map<String, Object> resultMap = DNA.fromMap(json.toMap()).toMap();
+		for(Entry<String, Object> e : theMap.entrySet()){
+			assertThat(resultMap.get(e.getKey())).isEqualTo(e.getValue());
+		}
+	}
+	
 	private Map<String, Object> createTestDNAMap() {
 		Map<String, Object> theMap = new HashMap<String, Object>();
-		theMap.put("position", new Point(10,20));
+		theMap.put("position", "(10,20)");
 		theMap.put("velocidadeAuto", 15.2f);
 		theMap.put("easing", 13.4f);
 		theMap.put("easingAcceleration", 1.5f);
@@ -53,8 +74,8 @@ public class DNATest {
 		theMap.put("chance", 1);
 		theMap.put("vida", true);
 		theMap.put("podre", false);
-		theMap.put("cor", Color.color(new PApplet(), 1,2,3));
-		theMap.put("corLinha", Color.color(new PApplet(), 3,2,1));
+		theMap.put("cor", "(1,2,3)");
+		theMap.put("corLinha", "(3,2,1)");
 		theMap.put("velocidade", 3f);
 		theMap.put("novachance", 4f);
 		theMap.put("maturidade", 5f);
@@ -93,8 +114,8 @@ public class DNATest {
 						.chance(1)
 						.vida(true)
 						.podre(false)
-						.cor(Color.color(new PApplet(), 1,2,3))
-						.corLinha(Color.color(new PApplet(), 3,2,1))
+						.cor(Color.color(1,2,3))
+						.corLinha(Color.color(3,2,1))
 						.velocidade(3f)
 						.novachance(4f)
 						.maturidade(5f)
