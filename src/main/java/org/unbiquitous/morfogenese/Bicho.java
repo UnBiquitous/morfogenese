@@ -63,8 +63,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	public float[] pontox; // cria a lista de pontos x e y
 	public float[] pontoy;
 
-	private float[] distx1; // cria a lista de distâncias entre os pontos de cada
-					// bicho
+	private float[] distx1; // cria a lista de distâncias entre os pontos de cada bicho
 	private float[] disty1;
 
 	private int[] ordemxy;
@@ -78,8 +77,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private float ponto1xdirmouse; // influencia o ponto1 do bicho: mouse
 	private float ponto1ydirmouse;
 
-	private float resultantex; // para definir a influência do movimento
-	private float resultantey;
+//	private float resultantex; // para definir a influência do movimento
+//	private float resultantey;
 
 	private float finalponto1xdirfome; // influencia o ponto1 do bicho: fome
 	private float finalponto1ydirfome;
@@ -89,13 +88,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private float finalponto1ydirpersegue;
 	private float finalponto1xdirtarado; // influencia o ponto1 do bicho: tarado
 	private float finalponto1ydirtarado;
-	private float finalponto1xdirsatisfeito; // influencia o ponto1 do bicho:
-										// satisfeito
+	private float finalponto1xdirsatisfeito; // influencia o ponto1 do bicho: satisfeito
 	private float finalponto1ydirsatisfeito;
 	private float finalponto1xdirgangue; // influencia o ponto1 do bicho: gangue
 	private float finalponto1ydirgangue;
-	private float finalponto1xdirafastapodre; // influencia o ponto1 do bicho:
-										// afastapodre
+	private float finalponto1xdirafastapodre; // influencia o ponto1 do bicho: afastapodre
 	private float finalponto1ydirafastapodre;
 
 	private float ponto1xdirfome; // influencia o ponto1 do bicho: fome
@@ -294,20 +291,18 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		this.morfogenese.popMatrix(); // fehca matrix ponto
 	}
 
+	
 	public void vive() {
-
 		if (vida == true) { // se ele estiver vivo
-
-			semove();
+			semove(seajusta());
 			buscacor();
-			seajusta();
 			semostravivo();
 
 		}
 	}
 
-	private void semove() { // função para mover os bichos no automático e criar os
-					// easings [SEMOVE]
+	private void semove(Foint direcao) { 
+		// função para mover os bichos no automático e criar os easings [SEMOVE]
 
 		corAlpha = 50 + energia * 4;
 		corLinhaAlpha = 50 + energia * 4;
@@ -318,9 +313,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 										// reagir diferente
 		tamanhoformadiam = tamanhoformadiam - (tamanhoformadiam / 100); // para  não crescer ou encolher para sempre
 
-		pontox[1] = movimentorandomico(pontox[1], -1, 1, 1, resultantex,
+		pontox[1] = movimentorandomico(pontox[1], -1, 1, 1, direcao.x,
 				velocidadeAuto, 0); // movimenta a cabeça do bicho
-		pontoy[1] = movimentorandomico(pontoy[1], -1, 1, 1, resultantey,
+		pontoy[1] = movimentorandomico(pontoy[1], -1, 1, 1, direcao.y,
 				velocidadeAuto, 0); // movimenta a cabeça do bicho
 
 		pontox[1] = selimita(pontox[1], -((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2,
@@ -527,7 +522,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		}
 	}
 
-	private void seajusta() { // função com a IA de cada bicho [PENSA]
+	private Foint seajusta() { // função com a IA de cada bicho [PENSA]
 
 		if (bancodadosinstrumento == 1 && instrumento > 95
 				|| bancodadosinstrumento == 1 && instrumento < 27) { 
@@ -621,18 +616,19 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		finalponto1xdirafastapodre = tendencia(finalponto1xdirafastapodre,0.8f, 0.01f); 
 		finalponto1ydirafastapodre = tendencia(finalponto1ydirafastapodre,0.8f, 0.01f);
 
-		resultantex = ponto1xdir + ponto1xdircor + ponto1xdirmouse
+		Foint resultante = new Foint(); 
+		resultante.x = ponto1xdir + ponto1xdircor + ponto1xdirmouse
 				+ finalponto1xdirfome + finalponto1xdirfoge
 				+ finalponto1xdirpersegue + finalponto1xdirtarado
 				+ finalponto1xdirsatisfeito + finalponto1xdirgangue
 				+ finalponto1xdirafastapodre; 
 		// calcula influência de outras Vs
-		resultantey = ponto1ydir + ponto1ydircor + ponto1ydirmouse
+		resultante.y = ponto1ydir + ponto1ydircor + ponto1ydirmouse
 				+ finalponto1ydirfome + finalponto1ydirfoge
 				+ finalponto1ydirpersegue + finalponto1ydirtarado
 				+ finalponto1ydirsatisfeito + finalponto1ydirgangue
 				+ finalponto1ydirafastapodre;
-
+		return resultante;
 	}
 
 	private float tendencia(float umponto, float limite, float incremento) { 
@@ -997,13 +993,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		return finalponto;
 	}
 
-	public void tocanota(int temponota, float tempovolume, float tempoduracao) { // inicia
-																			// e
-																			// encerra
-																			// o
-																			// som
-																			// da
-																			// nota
+	public void tocanota(int temponota, float tempovolume, float tempoduracao) { 
+		// inicia e encerra o som da nota
 		this.morfogenese.channels[0].noteOn(temponota, (int) (tempovolume));
 		try {
 			Thread.sleep((long) tempoduracao);
@@ -1146,15 +1137,12 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		A.notaMusical = (int) (movimentaeasing(A.notaMusical, B.notaMusical, 2) + ((int) (this.morfogenese.random(
 				4, 6)) * 0.1)); // compartilha a nota
 
+		// compartilha o instrumento
 		A.instrumento = (int) (movimentaeasing(A.instrumento,
-				B.instrumento, 2) + ((int) (this.morfogenese.random(4, 6)) * 0.1)); // compartilha
-																	// o
-																	// instrumento
+				B.instrumento, 2) + ((int) (this.morfogenese.random(4, 6)) * 0.1)); 
 
-		A.bancodadosinstrumento = B.bancodadosinstrumento; // compartilha o
-															// banco de
-															// dados de
-															// instrumentos
+		// compartilha o banco de dados de instrumentos
+		A.bancodadosinstrumento = B.bancodadosinstrumento; 
 
 	}
 
@@ -1183,51 +1171,31 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		A.angulo2 = A.angulo2 + A.velocidadeAuto;
 		A.angulorabo = A.angulorabo + A.velocidadeAuto;
 
+		// resposta visual do toque
 		A.desenhaforma(A.pontox[1], A.pontoy[1], A.angulo1, 1, A.diametroDaForma,
 				0.25f, A.pesoDaLinha, A.cor.color(), A.corAlpha * 0.75f,
-				A.corLinha.color(), A.corLinhaAlpha); // resposta visual do toque
+				A.corLinha.color(), A.corLinhaAlpha); 
+		// quando cruza o órgão se destaca
 		A.desenhaforma(A.pontox[A.pontox.length - 2],
 				A.pontoy[A.pontox.length - 2], A.angulo1, 1, A.diametroDaForma,
-				1, A.pesoDaLinha * 0.5f, 0, 0, A.corLinha.color(), A.corLinhaAlpha); // quando
-																				// cruza
-																				// o
-																				// órgão
-																				// se
-																				// destaca
+				1, A.pesoDaLinha * 0.5f, 0, 0, A.corLinha.color(), A.corLinhaAlpha); 
 
-		A.velocidadeAuto = A.velocidadeAuto + 0.04f; // aumenta a velocidade
-														// aos poucos
-														// durante
-														// cruzamento
-		A.tamanhoformadiam = A.tamanhoformadiam + 0.01f; // se está se dando
-															// bem, aumenta
-															// a área de
-															// contato
-															// (causa um
-															// efeito de
-															// aceleramento
-															// no domínio do
-															// espaço por
-															// uma forma
-															// só!!!)
+		// aumenta a velocidade aos poucos durante cruzamento
+		A.velocidadeAuto = A.velocidadeAuto + 0.04f; 
+		A.tamanhoformadiam = A.tamanhoformadiam + 0.01f; 
+		// se está se dando bem, aumenta a área de contato
+		// (causa um efeito de aceleramento no domínio do espaço por uma forma só!!!)
 
-		if (this.morfogenese.som == true && cruza % 20 == 0) { // reproduz barulho em
-												// intervalos regulares
-			pegainstrumento(A.bancodadosinstrumento, A.instrumento); // toca
-																		// o
-																		// som
+		if (this.morfogenese.som == true && cruza % 20 == 0) { 
+			// reproduz barulho em intervalos regulares
+			// toca o som
+			pegainstrumento(A.bancodadosinstrumento, A.instrumento); 
 			tocanota(A.notaMusical, this.morfogenese.volume, this.morfogenese.duracao);
+			// para saber qual é o que está fazendo barulho
 			desenhaforma(A.pontox[A.pontox.length - 1],
 					A.pontoy[A.pontox.length - 1], A.angulorabo, 1,
 					A.diametroDaForma, 0.5f, A.pesoDaLinha, A.cor.color(),
-					A.corAlpha / 3, A.corLinha.color(), A.corLinhaAlpha); // para
-																	// saber
-																	// qual
-																	// é o
-																	// que
-																	// está
-																	// fazendo
-																	// barulho
+					A.corAlpha / 3, A.corLinha.color(), A.corLinhaAlpha); 
 		}
 
 		A.cruza = A.cruza + 1;
@@ -1237,21 +1205,15 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private void AreproduzcomB(Bicho A, Bicho B) {
 
 		A.energia = A.energia - 1; // perde energia para gerar filho
-		A.tamanhoformadiam = A.tamanhoformadiam + 0.01f; // se está se dando
-															// bem, aumenta
-															// a área de
-															// contato
-		A.chance = A.chance + 1; // evolui a personalidade conforme ganha
-									// experiência. Teve filho muda uma
-									// direto
+		A.tamanhoformadiam = A.tamanhoformadiam + 0.01f; 
+		// se está se dando bem, aumenta a área de contato
+		A.chance = A.chance + 1; 
+		// evolui a personalidade conforme ganha experiência. 
+		// Teve filho muda uma direto
 		A.maturidade = 0;
 
-		A.pontox[1] = A.pontox[1] + 100 * ((int) (this.morfogenese.random(-2, 2))); // depois
-																	// separa
-																	// os
-																	// pontos
-																	// e se
-																	// afastam
+		// depois separa os pontos e se afastam
+		A.pontox[1] = A.pontox[1] + 100 * ((int) (this.morfogenese.random(-2, 2))); 
 		A.pontoy[1] = A.pontoy[1] + 100 * ((int) (this.morfogenese.random(-2, 2)));
 
 		A.cruza = 0;
@@ -1267,29 +1229,20 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		A.velocidadeAuto = 7;
 		A.energia = A.energia - 1;
 
+		// resposta visual do toque
 		desenhaforma(A.pontox[1], A.pontoy[1], A.angulo1 * -1 * 2, 2,
 				A.diametroDaForma, 0.25f, A.pesoDaLinha, A.cor.color(),
-				A.corAlpha * 0.75f, A.corLinha.color(), A.corLinhaAlpha); // resposta
-																	// visual
-																	// do
-																	// toque
+				A.corAlpha * 0.75f, A.corLinha.color(), A.corLinhaAlpha); 
 
 		if (this.morfogenese.som == true) { // se o som estiver ligado
-			pegainstrumento(A.bancodadosinstrumento, A.instrumento); // toca
-																		// o
-																		// som
+			// toca o som
+			pegainstrumento(A.bancodadosinstrumento, A.instrumento); 
 			tocanota(A.notaMusical, this.morfogenese.volume, this.morfogenese.duracao);
+			// para saber qual é o que está fazendo barulho
 			desenhaforma(A.pontox[A.pontox.length - 1],
 					A.pontoy[A.pontox.length - 1], A.angulorabo, 1,
 					A.diametroDaForma, 0.5f, A.pesoDaLinha, A.cor.color(),
-					A.corAlpha / 3, A.corLinha.color(), A.corLinhaAlpha); // para
-																	// saber
-																	// qual
-																	// é o
-																	// que
-																	// está
-																	// fazendo
-																	// barulho
+					A.corAlpha / 3, A.corLinha.color(), A.corLinhaAlpha); 
 		}
 
 		A.pontox[1] = A.pontox[1] + (Morfogenese.cos(anguloAB)) * 5;
@@ -1305,14 +1258,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 					* -1 * 2, 2, A.diametroDaForma, 0.5f, A.pesoDaLinha, 0, 0,
 					A.corLinha.color(), A.corLinhaAlpha);
 
-			A.angulo1 = A.angulo1 + 8; // roda mais rápido quando se
-										// alimenta
-			A.tamanhoformadiam = A.tamanhoformadiam + 0.004f; // se está se
-																// dando
-																// bem,
-																// aumenta a
-																// área de
-																// contato
+			A.angulo1 = A.angulo1 + 8; // roda mais rápido quando se alimenta
+			// se está se dando bem, aumenta a área de contato
+			A.tamanhoformadiam = A.tamanhoformadiam + 0.004f; 
 			A.evoluichance = A.evoluichance + 0.01f;
 			A.energia = A.energia + 0.04f;
 			B.energia = B.energia - 0.04f;
@@ -1348,12 +1296,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	private int contatoAeB(Bicho A, Bicho B) { // PARA DEFINIR AS DUAS DISTÂNCIAS DE
-										// CONTATO
+	private int contatoAeB(Bicho A, Bicho B) { 
+		// PARA DEFINIR AS DUAS DISTÂNCIAS DE CONTATO
 
 		float distanciaAB = Morfogenese.dist(A.pontox[1], A.pontoy[1], B.pontox[1],
-				B.pontoy[1]); // calcula o tamanho da diagonal entre os
-								// bichos
+				B.pontoy[1]); // calcula o tamanho da diagonal entre os bichos
 
 		if (distanciaAB > (A.diametroDaForma + B.diametroDaForma) / 2
 				&& distanciaAB < (A.diametroDaForma + B.diametroDaForma) * 4) {
@@ -1366,12 +1313,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	private boolean AeBseagruparem(Bicho A, Bicho B) { // PARA DEFINIR A CONDIÇÃO DE
-												// GANGUE
+	private boolean AeBseagruparem(Bicho A, Bicho B) { 
+		// PARA DEFINIR A CONDIÇÃO DE GANGUE
 
 		float distanciaAB = Morfogenese.dist(A.pontox[1], A.pontoy[1], B.pontox[1],
-				B.pontoy[1]); // calcula o tamanho da diagonal entre os
-								// bichos
+				B.pontoy[1]); // calcula o tamanho da diagonal entre os bichos
 
 		if (distanciaAB > (A.diametroDaForma + B.diametroDaForma) * 1.5
 				&& A.formaRabo == B.formaRabo) {
@@ -1492,12 +1438,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 				if (vida == true) {
 
-					if (this.morfogenese.reagemouse == 1 && distponto1mouse < 200) { // reage
-																	// ao
-																	// mouse
-																	// à
-																	// distância
-																	// afastando
+					// reage ao mouse à distância afastando
+					if (this.morfogenese.reagemouse == 1 && distponto1mouse < 200) { 
 
 						ponto1xdirmouse = desloca(ponto1xdirmouse, 1,
 								anguloentrebichoemouse, 1);
@@ -1512,8 +1454,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 						desenhalinhacontato(pontox[1], pontoy[1],
 								this.morfogenese.posicaofinalmouseX, this.morfogenese.posicaofinalmouseY);
 
-					} else if (this.morfogenese.reagemouse == 2) { // reage ao mouse à
-													// distância atraindo
+					} else if (this.morfogenese.reagemouse == 2) { 
+						// reage ao mouse à distância atraindo
 
 						if (distponto1mouse < 300 && distponto1mouse > 100) {
 
@@ -1558,14 +1500,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 							if (this.morfogenese.key == 'u' || this.morfogenese.key == 'U') {
 								this.morfogenese.eubicho = this;
 							}else if (Character.toUpperCase(morfogenese.key) == 'N'){
-//								Point position = new Point(
-////										(int)this.morfogenese.posicaofinalmouseX, 
-////										(int)this.morfogenese.posicaofinalmouseY
-//										this.morfogenese.mouseX, 
-//										this.morfogenese.mouseY
-//										);
 								this.morfogenese.M_Listener.perform(position, morfogenese.key, this);
-//								this.morfogenese.criaUmQualquer(position);
 							}else if (Character.toUpperCase(morfogenese.key) == 'J'){
 								DNA dnaCopy = DNA.fromMap(this.dna.toMap());
 								dnaCopy.posicaoInicial(new Point(
@@ -1605,10 +1540,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		return this.pontox.length;
 	}
 
-	private float calculaanguloAB(float angulo, Bicho A, Bicho B) { // calcula o
-															// ângulo entre
-															// os pontos
-															// (trigonometria)
+	private float calculaanguloAB(float angulo, Bicho A, Bicho B) { 
+		// calcula o ângulo entre os pontos (trigonometria)
 
 		angulo = Morfogenese.atan2((A.pontoy[1] - B.pontoy[1]),
 				(A.pontox[1] - B.pontox[1]));
@@ -1622,4 +1555,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 				this.morfogenese.bichos.indexOf(this), position.x, position.y);
 	}
 	
+}
+
+class Foint{
+	float x,y;
 }
