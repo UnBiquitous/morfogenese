@@ -69,9 +69,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	private int[] ordemxy;
 
-	private float ponto1xdir; // influencia o ponto1 do bicho (por enquanto uso no
-						// wandering da novachance)
-	private float ponto1ydir;
+//	private float ponto1xdir; // influencia o ponto1 do bicho (por enquanto uso no wandering da novachance)
+//	private float ponto1ydir;
 
 	private float ponto1xdircor; // influencia o ponto1 do bicho: busca cor
 	private float ponto1ydircor;
@@ -510,15 +509,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 				if (worldRecord < this.morfogenese.niveldeprecisaodacor) {
 
-					float angulocor = Morfogenese.atan2((pontoy[1] - closestY),
-							(pontox[1] - closestX)); // calcula o ângulo
-														// entre os pontos
-														// (trigonometria)
+					float angulocor = Morfogenese.atan2((pontoy[1] - closestY),(pontox[1] - closestX)); 
+					// calcula o ângulo entre os pontos (trigonometria)
 
-					ponto1xdircor = desloca(ponto1xdircor, 1, angulocor,
-							-atracao);
-					ponto1ydircor = desloca(ponto1ydircor, 2, angulocor,
-							-atracao);
+					ponto1xdircor = desloca(ponto1xdircor, 1, angulocor,-atracao);
+					ponto1ydircor = desloca(ponto1ydircor, 2, angulocor,-atracao);
 
 					if (this.morfogenese.commetadados >= 2) {
 						desenhaforma(closestX, closestY, -angulo1, formaCabeca,
@@ -571,6 +566,9 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			evoluichance = 0;
 		}
 
+		// influencia o ponto1 do bicho (por enquanto uso no wandering da novachance)
+		float ponto1xdir = 0;
+		float ponto1ydir = 0;
 		if (novachance > 150) { // muda a chance depois de 100 e desloca,
 								// pois a estratégia não deve estar
 								// funcionando
@@ -589,66 +587,46 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 		minhaadaptacao = energia - this.morfogenese.adaptacaomedia;
 
-		ponto1xdir = tendencia(ponto1xdir, 3, 0.02f); // tendência a retomar
-														// direção aleatória
+		// tendência a retomar direção aleatória
+		ponto1xdir = tendencia(ponto1xdir, 3, 0.02f); 
 		ponto1ydir = tendencia(ponto1ydir, 3, 0.02f);
 
-		ponto1xdircor = tendencia(ponto1xdircor, 3, 0.05f); // tendência a
-															// retomar
-															// direção
-															// aleatória
+		// tendência a retomar direção aleatória
+		ponto1xdircor = tendencia(ponto1xdircor, 3, 0.05f); 
 		ponto1ydircor = tendencia(ponto1ydircor, 3, 0.05f);
 
-		ponto1xdirmouse = tendencia(ponto1xdirmouse, 1, 0.01f); // tendência
-																// a retomar
-																// direção
-																// aleatória:
-																// mouse
+		// tendência a retomar direção aleatória: mouse
+		ponto1xdirmouse = tendencia(ponto1xdirmouse, 1, 0.01f); 
 		ponto1ydirmouse = tendencia(ponto1ydirmouse, 1, 0.01f);
 
-		finalponto1xdirfome = tendencia(finalponto1xdirfome, 0.8f, 0.01f); // tendência
-																			// a
-																			// retomar
-																			// direção
-																			// aleatória:
-																			// fome
+		// tendência a retomar direção aleatória: fome
+		finalponto1xdirfome = tendencia(finalponto1xdirfome, 0.8f, 0.01f); 
 		finalponto1ydirfome = tendencia(finalponto1ydirfome, 0.8f, 0.01f);
-		finalponto1xdirfoge = tendencia(finalponto1xdirfoge, 0.8f, 0.01f); // tendência
-																			// a
-																			// retomar
-																			// direção
-																			// aleatória:
-																			// foge
+		// tendência a retomar direção aleatória: foge
+		finalponto1xdirfoge = tendencia(finalponto1xdirfoge, 0.8f, 0.01f); 
 		finalponto1ydirfoge = tendencia(finalponto1ydirfoge, 0.8f, 0.01f);
-		finalponto1xdirpersegue = tendencia(finalponto1xdirpersegue, 0.8f,
-				0.01f); // tendência a retomar direção aleatória: persegue
-		finalponto1ydirpersegue = tendencia(finalponto1ydirpersegue, 0.8f,
-				0.01f);
-		finalponto1xdirtarado = tendencia(finalponto1xdirtarado, 0.8f,
-				0.01f); // tendência a retomar direção aleatória: tarado
-		finalponto1ydirtarado = tendencia(finalponto1ydirtarado, 0.8f,
-				0.01f);
-		finalponto1xdirsatisfeito = tendencia(finalponto1xdirsatisfeito,
-				0.8f, 0.01f); // tendência a retomar direção aleatória:
-								// satisfeito
-		finalponto1ydirsatisfeito = tendencia(finalponto1ydirsatisfeito,
-				0.8f, 0.01f);
-		finalponto1xdirgangue = tendencia(finalponto1xdirgangue, 0.8f,
-				0.01f); // tendência a retomar direção aleatória: gangue
-		finalponto1ydirgangue = tendencia(finalponto1ydirgangue, 0.8f,
-				0.01f);
-		finalponto1xdirafastapodre = tendencia(finalponto1xdirafastapodre,
-				0.8f, 0.01f); // tendência a retomar direção aleatória:
-								// afastapodre
-		finalponto1ydirafastapodre = tendencia(finalponto1ydirafastapodre,
-				0.8f, 0.01f);
+		// tendência a retomar direção aleatória: persegue
+		finalponto1xdirpersegue = tendencia(finalponto1xdirpersegue, 0.8f,0.01f); 
+		finalponto1ydirpersegue = tendencia(finalponto1ydirpersegue, 0.8f,0.01f);
+		// tendência a retomar direção aleatória: tarado
+		finalponto1xdirtarado = tendencia(finalponto1xdirtarado, 0.8f,0.01f); 
+		finalponto1ydirtarado = tendencia(finalponto1ydirtarado, 0.8f,0.01f);
+		// tendência a retomar direção aleatória: satisfeito
+		finalponto1xdirsatisfeito = tendencia(finalponto1xdirsatisfeito,0.8f, 0.01f); 
+		finalponto1ydirsatisfeito = tendencia(finalponto1ydirsatisfeito,0.8f, 0.01f);
+		// tendência a retomar direção aleatória: gangue
+		finalponto1xdirgangue = tendencia(finalponto1xdirgangue, 0.8f,0.01f); 
+		finalponto1ydirgangue = tendencia(finalponto1ydirgangue, 0.8f,0.01f);
+		// tendência a retomar direção aleatória: afastapodre
+		finalponto1xdirafastapodre = tendencia(finalponto1xdirafastapodre,0.8f, 0.01f); 
+		finalponto1ydirafastapodre = tendencia(finalponto1ydirafastapodre,0.8f, 0.01f);
 
 		resultantex = ponto1xdir + ponto1xdircor + ponto1xdirmouse
 				+ finalponto1xdirfome + finalponto1xdirfoge
 				+ finalponto1xdirpersegue + finalponto1xdirtarado
 				+ finalponto1xdirsatisfeito + finalponto1xdirgangue
-				+ finalponto1xdirafastapodre; // calcula influência de
-												// outras Vs
+				+ finalponto1xdirafastapodre; 
+		// calcula influência de outras Vs
 		resultantey = ponto1ydir + ponto1ydircor + ponto1ydirmouse
 				+ finalponto1ydirfome + finalponto1ydirfoge
 				+ finalponto1ydirpersegue + finalponto1ydirtarado
@@ -657,11 +635,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	private float tendencia(float umponto, float limite, float incremento) { // tendência
-																		// a
-																		// retomar
-																		// direção
-																		// aleatória
+	private float tendencia(float umponto, float limite, float incremento) { 
+		// tendência a retomar direção aleatória
 
 		if (umponto > 0 && umponto <= limite) {
 			umponto = umponto - incremento;
