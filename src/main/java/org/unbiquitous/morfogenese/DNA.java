@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DNA {
 
-	private Point position;
+	private Point posicaoInicial;
 	private float velocidadeAuto;
 	private float easing;
 	private float easingAcceleration;
@@ -51,7 +51,7 @@ public class DNA {
 	public Map<String, Object> toMap() {
 		Map<String, Object> theMap = new HashMap<String, Object>();
 		
-		theMap.put("position", fromPoint(position));
+		theMap.put("posicaoInicial", fromPoint(posicaoInicial));
 		theMap.put("velocidadeAuto", velocidadeAuto);
 		theMap.put("easing", easing);
 		theMap.put("easingAcceleration", easingAcceleration);
@@ -99,7 +99,7 @@ public class DNA {
 	
 	public static DNA fromMap(Map<String, Object> theMap) {
 		DNA dna = new DNA();
-		dna.position( toPoint((String)theMap.get("position")));
+		dna.posicaoInicial( toPoint((String)theMap.get("posicaoInicial")));
 		dna.velocidadeAuto( toFloat(theMap.get("velocidadeAuto")));
 		dna.easing( toFloat(theMap.get("easing")));
 		dna.easingAcceleration( toFloat(theMap.get("easingAcceleration")));
@@ -234,7 +234,7 @@ public class DNA {
 			int displayWidth, int displayHeight, 
 			float escala ) {
 		DNA meudna = new DNA()
-			.position(new Point(
+			.posicaoInicial(new Point(
 							(int) (random(100, (displayWidth / escala) - 100)),
 							(int) (random(100, (displayHeight / escala) - 100))
 							)
@@ -270,8 +270,8 @@ public class DNA {
 		return (float)(Math.random()*high);
 	}
 	
-	public DNA position(Point position) {
-		this.position = position;
+	public DNA posicaoInicial(Point position) {
+		this.posicaoInicial = position;
 		return this;
 	}
 	
@@ -445,8 +445,8 @@ public class DNA {
 		return this;
 	}
 	
-	public Point position() {
-		return this.position;
+	public Point posicaoInicial() {
+		return this.posicaoInicial;
 	}
 	
 	public float velocidadeAuto() {

@@ -541,7 +541,7 @@ public class Morfogenese extends PApplet {
 			if (keyPressed) {
 				if (Sets.newHashSet('Q','E','R','T').contains(Character.toUpperCase(key))){
 					DNA meudna = DNA.autoGenese(displayWidth, displayHeight, escala);
-					meudna.position(mousePosition);
+					meudna.posicaoInicial(mousePosition);
 					switch(Character.toUpperCase(key)){
 					case 'E' : meudna.formaCabeca(1); // forma da cabeça elipse
 						break;

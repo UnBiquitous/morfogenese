@@ -46,7 +46,7 @@ public class DNATest {
 	@Test public void surviveBeingJSONfyiedWithNull() throws JSONException{
 		DNA theDna = createTestDNA();
 		theDna.pontox(null);
-		theDna.position(null);
+		theDna.posicaoInicial(null);
 		Map<String, Object> theMap = theDna.toMap();
 		JSONObject json = new JSONObject(new JSONObject(theMap).toString());
 		Map<String, Object> resultMap = DNA.fromMap(json.toMap()).toMap();
@@ -57,7 +57,7 @@ public class DNATest {
 	
 	private Map<String, Object> createTestDNAMap() {
 		Map<String, Object> theMap = new HashMap<String, Object>();
-		theMap.put("position", "(10,20)");
+		theMap.put("posicaoInicial", "(10,20)");
 		theMap.put("velocidadeAuto", 15.2f);
 		theMap.put("easing", 13.4f);
 		theMap.put("easingAcceleration", 1.5f);
@@ -97,7 +97,7 @@ public class DNATest {
 
 	private DNA createTestDNA() {
 		DNA theDna = new DNA()
-						.position(new Point(10,20))
+						.posicaoInicial(new Point(10,20))
 						.velocidadeAuto(15.2f) 
 						.easing(13.4f) 
 						.easingAcceleration(1.5f) 
