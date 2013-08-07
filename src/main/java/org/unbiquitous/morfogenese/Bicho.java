@@ -68,17 +68,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	private int[] ordemxy;
 
-//	private float ponto1xdir; // influencia o ponto1 do bicho (por enquanto uso no wandering da novachance)
-//	private float ponto1ydir;
-
 	private float ponto1xdircor; // influencia o ponto1 do bicho: busca cor
 	private float ponto1ydircor;
 
 	private float ponto1xdirmouse; // influencia o ponto1 do bicho: mouse
 	private float ponto1ydirmouse;
-
-//	private float resultantex; // para definir a influência do movimento
-//	private float resultantey;
 
 	private float finalponto1xdirfome; // influencia o ponto1 do bicho: fome
 	private float finalponto1ydirfome;
@@ -107,8 +101,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	private float ponto1ydirsatisfeito;
 	private float ponto1xdirgangue; // influencia o ponto1 do bicho: gangue
 	private float ponto1ydirgangue;
-	private float ponto1xdirafastapodre; // influencia o ponto1 do bicho:
-									// afastapodre
+	private float ponto1xdirafastapodre; // influencia o ponto1 do bicho: afastapodre
 	private float ponto1ydirafastapodre;
 
 	public Bicho(Morfogenese morfogenese,DNA dna) {
@@ -235,19 +228,6 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		for (int w = 1; w < numerodepontosdalinha; w++) {
 
 			this.morfogenese.curveVertex(pontox[ordemxy[w]], pontoy[ordemxy[w]]);
-
-			// if (w>1 && w<numerodepontos-1){
-			// if (random(1) < chancemutacao) {
-			// curveVertex(pontox[w+int(random(-2,2))],
-			// pontoy[w+int(random(-2,2))]);
-			// }
-			// }
-
-			// curveVertex(pontox[int(random(1,numerodepontos-1))],
-			// pontoy[int(random(1,numerodepontos-1))]);
-
-			// curveVertex(pontox[w], pontoy[w]);
-
 		}
 
 		if (numeroDePontos() - 2 != 2) {
@@ -318,18 +298,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		pontoy[1] = movimentorandomico(pontoy[1], -1, 1, 1, direcao.y,
 				velocidadeAuto, 0); // movimenta a cabeça do bicho
 
+		// para não sair da tela
 		pontox[1] = selimita(pontox[1], -((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2,
-				(this.morfogenese.width / this.morfogenese.escala) - ((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2); // para
-																	// não
-																	// sair
-																	// da
-																	// tela
+				(this.morfogenese.width / this.morfogenese.escala) - ((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2); 
 		pontoy[1] = selimita(pontoy[1], -((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2,
-				(this.morfogenese.height / this.morfogenese.escala) - ((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2); // para
-																		// não
-																		// sair
-																		// da
-																		// tela
+				(this.morfogenese.height / this.morfogenese.escala) - ((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2); 
 
 		for (int m = 2; m < numeroDePontos(); m++) { // movimento da estrutura
 													// do bicho com listas
@@ -437,12 +410,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	}
 
-	private float selimita(float A, float limitemenor, float limitemaior) { // para
-																	// se
-																	// limitar
-																	// ao
-																	// espectro
-																	// pretendido
+	private float selimita(float A, float limitemenor, float limitemaior) { 
+		// para se limitar ao espectro pretendido
 		if (A < limitemenor) {
 			A = limitemenor;
 		} else if (A > limitemaior) {
