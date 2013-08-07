@@ -77,7 +77,6 @@ import javax.swing.SwingConstants;
  * 
  * Code obtained from: http://docs.oracle.com/javase/tutorial/uiswing/components/list.html
  */
-@SuppressWarnings("rawtypes")
 public class ListDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = -2795040719378974930L;
 	private static ListDialog dialog;
@@ -117,7 +116,7 @@ public class ListDialog extends JDialog implements ActionListener {
         list.setSelectedValue(value, true);
     }
 
-    @SuppressWarnings({ "serial", "unchecked" })
+    @SuppressWarnings({ "serial" })
 	private ListDialog(Frame frame,
                        Component locationComp,
                        String labelText,
@@ -128,11 +127,11 @@ public class ListDialog extends JDialog implements ActionListener {
         super(frame, title, true);
 
         //Create and initialize the buttons.
-        JButton cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton("Cancelar");
         cancelButton.addActionListener(this);
         //
-        final JButton setButton = new JButton("Set");
-        setButton.setActionCommand("Set");
+        final JButton setButton = new JButton("Migrar");
+        setButton.setActionCommand("Migrar");
         setButton.addActionListener(this);
         getRootPane().setDefaultButton(setButton);
 

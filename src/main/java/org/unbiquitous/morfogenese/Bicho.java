@@ -23,9 +23,11 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	public float energia; // equivale à quantidade de vida inicial
 	public float pontoDeMaturidadeParaCruzamento; // define um ponto de maturidade para que possam
 							// cruzar novamente
-	public int chance; // pode fazer ou não algo: surtar, caçar, fugir (1:chapado,
-				// 2:surta, 3:berserker, 4:medroso, 5:violento, 6:esperto /
-				// tarado>=3 / ataca com bando >=5)
+	public int chance; // pode fazer ou não algo: surtar, caçar, fugir 
+	//(1:chapado, 2:surta, 3:berserker, 4:medroso, 5:violento, 6:esperto /
+	// tarado>=3 / ataca com bando >=5)
+	
+//	Comportamento comportamento;
 
 	public Color cor;
 	public Color corLinha;
@@ -1529,3 +1531,5 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 class Foint{
 	float x,y;
 }
+
+class Comportamento {}
