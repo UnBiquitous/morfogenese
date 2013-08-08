@@ -31,7 +31,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 	public Color cor;
 	public Color corLinha;
-	public float corAlpha; // alpha da linha associado à vida
+	public float corAlpha; 
 	public float corLinhaAlpha; // alpha da corlinha associado à vida
 	public float velocidade; // velocidade WASD
 	private float novachance; // contador para alterar a probabilidade da chance
@@ -208,20 +208,19 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 //			corlinha = this.morfogenese.color(corlinhar, corlinhag, corlinhab);
 		}
 
+		// desenha a cabeça
 		desenhaforma(pontox[1], pontoy[1], angulo1, formaCabeca, diametroDaForma, 1,
-				pesoDaLinha, cor.color(), corAlpha, corLinha.color(), corLinhaAlpha); // desenha
-																		// a
-																		// cabeça
+				pesoDaLinha, cor.color(), corAlpha, corLinha.color(), corLinhaAlpha); 
+		// desenha o dorso
 		desenhaforma(pontox[2], pontoy[2], angulo2, formaPescoco, diametroDaForma, 2,
-				pesoDaLinha, cor.color(), corAlpha, corLinha.color(), corLinhaAlpha); // desenha
-																		// o
-																		// dorso
+				pesoDaLinha, cor.color(), corAlpha, corLinha.color(), corLinhaAlpha); 
 		desenhaforma(pontox[numeroDePontos() - 1],
 				pontoy[numeroDePontos() - 1], angulorabo, formaRabo,
 				diametroDaForma, 5, pesoDaLinha, cor.color(), corAlpha, corLinha.color(),
 				corLinhaAlpha); // desenha o rabo
 
-		this.morfogenese.noFill(); // desenho da estrutura
+		// desenho da estrutura
+		this.morfogenese.noFill(); 
 		this.morfogenese.beginShape();
 		this.morfogenese.curveVertex(pontox[1], pontoy[1]);
 		this.morfogenese.curveVertex(pontox[1], pontoy[1]);
@@ -276,47 +275,26 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 	
 	public void vive() {
 		if (vida == true) { // se ele estiver vivo
-			semove(seajusta());
+			regrasDaVida();
+			mover(seajusta());
 			buscacor();
 			semostravivo();
 
 		}
 	}
 
-	private void semove(Foint direcao) { 
-		// função para mover os bichos no automático e criar os easings [SEMOVE]
-
+	private void regrasDaVida(){
 		corAlpha = 50 + energia * 4;
 		corLinhaAlpha = 50 + energia * 4;
 
-		energia = energia - 0.0001f * velocidadeAuto * numeroDePontos(); // a  vida tende a acabar
+		// a  vida tende a acabar
+		energia = energia - 0.0001f * velocidadeAuto * numeroDePontos(); 
 		maturidade = maturidade + 0.1f; // amadurece para reproduzir
 		novachance = novachance + 0.1f; // evolui e pode mudar chance de
 										// reagir diferente
-		tamanhoformadiam = tamanhoformadiam - (tamanhoformadiam / 100); // para  não crescer ou encolher para sempre
-
-		pontox[1] = movimentorandomico(pontox[1], -1, 1, 1, direcao.x,
-				velocidadeAuto, 0); // movimenta a cabeça do bicho
-		pontoy[1] = movimentorandomico(pontoy[1], -1, 1, 1, direcao.y,
-				velocidadeAuto, 0); // movimenta a cabeça do bicho
-
-		// para não sair da tela
-		pontox[1] = selimita(pontox[1], -((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2,
-				(this.morfogenese.width / this.morfogenese.escala) - ((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2); 
-		pontoy[1] = selimita(pontoy[1], -((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2,
-				(this.morfogenese.height / this.morfogenese.escala) - ((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2); 
-
-		for (int m = 2; m < numeroDePontos(); m++) { // movimento da estrutura
-													// do bicho com listas
-													// tbm
-			pontox[m] = movimentorandomico(pontox[m], -1, 1, 1, 0,
-					velocidadeAuto / m, 0);
-		}
-		for (int n = 2; n < numeroDePontos(); n++) {
-			pontoy[n] = movimentorandomico(pontoy[n], -1, 1, 1, 0,
-					velocidadeAuto / n, 0);
-		}
-
+		// para  não crescer ou encolher para sempre
+		tamanhoformadiam = tamanhoformadiam - (tamanhoformadiam / 100);
+		
 		//FIXME: this was leading to a black environemnt, so was commented
 //		cor.set( 
 //			movimentorandomico(cor.red(), -1, 1, 1, 0, velocidadeAuto, 0),
@@ -353,6 +331,30 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		diametroDaForma = movimentorandomico(diametroDaForma, -1, 1, 1,
 				tamanhoformadiam, velocidadeAuto / 1.5f, 0);
 		diametroDaForma = selimita(diametroDaForma, 5, maxformadiam);
+	}
+	
+	private void mover(Foint direcao) { 
+		// função para mover os bichos no automático e criar os easings [SEMOVE]
+		pontox[1] = movimentorandomico(pontox[1], -1, 1, 1, direcao.x,
+				velocidadeAuto, 0); // movimenta a cabeça do bicho
+		pontoy[1] = movimentorandomico(pontoy[1], -1, 1, 1, direcao.y,
+				velocidadeAuto, 0); // movimenta a cabeça do bicho
+
+		// para não sair da tela
+		pontox[1] = selimita(pontox[1], -((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2,
+				(this.morfogenese.width / this.morfogenese.escala) - ((this.morfogenese.width / this.morfogenese.escala) - this.morfogenese.width) / 2); 
+		pontoy[1] = selimita(pontoy[1], -((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2,
+				(this.morfogenese.height / this.morfogenese.escala) - ((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2); 
+
+		for (int m = 2; m < numeroDePontos(); m++) { 
+			// movimento da estrutura do bicho com listas tbm
+			pontox[m] = movimentorandomico(pontox[m], -1, 1, 1, 0,
+					velocidadeAuto / m, 0);
+		}
+		for (int n = 2; n < numeroDePontos(); n++) {
+			pontoy[n] = movimentorandomico(pontoy[n], -1, 1, 1, 0,
+					velocidadeAuto / n, 0);
+		}
 
 		for (int o = 2; o < numeroDePontos(); o++) { // quando a cabeça move,
 													// o resto deve
@@ -392,8 +394,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 			float fatormultiplica, float fatorsoma,
 			float fatormultiplicaresultado, float fatorsomaresultado) {
 
-		A = A
-				+ (this.morfogenese.random(limitemenor * fatormultiplica + fatorsoma,
+		A = A + (this.morfogenese.random(limitemenor * fatormultiplica + fatorsoma,
 						limitemaior * fatormultiplica + fatorsoma)
 						* fatormultiplicaresultado + fatorsomaresultado);
 		return A;
@@ -1398,12 +1399,10 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 			float distponto1mouse = Morfogenese.dist(pontox[1], pontoy[1],
 					this.morfogenese.posicaofinalmouseX, this.morfogenese.posicaofinalmouseY);
+			// calcula o ângulo entre os pontos (trigonometria)
 			float anguloentrebichoemouse = Morfogenese.atan2(
 					(pontoy[1] - (this.morfogenese.posicaofinalmouseY)),
-					(pontox[1] - (this.morfogenese.posicaofinalmouseX))); // calcula o ângulo
-															// entre os
-															// pontos
-															// (trigonometria)
+					(pontox[1] - (this.morfogenese.posicaofinalmouseX))); 
 
 			if (this.morfogenese.mouseButton == Morfogenese.LEFT) {
 
@@ -1412,10 +1411,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 					// reage ao mouse à distância afastando
 					if (this.morfogenese.reagemouse == 1 && distponto1mouse < 200) { 
 
-						ponto1xdirmouse = desloca(ponto1xdirmouse, 1,
-								anguloentrebichoemouse, 1);
-						ponto1ydirmouse = desloca(ponto1ydirmouse, 2,
-								anguloentrebichoemouse, 1);
+						ponto1xdirmouse = desloca(ponto1xdirmouse, 1,anguloentrebichoemouse, 1);
+						ponto1ydirmouse = desloca(ponto1ydirmouse, 2,anguloentrebichoemouse, 1);
 
 						desenhaforma(this.morfogenese.posicaofinalmouseX,
 								this.morfogenese.posicaofinalmouseY, angulo1, 1, 50,
@@ -1430,10 +1427,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 						if (distponto1mouse < 300 && distponto1mouse > 100) {
 
-							ponto1xdirmouse = desloca(ponto1xdirmouse, 1,
-									anguloentrebichoemouse, -1);
-							ponto1ydirmouse = desloca(ponto1ydirmouse, 2,
-									anguloentrebichoemouse, -1);
+							ponto1xdirmouse = desloca(ponto1xdirmouse, 1,anguloentrebichoemouse, -1);
+							ponto1ydirmouse = desloca(ponto1ydirmouse, 2,anguloentrebichoemouse, -1);
 
 							desenhaforma(this.morfogenese.posicaofinalmouseX,
 									this.morfogenese.posicaofinalmouseY, -angulo1, formaCabeca,
@@ -1446,11 +1441,8 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 
 						} else if (distponto1mouse < 100) {
 
-							ponto1xdirmouse = desloca(ponto1xdirmouse, 1,
-									anguloentrebichoemouse, 1);
-							ponto1ydirmouse = desloca(ponto1ydirmouse, 2,
-									anguloentrebichoemouse, 1);
-
+							ponto1xdirmouse = desloca(ponto1xdirmouse, 1,anguloentrebichoemouse, 1);
+							ponto1ydirmouse = desloca(ponto1ydirmouse, 2,anguloentrebichoemouse, 1);
 						}
 					}
 
