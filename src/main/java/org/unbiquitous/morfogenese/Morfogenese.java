@@ -3104,4 +3104,8 @@ public class Morfogenese extends PApplet {
 		// channels[0].noteOff(69);
 
 	}
+	
+	public static void main(String args[]) {
+	    PApplet.main(new String[] { "--present", Morfogenese.class.getName() });
+	  }
 }
