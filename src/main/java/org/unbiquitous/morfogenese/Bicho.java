@@ -2,8 +2,8 @@ package org.unbiquitous.morfogenese;
 
 import java.awt.Point;
 
-class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
-				// CADA INDIVÍDUO!!!]
+class Bicho { // classe bicho usada lá na array: 
+			  // cria Vs [CLASSE] [BICHO: CADA INDIVÍDUO!!!]
 
 	private final Morfogenese morfogenese;
 	public DNA dna;
@@ -346,40 +346,32 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		pontoy[1] = selimita(pontoy[1], -((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2,
 				(this.morfogenese.height / this.morfogenese.escala) - ((this.morfogenese.height / this.morfogenese.escala) - this.morfogenese.height) / 2); 
 
+		// Movimento borwniano do corpo, mais lento quanto mais longe da cabeça
 		for (int m = 2; m < numeroDePontos(); m++) { 
 			// movimento da estrutura do bicho com listas tbm
 			pontox[m] = movimentorandomico(pontox[m], -1, 1, 1, 0,
 					velocidadeAuto / m, 0);
-		}
-		for (int n = 2; n < numeroDePontos(); n++) {
-			pontoy[n] = movimentorandomico(pontoy[n], -1, 1, 1, 0,
-					velocidadeAuto / n, 0);
+			pontoy[m] = movimentorandomico(pontoy[m], -1, 1, 1, 0,
+					velocidadeAuto / m, 0);
 		}
 
-		for (int o = 2; o < numeroDePontos(); o++) { // quando a cabeça move,
-													// o resto deve
-													// acompanhar abrindo a
-													// linha e depois
-													// retomando a forma
-													// original
+		// 
+		for (int o = 2; o < numeroDePontos(); o++) { 
+			// quando a cabeça move, o resto deve acompanhar abrindo a
+			// linha e depois retomando a forma original
 			if (Morfogenese.abs(Morfogenese.abs(pontox[1]) - Morfogenese.abs(pontox[o])) > distx1[o]) {
 				pontox[o] = movimentaeasing(pontox[o], pontox[1], easing
 						+ o * o * easingAcceleration);
 			}
-		}
-		for (int p = 2; p < numeroDePontos(); p++) {
-			if (Morfogenese.abs(Morfogenese.abs(pontoy[1]) - Morfogenese.abs(pontoy[p])) > disty1[p]) {
-				pontoy[p] = movimentaeasing(pontoy[p], pontoy[1], easing
-						+ p * p * easingAcceleration);
+			if (Morfogenese.abs(Morfogenese.abs(pontoy[1]) - Morfogenese.abs(pontoy[o])) > disty1[o]) {
+				pontoy[o] = movimentaeasing(pontoy[o], pontoy[1], easing
+						+ o * o * easingAcceleration);
 			}
 		}
 
-		angulo1 = movimentorandomico(angulo1, -1, 1, 1, 0,
-				velocidadeAuto * 3, 0);
-		angulo2 = movimentorandomico(angulo2, -1, 1, 1, 0,
-				velocidadeAuto * 3, 0);
-		angulorabo = movimentorandomico(angulorabo, -1, 1, 1, 0,
-				velocidadeAuto * 3, 0);
+		angulo1 = movimentorandomico(angulo1, -1, 1, 1, 0,velocidadeAuto * 3, 0);
+		angulo2 = movimentorandomico(angulo2, -1, 1, 1, 0,velocidadeAuto * 3, 0);
+		angulorabo = movimentorandomico(angulorabo, -1, 1, 1, 0,velocidadeAuto * 3, 0);
 
 	}
 
@@ -733,6 +725,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 		for (int t = this.morfogenese.bichos.indexOf(this) + 1; t < this.morfogenese.bichos.size(); t++) { 
 			// condição para a interseção [COLISÃO]
 
+			//TODO: Aqui é código influenciado pela "chance" (comportamento)
 			if (contatoAeB(this, this.morfogenese.bichos.get(t)) == 1) { 
 				// de longe define se persegue ou foge [COLISÃO LONGE]
 				novachance = 0;
@@ -822,6 +815,7 @@ class Bicho { // classe bicho usada lá na array: cria Vs [CLASSE] [BICHO:
 					}
 				}
 
+			//TODO: Aqui é o que acontece quando dois Bichos se encostam
 			} else if (contatoAeB(this, this.morfogenese.bichos.get(t)) == 2) { 
 				// de perto cruza ou briga ou come [COLISÃO PERTO]
 

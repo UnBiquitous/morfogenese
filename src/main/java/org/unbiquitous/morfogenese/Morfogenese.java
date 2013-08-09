@@ -122,29 +122,10 @@ public class Morfogenese extends PApplet {
 
 		if (escalaauto == true) {
 			escala = escala
-					+ (vezesescala * (1 - (0.0022f * (total))) - escala) / 8; // escala
-																				// automática
-																				// de
-																				// acordo
-																				// com
-																				// o
-																				// número
-																				// de
-																				// bichos
-																				// (0.0033
-																				// para
-																				// chegar
-																				// em
-																				// 30%
-																				// com
-																				// 200)
-																				// (0.0022
-																				// para
-																				// chegar
-																				// em
-																				// 30%
-																				// com
-																				// 300)
+					+ (vezesescala * (1 - (0.0022f * (total))) - escala) / 8; 
+			// escala automática de acordo com o número de bichos
+			// (0.0033 para chegar em 30% com 200)
+			// (0.0022 para chegar em 30% com 300)
 			if (escala < 0.1) {
 				escala = 0.1f;
 			}
@@ -747,6 +728,7 @@ public class Morfogenese extends PApplet {
 			// de adicionar à fila tenho que mudar pontox/y [NASCIMENTO]
 
 			//TODO: Não saquei o que esse nasce faz
+			//FIXME: COlocar o defineDNAMesclado aqui
 			nasce(true, DNA.autoGenese(displayWidth, displayHeight, escala));
 
 			if (som == true) {
