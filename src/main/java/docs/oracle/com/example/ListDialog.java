@@ -218,7 +218,7 @@ public class ListDialog extends JDialog implements ActionListener {
 
     //Handle clicks on the Set and Cancel buttons.
     public void actionPerformed(ActionEvent e) {
-        if ("Set".equals(e.getActionCommand())) {
+        if ("Migrar".equals(e.getActionCommand())) {
             ListDialog.value = (String)(list.getSelectedValue());
         }
         ListDialog.dialog.setVisible(false);

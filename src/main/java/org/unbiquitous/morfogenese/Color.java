@@ -1,8 +1,11 @@
 package org.unbiquitous.morfogenese;
 
+import java.io.Serializable;
 
-public class Color {
 
+public class Color implements Serializable{
+	private static final long serialVersionUID = 8619792609477691179L;
+	
 	private int color;
 	
 	public Color(int color) {

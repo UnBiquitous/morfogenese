@@ -4,10 +4,8 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
+import org.unbiquitous.uos.core.messageEngine.messages.ServiceCall;
 
 public class MorfoAppTest {
 
@@ -17,9 +15,9 @@ public class MorfoAppTest {
 		
 		DNA dna = DNA.autoGenese(100, 100, 2);
 		
-		Map<String,Object> parameter = new HashMap<String, Object>();
-		parameter.put("dna", dna.toMap());
-		app.migrate(parameter);
+		ServiceCall call = new ServiceCall();
+		call.addParameter("dna", dna.toMap());
+		app.migrate(call,null);
 		
 		verify(app.morfogenese).criaBicho(eq(dna));
 	}

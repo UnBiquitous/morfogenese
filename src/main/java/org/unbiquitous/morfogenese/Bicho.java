@@ -1,11 +1,13 @@
 package org.unbiquitous.morfogenese;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-class Bicho { // classe bicho usada lá na array: 
-			  // cria Vs [CLASSE] [BICHO: CADA INDIVÍDUO!!!]
-
-	private final Morfogenese morfogenese;
+class Bicho implements Serializable{ 
+	// classe bicho usada lá na array: cria Vs [CLASSE] [BICHO: CADA INDIVÍDUO!!!]
+	private static final long serialVersionUID = 8071262906035868448L;
+	
+	transient public Morfogenese morfogenese;
 	public DNA dna;
 	
 	private Point position; // posição do bicho
@@ -1514,7 +1516,7 @@ class Bicho { // classe bicho usada lá na array:
 	
 }
 
-class Foint{
+class Foint implements Serializable{
 	float x,y;
 }
 

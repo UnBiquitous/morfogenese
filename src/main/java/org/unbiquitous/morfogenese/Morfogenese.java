@@ -783,10 +783,8 @@ public class Morfogenese extends PApplet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		if (comopengl == true) { // para ligar e desligar o opengl mais fácil
-			size(displayWidth, displayHeight, OPENGL); // para gerar direto o
-														// app
+			size(displayWidth, displayHeight, OPENGL); // para gerar direto o app
 		} else {
 			size(displayWidth, displayHeight); // para gerar direto o app
 		}
@@ -817,6 +815,12 @@ public class Morfogenese extends PApplet {
 	public void criaBicho(DNA dna){
 		synchronized (bichos) {
 			nasce(false,dna);
+		}
+	}
+	public void adicionaBicho(Bicho b){
+		synchronized (bichos) {
+			b.morfogenese = this;
+			novosbichos.add(b);
 		}
 	}
 	public void removeBicho(Bicho b){

@@ -1,13 +1,15 @@
 package org.unbiquitous.morfogenese;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DNA {
-
+public class DNA implements Serializable{
+	private static final long serialVersionUID = -485103790382939537L;
+	
 	private Point posicaoInicial;
 	private float velocidadeAuto;
 	private float easing;
