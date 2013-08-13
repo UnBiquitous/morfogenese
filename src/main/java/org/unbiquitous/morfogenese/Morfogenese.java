@@ -729,7 +729,7 @@ public class Morfogenese extends PApplet {
 
 			//TODO: Não saquei o que esse nasce faz
 			//FIXME: COlocar o defineDNAMesclado aqui
-			nasce(true, DNA.autoGenese(displayWidth, displayHeight, escala));
+			nasce(true, DNA.definednamesclado(bichoculpado, bichaculpada));
 
 			if (som == true) {
 				meubicho.pegainstrumento(meubicho.bancodadosinstrumento,

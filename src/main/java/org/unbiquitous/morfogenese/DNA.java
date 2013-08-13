@@ -262,6 +262,152 @@ public class DNA implements Serializable{
 		return meudna;
 	}
 	
+	
+	public static DNA definednamesclado(Bicho bichoculpado, Bicho bichaculpada) {
+		DNA dna = new DNA();
+		
+		dna.posicaoInicial( new Point(
+				(int) ((bichoculpado.pontox[1] + bichaculpada.pontox[1]) / 2),
+				(int) ((bichoculpado.pontoy[1] + bichaculpada.pontoy[1]) / 2)
+				)
+		);
+		dna.velocidadeAuto((int) ((bichoculpado.velocidadeAutoOriginal + bichaculpada.velocidadeAutoOriginal) / 2)); 
+		dna.easing((int) ((bichoculpado.easing + bichaculpada.easing) / 2));
+		dna.easingAcceleration((int) ((bichoculpado.easingAcceleration + bichaculpada.easingAcceleration) / 2)); // easingaceleration
+		dna.tamanho((int) ((bichoculpado.tamanho + bichaculpada.tamanho) / 2)); 
+		dna.numerodepontosdalinha((int) ((((float) (bichoculpado.numeroDePontos() + bichaculpada.numeroDePontos())) / 2) + ((int) (random(
+				4, 6)) * 0.1))); // número de pontos do bicho. O index é 0. Com
+								// todos os pontos separados o menor número é 5.
+								// A maluquice é para permitir q filho de
+								// números ímpares não seja fixo
+		dna.pesoDaLinha((int) (((bichoculpado.pesoDaLinha + bichaculpada.pesoDaLinha) / 2) + ((int) (random(
+				4, 6)) * 0.1))); // peso da linha do bicho
+		dna.cor( Color.color(
+				(int) ((bichoculpado.cor.red() + bichaculpada.cor.red()) / 2),
+				(int) ((bichoculpado.cor.green() + bichaculpada.cor.green()) / 2),
+				(int) ((bichoculpado.cor.blue() + bichaculpada.cor.blue()) / 2)
+				)
+		);
+		dna.corLinha( Color.color(
+				(int) ((bichoculpado.corLinha.red() + bichaculpada.corLinha.red()) / 2),
+				(int) ((bichoculpado.corLinha.green() + bichaculpada.corLinha.green()) / 2),
+				(int) ((bichoculpado.corLinha.blue() + bichaculpada.corLinha.blue()) / 2)
+				)
+			); 
+		dna.diametroDaForma((int) ((bichoculpado.diametroDaForma + bichaculpada.diametroDaForma) / 2));
+		dna.formaCabeca(bichoculpado.formaCabeca); 
+		dna.formaPescoco( (int) (random(1, 4))); 
+		dna.formaRabo((int) (random(1, 4)));
+		dna.instrumento( (int) ((((float) (bichoculpado.instrumento + bichaculpada.instrumento)) / 2) + ((int) (random(
+				4, 6)) * 0.1))); 
+		dna.notaMusical((int) ((((float) (bichoculpado.notaMusical + bichaculpada.notaMusical)) / 2) + ((int) (random(
+				4, 6)) * 0.1))); // define a nota que o bicho vai reproduzir em 5 oitavas diferentes
+								// //nota=(int)(escalanotas[(int)(random(escalanotas.length))]);
+								// //usando uma escala específica
+		dna.energia( (int) ((bichoculpado.energia + bichaculpada.energia) / 2)); //equivale à quantidade de vida inicial
+		dna.pontoDeMaturidadeParaCruzamento( (int) ((bichoculpado.pontoDeMaturidadeParaCruzamento + bichaculpada.pontoDeMaturidadeParaCruzamento) / 2)); 
+		// define um ponto de maturidade para que possam cruzar novamente
+		dna.chance( (int) ((((float) (bichoculpado.chance + bichaculpada.chance)) / 2) + ((int) (random(
+				4, 6)) * 0.1))); // pode fazer ou não algo: surtar, caçar, fugir
+								// (1:chapado, 2:surta, 3:berserker, 4:medroso,
+								// 5:violento, 6:esperto / tarado>=3 / ataca com
+								// bando >=5)
+
+		// MUTAÇÕES no DNA de entrada da classe:
+
+//		if (random(1) < chancemutacao) { // mudar a velocidade automática
+//			meudna[2] = meudna[2] + (int) (random(-5, 5));
+//			if (meudna[2] < 1) {
+//				meudna[2] = 1;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar o easing do corpo
+//			meudna[3] = meudna[3] + (int) (random(-100, 100));
+//			if (meudna[3] < 0) {
+//				meudna[3] = 0;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar o easing entre os pontos do corpo
+//			meudna[4] = meudna[4] + (int) (random(-10, 10));
+//			if (meudna[4] < 1) {
+//				meudna[4] = 1;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar o espaço que o corpo ocupa
+//			meudna[5] = meudna[5] + (int) (random(-100, 100));
+//			if (meudna[5] < 10) {
+//				meudna[5] = 10;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar o número de pontos do corpo
+//			meudna[6] = meudna[6] + (int) (random(-4, 10));
+//			if (meudna[6] < 4) {
+//				meudna[6] = 4;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a espessura da linha do corpo
+//			meudna[7] = meudna[7] + (int) (random(-5, 5));
+//			if (meudna[7] < 1) {
+//				meudna[7] = 1;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a cor
+//			meudna[8] = meudna[8] + (int) (random(-200, 200));
+//			meudna[9] = meudna[9] + (int) (random(-200, 200));
+//			meudna[10] = meudna[10] + (int) (random(-200, 200));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a cor
+//			meudna[11] = meudna[11] + (int) (random(-200, 200));
+//			meudna[12] = meudna[12] + (int) (random(-200, 200));
+//			meudna[13] = meudna[13] + (int) (random(-200, 200));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a forma da cabeça
+//			meudna[15] = (int) (random(1, 4));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a forma do pescoço
+//			meudna[16] = (int) (random(1, 4));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a forma do rabo
+//			meudna[17] = (int) (random(1, 4));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar o instrumento
+//			meudna[18] = (int) (random(127));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a nota
+//			meudna[19] = (int) (random(127));
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar a quantidade de vida inicial
+//			meudna[20] = meudna[20] + (int) (random(-20, 20));
+//			if (meudna[20] < 0) {
+//				meudna[20] = 0;
+//			}
+//		}
+//
+//		if (random(1) < chancemutacao) { // mudar o ponto de maturação para
+//											// acasalar
+//			meudna[21] = meudna[21] + (int) (random(-100, 100));
+//			if (meudna[21] < 10) {
+//				meudna[21] = 10;
+//			}
+//		}
+		
+		return dna;
+	}
+	
+	
 	//TODO: POG
 	static float random(float low, float high){
 		float diff = high - low;
